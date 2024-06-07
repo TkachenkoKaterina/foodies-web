@@ -1,0 +1,12 @@
+@import './vars.scss';
+@import './mixins.scss';
+
+%scrollNull {
+  ::-webkit-scrollbar {
+    width: 0;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+// you can use this mixin in any component like this: @extend %scrollNull;
