@@ -1,0 +1,21 @@
+//colors
+$--color-main: #050505;
+$--color-main-opacity90: rgba(5, 5, 5, 0.9);
+$--color-main-opacity80: rgba(5, 5, 5, 0.8);
+$--color-main-opacity85: rgba(5, 5, 5, 0.85);
+$--color-main-opacity60: rgba(5, 5, 5, 0.6);
+$--color-main-opacity40: rgba(5, 5, 5, 0.4);
+$--color-grey: #e8e8e8;
+$--color-white: #ffffff;
+$--color-white-opacity80: rgba(255, 255, 255, 0.8);
+
+//fonts
+$--font-mulish: 'Mulish', sans-serif;
+
+// transition
+$--transition-primary: 0.3s ease-in-out;
+
+//  BreakPoints
+$--bp-mobile: 375px;
+$--bp-tablet: 768px;
+$--bp-desktop: 1440px;
