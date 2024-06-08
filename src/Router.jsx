@@ -1,10 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
 
 import { routes } from './constants/routes';
-import Main from './pages/Main';
+import HomePage from './pages/HomePage';
 
 const PublicRoutes = [
-  <Route key={routes.main} path={routes.main} element={<Main />} />,
+  <Route key={routes.main} path={routes.main} element={<HomePage />} />,
 ];
 
 const PrivateRoutes = [];
