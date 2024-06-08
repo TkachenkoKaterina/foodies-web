@@ -1,0 +1,53 @@
+@import '../../styles/main.scss';
+
+.header {
+    padding: 20px 0;
+    background-color: grey;
+  }
+  
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .logoText {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 28px;
+    letter-spacing: -0.48px;
+    text-transform: lowercase;
+  }
+  
+  .authSlider {
+    display: flex;
+    border-radius: 30px;
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+    width: 208px;
+    height: 46px;
+  }
+  
+  .authButton {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: #fff; /* Initially both buttons have white background */
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: #000; /* Text color */
+  }
+  
+  .authButton:hover {
+    background: #f0f0f0;
+  }
+  
+  .authButton.active {
+    background: #000; /* When button is active, it gets black background */
+    color: #fff; /* Text color changes to white */
+  }
+  
