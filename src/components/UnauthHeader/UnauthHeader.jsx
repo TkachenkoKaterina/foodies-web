@@ -12,8 +12,8 @@ const UnauthHeader = ({ onSignInClick, onSignUpClick, isSignUp }) => {
             <span className={styles.logoText}>foodies</span>
           </NavLink>
           <div className={styles.authSlider}>
-            <button onClick={onSignInClick} className={`${styles.authButton} ${!isSignUp && styles.active}`}>Sign In</button>
-            <button onClick={onSignUpClick} className={`${styles.authButton} ${isSignUp && styles.active}`}>Sign Up</button>
+            <button onClick={onSignInClick} className={`${styles.authButton} ${isSignUp && styles.active}`}>Sign In</button>
+            <button onClick={onSignUpClick} className={`${styles.authButton} ${!isSignUp && styles.active}`}>Sign Up</button>
           </div>
         </nav>
       </Container>
