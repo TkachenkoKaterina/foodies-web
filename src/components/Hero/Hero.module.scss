@@ -1,0 +1,54 @@
+@import '../../styles/main.scss';
+
+.hero {
+    width: 1400px;
+    height: 970px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 20px;
+
+    border-radius: 30px;
+    background-color: $--color-main;
+
+    color: $--color-white;
+    
+    &-title {
+        width: 874px;
+
+        margin-top: 154px;
+
+        text-transform: uppercase;
+        text-align: center;
+        font-size: 90px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1em;
+    }
+
+    &-description {
+        width: 577px;
+
+        margin-top: 40px;
+
+        text-align: center;
+        letter-spacing: -0.02em;
+        line-height: 1.5em;
+    }
+
+    &-button {
+        width: 160px;
+        height: 56px;
+
+        margin-top: 40px;
+
+        border-radius: 30px;
+        border: solid 1px $--color-white;
+
+        text-transform: uppercase;
+        color: $--color-white;
+    }
+}
+
