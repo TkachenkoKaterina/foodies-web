@@ -1,0 +1,93 @@
+@import '../../styles/main.scss';
+
+.header {
+  padding: 20px 0;
+  background-color: grey;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+}
+
+.logoText{
+  color: #FFF;
+font-size: 24px;
+font-weight: 800;
+line-height: 28px; /* 116.667% */
+letter-spacing: -0.48px;
+text-transform: lowercase;
+}
+
+.list {
+  display: flex;
+  gap: 40px;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.link {
+  color:  #FFF;
+font-size: 12px;
+font-weight: 700;
+line-height: 18px; /* 150% */
+letter-spacing: -0.24px;
+text-transform: uppercase;
+  // color: var(--black-color);
+  text-decoration: none;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+// .link:hover,
+// .link:focus {
+//   color: var(--accent-color); 
+// }
+
+.activeLink {
+  // color: var(--accent-color);
+  color:  #FFF;
+padding: 14px;
+  font-size: 12px;
+font-weight: 700;
+line-height: 18px; /* 150% */
+letter-spacing: -0.24px;
+text-transform: uppercase;
+  // text-decoration: none;
+  position: relative;
+  border-radius: 30px;
+  border: 1px solid #FFF;
+}
+
+.profileSection{
+  display: flex;
+  align-items: center;
+  border-radius: 30px;
+  // border: 1px solid #FFF;
+}
+
+.avatar {
+width: 50px;
+height: 50px;
+border-radius: 30px;
+background: url(<path-to-image>) lightgray 50% / cover no-repeat;
+}
+
+.wrapper {
+  display: flex;
+padding: 16px 14px 16px 6px;
+align-items: center;
+gap: 4px;
+}
+
+.name {
+  color: #FFF;
+font-size: 12px;
+font-weight: 700;
+line-height: 18px; /* 150% */
+letter-spacing: -0.24px;
+text-transform: uppercase;
+}
+
+

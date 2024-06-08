@@ -1,13 +1,13 @@
-import styles from './Header.module.scss';
-import { Container } from '../../ui-kit';
+import React from 'react';
+import AuthHeader from '../AuthHeader';
+import UnauthHeader from '../UnauthHeader';
 
-const Header = () => {
+const Header = ({ isAuthenticated, onSignInClick, onSignUpClick }) => {
   return (
-    <header className={styles.header}>
-      <Container>
-        <h2>Header</h2>
-      </Container>
-    </header>
+    // <AuthHeader />
+    isAuthenticated ? 
+      <AuthHeader /> :
+      <UnauthHeader onSignInClick={onSignInClick} onSignUpClick={onSignUpClick} />
   );
 };
 
