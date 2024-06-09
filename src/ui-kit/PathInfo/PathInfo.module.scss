@@ -1,0 +1,32 @@
+@import '../../styles/main.scss';
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+
+  @include min-tablet {
+    margin-bottom: 40px;
+  }
+
+  & .text {
+    color: $--color-main-opacity40;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: -0.24px;
+    text-transform: uppercase;
+    transition: color $--transition-primary;
+
+    &.black {
+      color: $--color-main;
+    }
+
+    &.link {
+      &:hover,
+      &:focus {
+        color: $--color-main;
+      }
+    }
+  }
+}
