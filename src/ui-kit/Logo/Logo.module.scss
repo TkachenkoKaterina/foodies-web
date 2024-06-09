@@ -1,0 +1,13 @@
+@import '../../styles/main.scss';
+
+.logo {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.4px;
+
+  @include min-tablet {
+    font-size: 24px;
+    letter-spacing: -0.48px;
+  }
+}
