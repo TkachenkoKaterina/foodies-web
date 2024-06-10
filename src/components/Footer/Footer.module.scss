@@ -1,6 +1,43 @@
 @import '../../styles/main.scss';
 
 .footer {
-  padding: 20px 0;
-  background-color: grey;
+  padding-bottom: 16px;
+
+  @include min-tablet {
+    padding-bottom: 32px;
+  }
+
+  @include min-desktop {
+    padding-bottom: 40px;
+  }
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: space-between;
+  padding-bottom: 40px;
+}
+
+.bottom {
+  padding: 40px 0 16px;
+  border-top: 1px solid $--color-main-opacity10;
+
+  & .copy_text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgba(5, 5, 5, 0.6);
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.28px;
+
+    @include min-tablet {
+      font-size: 16px;
+      letter-spacing: -0.32px;
+    }
+  }
 }

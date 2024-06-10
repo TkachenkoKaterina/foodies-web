@@ -6,10 +6,11 @@ import Hero from '../../components/Hero';
 const HomePage = () => {
   return (
     <>
-        <Hero />
-        {/* <Categories /> */}
-        {/* <Recipes /> */}
-        {/* <Testimonials /> */}
+      <Hero />
+      {/* <Hero /> */}
+      {/* <Categories /> */}
+      {/* <Recipes /> */}
+      {/* <Testimonials /> */}
     </>
   );
 };
