@@ -1,0 +1,17 @@
+@import '../../styles/main.scss';
+
+.text {
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.14;
+  letter-spacing: -0.56px;
+  text-transform: uppercase;
+
+  @include min-tablet {
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.8px;
+    text-transform: uppercase;
+  }
+}

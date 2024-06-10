@@ -1,0 +1,47 @@
+@import '../../styles/main.scss';
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 16px;
+  border-radius: 30px;
+  background-color: $--color-main;
+  transition: opacity $--transition-primary;
+
+  font-weight: 700;
+  letter-spacing: -0.32px;
+  text-transform: uppercase;
+  color: $--color-white;
+
+  &:hover,
+  &:focus {
+    opacity: 0.8;
+  }
+
+  &:disabled {
+    background-color: $--color-main-opacity20;
+    color: $--color-white-opacity40;
+    cursor: not-allowed;
+  }
+
+  //variants
+  &.outline {
+    color: $--color-main;
+    border: 1px solid $--color-main;
+    background-color: transparent;
+  }
+
+  &.outline_secondary {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid $--color-main-opacity12;
+    background-color: transparent;
+    color: $--color-main-opacity90;
+
+    @include min-tablet {
+      padding: 10px;
+    }
+  }
+}
