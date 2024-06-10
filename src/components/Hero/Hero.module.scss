@@ -1,19 +1,27 @@
 @import '../../styles/main.scss';
 
 .hero {
-    width: 1400px;
-    height: 970px;
+    
+    &-section {
+        width: 1400px;
+        height: 970px;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+        display: flex;
 
-    margin-top: 20px;
+        margin: auto;
+        margin-top: 20px;
 
-    border-radius: 30px;
-    background-color: $--color-main;
+        border-radius: 30px;
+        background-color: $--color-main;
+    }
 
-    color: $--color-white;
+    &-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        color: $--color-white;
+    }
     
     &-title {
         width: 874px;
@@ -49,6 +57,16 @@
 
         text-transform: uppercase;
         color: $--color-white;
+    }
+
+    &-wrapper-img {
+        display: flex;
+
+        margin-top: 40px;
+    }
+
+    &-img-small {
+        margin-top: 140px;
     }
 }
 
