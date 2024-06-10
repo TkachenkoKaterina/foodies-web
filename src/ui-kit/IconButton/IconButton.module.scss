@@ -1,0 +1,42 @@
+@import '../../styles/main.scss';
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  height: fit-content;
+  padding: 10px;
+  border-radius: 50%;
+  border: 1px solid $--color-main-opacity10;
+
+  @include min-tablet {
+    padding: 12px;
+  }
+
+  & .icon {
+    width: 16px;
+    height: 16px;
+    fill: $--color-white;
+    stroke: $--color-main;
+    transition: transform $--transition-primary;
+
+    @include min-tablet {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  &:hover,
+  &:focus {
+    & .icon {
+      transform: scale(1.2);
+    }
+  }
+
+  &:disabled {
+    background-color: $--color-main-opacity20;
+    color: $--color-white-opacity40;
+    cursor: not-allowed;
+  }
+}

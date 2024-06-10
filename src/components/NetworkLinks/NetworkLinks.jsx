@@ -1,6 +1,6 @@
-import styles from './SocialList.module.scss';
+import styles from './NetworkLinks.module.scss';
 import { links } from '../../constants/links';
-import icons from '../../images/icons.svg';
+import icons from '../../assets/icons/icons.svg';
 
 const list = [
   {
@@ -20,7 +20,7 @@ const list = [
   },
 ];
 
-const SocialList = () => {
+const NetworkLinks = () => {
   return (
     <ul className={styles.list}>
       {list.map(item => (
@@ -30,7 +30,7 @@ const SocialList = () => {
   );
 };
 
-export default SocialList;
+export default NetworkLinks;
 
 const Item = ({ href, icon }) => {
   return (
