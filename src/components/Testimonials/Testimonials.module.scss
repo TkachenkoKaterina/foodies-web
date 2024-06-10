@@ -2,49 +2,112 @@
 
 $iconQuote: url('assets/images/icons/quote.svg');
 
-.Introduction {
-  font-size: 14px;
-  text-align: center;
-  color: $--color-main;
-}
-
-.TitleWrapper {
-  text-align: center;
-  color: $--color-main;
-}
-
-.SliderWrapper {
-  position: relative;
-
-  .swiper-slide {
-    height: auto;
+.testimonials {
+  &-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px;
   }
 
-  .swiper-pagination {
+  &-description {
+    margin-bottom: 16px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: $--color-main;
+    opacity: 0.6;
+    font-weight: 500;
+
+    @include min-tablet {
+      font-size: 16px;
+      line-height: 1.4;
+    }
+  }
+
+  &-title {
+    color: $--color-main;
+    margin-bottom: 12px;
+    font-size: 28px;
+    font-weight: 900;
+  }
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+  :global(.swiper-pagination) {
     position: static;
   }
+  :global(.swiper-pagination-bullet) {
+    width: 14px;
+    height: 14px;
+    background-color: $--color-grey;
+    opacity: 1;
+
+    @include min-tablet {
+      width: 16px;
+      height: 16px;
+      margin: 0 6px !important;
+    }
+  }
+
+  :global(.swiper-pagination-bullet.swiper-pagination-bullet-active) {
+    background-color: $--color-main;
+  }
+  .swiperSlide {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 18px;
+  }
+
+  .svg {
+    fill: $--color-main;
+    margin-right: auto;
+    margin-bottom: 20px;
+    margin-left: 8px;
+    width: 40px;
+    height: 32px;
+
+    @include min-tablet {
+      width: 60px;
+      height: 48px;
+    }
+  }
+
+  .text {
+    font-size: 18px;
+    line-height: 1.333;
+    margin-bottom: 64px;
+
+    @include min-tablet {
+      font-size: 24px;
+      line-height: 1.5;
+      margin-bottom: 80px;
+    }
+  }
+
+  .owner {
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: $--color-main;
+
+    margin-bottom: 40px;
+
+    @include min-tablet {
+      font-size: 20px;
+      margin-bottom: 40px;
+    }
+  }
 }
 
-.Card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.Text {
-  font-size: 24px;
-}
-
-.Author {
-  font-size: 16px;
-  text-transform: uppercase;
-}
-
-.SwiperPagination {
-  position: static;
-  margin-top: 10rem;
-
-  display: flex;
-  justify-content: center;
-  gap: 8px;
+.swiperSlide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
