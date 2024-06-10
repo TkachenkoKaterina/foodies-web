@@ -9,12 +9,16 @@
   gap: 32px;
   width: 100%;
   border-bottom: 1px solid $--color-main-opacity20;
-  flex-wrap: nowrap;
-  overflow-x: auto;
+
   @extend %scrollNull;
 
   @include min-tablet {
     gap: 40px;
+  }
+
+  @include max-tablet {
+    flex-wrap: nowrap;
+    overflow-x: auto;
   }
 }
 

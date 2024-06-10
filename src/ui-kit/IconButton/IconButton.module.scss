@@ -17,6 +17,8 @@
   & .icon {
     width: 16px;
     height: 16px;
+    fill: $--color-white;
+    stroke: $--color-main;
     transition: transform $--transition-primary;
 
     @include min-tablet {

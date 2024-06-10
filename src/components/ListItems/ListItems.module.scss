@@ -46,5 +46,26 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+
+    & .item_recipe {
+      &:not(:last-child) {
+        margin-top: 32px;
+
+        @include min-tablet {
+          margin-top: 40px;
+        }
+      }
+    }
+
+    & .item_user {
+      &:not(:last-child) {
+        padding-bottom: 20px;
+        border-bottom: 1px solid $--color-main-opacity10;
+      }
+
+      &:not(:first-child) {
+        padding-top: 20px;
+      }
+    }
   }
 }

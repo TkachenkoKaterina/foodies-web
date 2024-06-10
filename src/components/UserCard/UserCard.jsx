@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './UserCard.module.scss';
 import { Button, IconButton } from '../../ui-kit';
 import { routes } from '../../constants/routes';
+import { getPathWithId } from '../../helpers/getPathWithId';
 
 const UserCard = ({ user }) => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const UserCard = ({ user }) => {
   const isFollowing = followingList.includes(user?.id);
 
   const goToProfile = () => {
-    navigate(`${routes.user}/${user?.id}`);
+    navigate(getPathWithId(routes.user, user?.id));
   };
 
   const onFollow = id => {
@@ -28,7 +29,7 @@ const UserCard = ({ user }) => {
     : () => onFollow(user?.id);
 
   return (
-    <li className={styles.item}>
+    <div className={styles.item}>
       <div className={styles.left}>
         <div className={styles.img}>
           <img src={user?.img} alt="user" />
@@ -51,7 +52,7 @@ const UserCard = ({ user }) => {
         ))}
       </ul>
       <IconButton icon="icon-arrow-up-right" onClick={goToProfile} />
-    </li>
+    </div>
   );
 };
 
