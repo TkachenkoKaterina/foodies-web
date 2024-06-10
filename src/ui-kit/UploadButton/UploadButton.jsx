@@ -1,5 +1,5 @@
 import styles from './UploadButton.module.scss';
-import icons from '../../images/icons.svg';
+import icons from '../../assets/icons/icons.svg';
 
 const UploadButton = ({ onChange }) => {
   return (

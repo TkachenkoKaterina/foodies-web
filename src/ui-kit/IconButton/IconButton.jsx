@@ -1,5 +1,5 @@
 import styles from './IconButton.module.scss';
-import icons from '../../images/icons.svg';
+import icons from '../../assets/icons/icons.svg';
 
 const IconButton = ({ icon, onClick, disabled, type = 'button' }) => {
   return (

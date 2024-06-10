@@ -1,6 +1,6 @@
 import styles from './NetworkLinks.module.scss';
 import { links } from '../../constants/links';
-import icons from '../../images/icons.svg';
+import icons from '../../assets/icons/icons.svg';
 
 const list = [
   {
