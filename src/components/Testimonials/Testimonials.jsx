@@ -1,23 +1,15 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, A11y, Autoplay } from 'swiper/modules';
+import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import {
-  Author,
-  Card,
-  Introduction,
-  SliderWrapper,
-  SwiperPagination,
-  Text,
-  TitleWrapper,
-} from './Testimonials.module.scss';
+import css from './Testimonials.module.scss';
+import Container from '../../ui-kit/Container';
+// import TestimonialPagination from '../../ui-kit/TestimonialPagination';
 
 const testimonials = [
   {
     _id: '1',
-    testimonial: `Thank you for the wonderful recipe for feta pasta with tomatoes and basil. It turned
-                out to be not only tasty, but also incredibly colorful. This has become a favorite
-                family meal!`,
+    testimonial: `Thank you for the wonderful recipe for feta pasta with tomatoes and basil. It turned out to be not only tasty, but also incredibly colorful. This has become a favorite family meal!`,
     username: 'Larry Pageim',
   },
   {
@@ -34,43 +26,31 @@ const testimonials = [
 
 const Testimonials = () => {
   return (
-    <>
-      <Introduction>
-        <h3>What our customer say</h3>
-      </Introduction>
-      <TitleWrapper>
-        <h2>Testimonials</h2>
-      </TitleWrapper>
-      <SliderWrapper>
+    <Container>
+      <div className={css['testimonials-container']}>
+        <p className={css['testimonials-description']}>What our customer say</p>
+        <h2 className={css['testimonials-title']}>TESTIMONIALS</h2>
         <Swiper
-          modules={[Pagination, A11y, Autoplay]}
-          slidesPerView={1}
-          loop={true}
           autoplay={{
             delay: 3000,
+            disableOnInteraction: true,
           }}
-          speed={2000}
-          pagination={{
-            el: '.swiper-pagination',
-            clickable: true,
-            renderBullet: (_index, className) => {
-              return `<span class="${className}"></span>`;
-            },
-          }}
+          pagination={{ clickable: true }}
+          modules={[Pagination, Autoplay]}
+          className={css['swiper']}
         >
-          {testimonials.map(({ _id, testimonial, username }) => (
-            <SwiperSlide key={_id}>
-              <Card>
-                <Text>{testimonial}</Text>
-                <Author>{username}</Author>
-              </Card>
+          {testimonials.map(testimonial => (
+            <SwiperSlide key={testimonial.id} className={css['swiperSlide']}>
+              <svg className={css['svg']}>
+                <use href="/src/assets/images/icons/quote.svg"></use>
+              </svg>
+              <span className={css['text']}>{testimonial.testimonial}</span>
+              <span className={css['owner']}>{testimonial.username}</span>
             </SwiperSlide>
           ))}
-
-          <SwiperPagination className="swiper-pagination"></SwiperPagination>
         </Swiper>
-      </SliderWrapper>
-    </>
+      </div>
+    </Container>
   );
 };
 
