@@ -64,12 +64,11 @@ $iconQuote: url('assets/images/icons/quote.svg');
   }
 
   .svg {
-    fill: $--color-main;
-    margin-right: auto;
-    margin-bottom: 20px;
-    margin-left: 8px;
+    position: relative;
     width: 40px;
     height: 32px;
+    margin-bottom: 20px;
+    margin-left: 40px;
 
     @include min-tablet {
       width: 60px;
