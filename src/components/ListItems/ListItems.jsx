@@ -7,6 +7,8 @@ const ListItems = ({
   emptyText,
   type,
   list,
+  onDeleteRecipe,
+  isOwner,
   // currentPage,
   // onCurrentPageChange,
 }) => {
@@ -24,14 +26,22 @@ const ListItems = ({
         {list.map(item => {
           if (type === TYPE_TABS.RECIPE) {
             return (
-              <li key={item.id} className={styles.item}>
-                <RecipePreview recipe={item} />
+              <li key={item.id} className={styles.item_recipe}>
+                <RecipePreview
+                  recipe={item}
+                  onDeleteRecipe={onDeleteRecipe}
+                  isOwner={isOwner}
+                />
               </li>
             );
           }
 
           if (type === TYPE_TABS.USER) {
-            return <UserCard key={item.id} user={item} />;
+            return (
+              <li key={item.id} className={styles.item_user}>
+                <UserCard user={item} />
+              </li>
+            );
           }
 
           return null;
