@@ -1,6 +1,6 @@
 import styles from './Footer.module.scss';
 import { Container, Logo } from '../../ui-kit';
-import SocialList from '../SocialList';
+import NetworkLinks from '../NetworkLinks';
 
 const Footer = () => {
   const year = new Date().getFullYear();
@@ -10,7 +10,7 @@ const Footer = () => {
       <Container>
         <div className={styles.top}>
           <Logo />
-          <SocialList />
+          <NetworkLinks />
         </div>
       </Container>
       <div className={styles.bottom}>
