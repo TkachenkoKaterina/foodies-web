@@ -1,8 +1,9 @@
 import styles from './User.module.scss';
-import { Container, PathInfo, MainTitle, Subtitle } from '../../ui-kit';
+import { Container, PathInfo, MainTitle, Subtitle, Button } from '../../ui-kit';
 import UserInfo from '../UserInfo';
+import TabsList from '../TabsList';
 
-const User = ({ isOwner, user }) => {
+const User = ({ isOwner, user, onButtonClick, textButton }) => {
   return (
     <section className={styles.page}>
       <Container>
@@ -12,7 +13,11 @@ const User = ({ isOwner, user }) => {
           <Subtitle text="Reveal your culinary art, share your favorite recipe and create gastronomic masterpieces with us." />
         </div>
         <div className={styles.content}>
-          <UserInfo isOwner={isOwner} user={user} />
+          <div className={styles.info_wrapper}>
+            <UserInfo isOwner={isOwner} user={user} />
+            <Button onClick={onButtonClick}>{textButton}</Button>
+          </div>
+          <TabsList isOwner={isOwner} />
         </div>
       </Container>
     </section>

@@ -6,7 +6,7 @@ const UploadButton = ({ onChange }) => {
     <label className={styles.button}>
       <input type="file" accept="image/*" onChange={onChange} />
       <svg className={styles.icon}>
-        <use href={`${icons}#icon-facebook`} />
+        <use href={`${icons}#icon-plus`} />
       </svg>
     </label>
   );
