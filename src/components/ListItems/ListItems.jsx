@@ -7,9 +7,6 @@ const ListItems = ({
   emptyText,
   type,
   list,
-  followingList,
-  onFollow,
-  onUnfollow,
   // currentPage,
   // onCurrentPageChange,
 }) => {
@@ -34,16 +31,7 @@ const ListItems = ({
           }
 
           if (type === TYPE_TABS.USER) {
-            return (
-              <li key={item.id} className={styles.item}>
-                <UserCard
-                  user={item}
-                  isFollowing={followingList.includes(item.id)}
-                  onFollow={onFollow}
-                  onUnfollow={onUnfollow}
-                />
-              </li>
-            );
+            return <UserCard key={item.id} user={item} />;
           }
 
           return null;

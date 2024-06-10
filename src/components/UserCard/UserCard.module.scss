@@ -1,10 +1,19 @@
 @import '../../styles/main.scss';
 
-.wrapper {
+.item {
   display: flex;
   justify-content: space-between;
   gap: 16px;
   width: 100%;
+
+  &:not(:last-child) {
+    padding-bottom: 20px;
+    border-bottom: 1px solid $--color-main-opacity10;
+  }
+
+  &:not(:first-child) {
+    padding-top: 20px;
+  }
 }
 
 .left {

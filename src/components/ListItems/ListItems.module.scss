@@ -47,15 +47,4 @@
     flex-direction: column;
     width: 100%;
   }
-
-  & .item {
-    &:not(:last-child) {
-      padding-bottom: 20px;
-      border-bottom: 1px solid $--color-main-opacity10;
-    }
-
-    &:not(:first-child) {
-      padding-top: 20px;
-    }
-  }
 }

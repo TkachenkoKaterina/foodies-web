@@ -127,24 +127,13 @@ const users = [
 ];
 
 const Followers = () => {
-  const onFollow = id => {
-    console.log('follow', id);
-  };
-
-  const onUnfollow = id => {
-    console.log('unfollow', id);
-  };
-
   return (
     <ListItems
+      type={TYPE_TABS.USER}
       emptyText={EMPTY_TEXT.FOLLOWERS}
       currentPage={1}
       onCurrentPageChange={() => {}}
       list={users}
-      followingList={['2', '4']}
-      type={TYPE_TABS.USER}
-      onFollow={onFollow}
-      onUnfollow={onUnfollow}
     />
   );
 };

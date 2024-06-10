@@ -4,11 +4,22 @@ import styles from './UserCard.module.scss';
 import { Button, IconButton } from '../../ui-kit';
 import { routes } from '../../constants/routes';
 
-const UserCard = ({ user, isFollowing, onFollow, onUnfollow }) => {
+const UserCard = ({ user }) => {
   const navigate = useNavigate();
+  const followingList = ['2', '4'];
+
+  const isFollowing = followingList.includes(user?.id);
 
   const goToProfile = () => {
     navigate(`${routes.user}/${user?.id}`);
+  };
+
+  const onFollow = id => {
+    console.log('follow', id);
+  };
+
+  const onUnfollow = id => {
+    console.log('unfollow', id);
   };
 
   const buttonText = isFollowing ? 'following' : 'follow';
@@ -17,7 +28,7 @@ const UserCard = ({ user, isFollowing, onFollow, onUnfollow }) => {
     : () => onFollow(user?.id);
 
   return (
-    <div className={styles.wrapper}>
+    <li className={styles.item}>
       <div className={styles.left}>
         <div className={styles.img}>
           <img src={user?.img} alt="user" />
@@ -40,7 +51,7 @@ const UserCard = ({ user, isFollowing, onFollow, onUnfollow }) => {
         ))}
       </ul>
       <IconButton icon="icon-arrow-up-right" onClick={goToProfile} />
-    </div>
+    </li>
   );
 };
 
