@@ -27,7 +27,7 @@ const RecipeCard = ({
         type="button"
         onClick={user ? navigatetoUserPage : navigateToSignIN}
       >
-        <img src={owner.awatar} alt="Avatar" />
+        <img src={owner.avatar} alt="Avatar" />
         <p>{owner.name}</p>
       </button>
       <IconButton icon="icon-heart" onClick={favoritesHendler} />
