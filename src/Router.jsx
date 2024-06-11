@@ -7,6 +7,7 @@ import Recipes from './pages/UserPage/Recipes';
 import Followers from './pages/UserPage/Followers';
 import Favorites from './pages/UserPage/Favorites';
 import Following from './pages/UserPage/Following';
+import AddRecipePage from './pages/AddRecipePage/AddRecipePage';
 
 const PublicRoutes = [
   <Route key={routes.main} path={routes.main} element={<HomePage />} />,
@@ -32,6 +33,11 @@ const PrivateRoutes = [
     />
     ,
   </Route>,
+  <Route
+    key={routes.addRecipe}
+    path={routes.addRecipe}
+    element={<AddRecipePage />}
+  />,
 ];
 
 const RoutesSwitch = () => {
