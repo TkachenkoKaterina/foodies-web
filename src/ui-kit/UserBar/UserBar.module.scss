@@ -1,0 +1,29 @@
+.profileSection{
+    display: flex;
+    align-items: center;
+    border-radius: 30px;
+    // border: 1px solid #FFF;
+  }
+  
+  .avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 30px;
+  }
+  
+  .wrapper {
+    display: flex;
+  padding: 16px 14px 16px 6px;
+  align-items: center;
+  gap: 4px;
+  }
+  
+  .name {
+    color: #FFF;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: -0.24px;
+  text-transform: uppercase;
+  }
+  

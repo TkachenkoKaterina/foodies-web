@@ -3,7 +3,7 @@
 <symbol id="icon-arrow-left" viewBox="0 0 32 32"><path stroke-linejoin="round" stroke-linecap="round" stroke-width="2.6" d="m25.427 16.001-18.856-.002M15.998 25.428l-9.427-9.429L16 6.572"/></symbol>
 <symbol id="icon-arrow-up-right" viewBox="0 0 32 32"><path stroke-linejoin="round" stroke-linecap="round" stroke-width="2.667" d="M9.333 22.667 22.666 9.334M9.333 9.333h13.333v13.333"/></symbol>
 <symbol id="icon-burger" viewBox="0 0 32 32"><path fill="none" stroke="#fff" style="stroke:var(--color1, #fff)" stroke-linejoin="round" stroke-linecap="round" stroke-width="2.286" d="M28 13.333H4M28 8H4M28 18.667H4M28 24H4"/></symbol>
-<symbol id="icon-chevron-down" viewBox="0 0 32 32"><path stroke-linejoin="round" stroke-linecap="round" stroke-width="3.2" d="m8 12 8 8 8-8"/></symbol>
+<symbol id="icon-chevron-down" viewBox="0 0 32 32"><path  stroke-linejoin="round" stroke-linecap="round" stroke-width="3.2" d="m8 12 8 8 8-8"/></symbol>
 <symbol id="icon-chevron-up" viewBox="0 0 32 32"><path fill="none" stroke="#fff" style="stroke:var(--color1, #fff)" stroke-linejoin="round" stroke-linecap="round" stroke-width="2.667" d="m8 20 8-8 8 8"/></symbol>
 <symbol id="icon-cross" viewBox="0 0 32 32"><path stroke-linejoin="round" stroke-linecap="round" stroke-width="3" d="M24 8 8 24M8 8l16 16"/></symbol>
 <symbol id="icon-eye" viewBox="0 0 32 32"><path stroke-linejoin="round" stroke-linecap="round" stroke-width="2.88" d="M1.333 16S6.666 5.333 16 5.333 30.667 16 30.667 16 25.334 26.667 16 26.667C6.667 26.667 1.333 16 1.333 16z"/><path stroke-linejoin="round" stroke-linecap="round" stroke-width="2.88" d="M16 20a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></symbol>
