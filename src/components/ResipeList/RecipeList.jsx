@@ -4,7 +4,6 @@ const RecipeList = ({ user, category }) => {
   return (
     <ul key={category}>
       {recipes.map(item => {
-        console.log(item.owner);
         return (
           <RecipeCard
             key={item._id}
