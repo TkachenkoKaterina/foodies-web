@@ -1,0 +1,274 @@
+@import '../../styles/main.scss';
+
+.add-recipe-form-container {
+  padding-bottom: 32px;
+
+  @include min-tablet {
+    padding-bottom: 50px;
+  }
+
+  @include min-desktop {
+    padding-bottom: 60px;
+  }
+}
+
+.title {
+  margin-bottom: 16px;
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+
+  @include min-tablet {
+    padding-bottom: 20px;
+    font-size: 40px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+}
+
+.text {
+  margin-bottom: 32px;
+  @include min-tablet {
+    margin-bottom: 40px;
+    max-width: 443px;
+  }
+}
+
+.form {
+  /* Стили для формы */
+}
+
+.container-form {
+  /* Стили для контейнеров отдельных полей формы */
+}
+
+.label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 800;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: $--color-main;
+  @include min-tablet {
+    margin-bottom: 16px;
+  }
+}
+
+.input {
+  margin-bottom: 32px;
+  width: 343px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.43;
+  letter-spacing: -0.02em;
+  color: $--color-main-opacity80;
+  @include min-tablet {
+    margin-bottom: 16px;
+    line-height: 1.5;
+    width: 649px;
+    height: 24px;
+  }
+
+  &::placeholder {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.43;
+    letter-spacing: -0.02em;
+    color: $--color-main-opacity60;
+    @include min-tablet {
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+  }
+}
+
+.input-file {
+  margin-bottom: 32px;
+  border: 1px dashed $--color-main-opacity20;
+  border-radius: 30px;
+  width: 343px;
+  height: 318px;
+  @include min-tablet {
+    width: 704px;
+    height: 400px;
+  }
+}
+
+.input-name {
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 1.33;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--main);
+
+  @include min-tablet {
+    font-size: 24px;
+    line-height: 1.17;
+  }
+
+  &::placeholder {
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 1.33;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: $--color-main-opacity60;
+
+    @include min-tablet {
+      font-size: 24px;
+      line-height: 1.17;
+    }
+  }
+}
+
+.input-description {
+  border: none;
+  border-bottom: 1px solid $--color-main-opacity12;
+}
+
+.input-time {
+  margin-bottom: 0;
+  width: 44px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.43;
+  letter-spacing: -0.02em;
+
+  @include min-tablet {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}
+
+.input-quantity {
+}
+
+.error {
+}
+
+.character-count {
+}
+
+.select {
+  border: 1px solid $--color-main-opacity12;
+  border-radius: 30px;
+  padding: 14px;
+  width: 343px;
+  height: 48px;
+  margin-bottom: 20px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.43;
+  letter-spacing: -0.02em;
+  color: var(--main);
+
+  @include min-tablet {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}
+
+.select-category {
+}
+
+.select-area {
+}
+
+.select-ingredient {
+}
+
+.image-preview-container {
+}
+
+.image-preview {
+}
+
+.remove-image-container {
+}
+
+.remove-image-button {
+}
+
+.time-container {
+  display: flex;
+  text-align: center;
+  justify-content: left;
+  gap: 14px;
+  margin-bottom: 32px;
+  @include min-tablet {
+    gap: 16px;
+  }
+}
+
+.time-button {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  border: 1px solid $--color-main-opacity12;
+  border-radius: 30px;
+  padding: 16px;
+  width: 48px;
+  height: 48px;
+  @include min-tablet {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+.add-button {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  margin-bottom: 64px;
+  border: 1px solid $--color-main-opacity90;
+  border-radius: 30px;
+  padding: 14px 20px;
+  width: 186px;
+  height: 48px;
+}
+
+.textarea {
+}
+
+.label-preparation {
+  margin-bottom: 32px;
+}
+
+.textarea-preparation {
+  stroke-width: 1px;
+  stroke: $--color-main-opacity12;
+  width: 343px;
+  &::placeholder {
+    width: 649px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.43;
+    letter-spacing: -0.02em;
+    color: $--color-main-opacity60;
+  }
+}
+
+.clear-button {
+}
+
+.submit-button {
+  border-radius: 30px;
+  padding: 14px 32px;
+  width: 124px;
+  height: 48px;
+  background: $--color-main-opacity85;
+
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.43;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: $--color-white;
+}

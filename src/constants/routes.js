@@ -5,4 +5,5 @@ export const routes = {
   favorites: 'favorites',
   followers: 'followers',
   following: 'following',
+  addRecipe: '/recipe/add',
 };

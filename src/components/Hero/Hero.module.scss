@@ -1,16 +1,9 @@
 @import '../../styles/main.scss';
 
 .hero {
-    
+    display: flex;
+
     &-section {
-        width: 1400px;
-        height: 970px;
-
-        display: flex;
-
-        margin: auto;
-        margin-top: 20px;
-
         border-radius: 30px;
         background-color: $--color-main;
     }
@@ -22,15 +15,10 @@
 
         color: $--color-white;
     }
-    
+
     &-title {
-        width: 874px;
-
-        margin-top: 154px;
-
         text-transform: uppercase;
         text-align: center;
-        font-size: 90px;
         font-weight: 800;
         letter-spacing: -0.02em;
         line-height: 1em;
@@ -42,6 +30,7 @@
         margin-top: 40px;
 
         text-align: center;
+        font-weight: 500;
         letter-spacing: -0.02em;
         line-height: 1.5em;
     }
@@ -58,15 +47,127 @@
         text-transform: uppercase;
         color: $--color-white;
     }
-
+    
     &-wrapper-img {
         display: flex;
 
         margin-top: 40px;
     }
 
-    &-img-small {
-        margin-top: 140px;
+    @include min-mobile {
+        &-section {
+            width: 360px;
+            height: 796px;
+    
+            margin: auto;
+            margin-top: 8px;
+    
+            border-radius: 20px;
+        }
+
+        &-title {
+            width: 328px;
+    
+            margin-top: 194px;
+    
+            font-size: 40px;
+        }
+
+        &-description {
+            width: 326px;
+    
+            margin-top: 20px;
+
+            font-size: 14px;
+            line-height: 1.4em;
+        }
+
+        &-button {
+            width: 130px;
+            height: 44px;
+    
+            margin-top: 20px;
+
+            font-size: 14px;
+        }
+
+        &-wrapper-img {
+            display: flex;
+    
+            margin-top: 30px;
+        }
+
+        &-img-small {
+            width: 78px;
+
+            margin-top: 102px;
+        }
+
+        &-img-big {
+            width: 190px;
+        }
+    }
+
+    @include min-tablet {
+        &-section {
+            width: 736px;
+            height: 992px;
+    
+            margin: auto;
+            margin-top: 16px;
+        }
+
+        &-title {
+            width: 678px;
+    
+            margin-top: 218px;
+    
+            font-size: 70px;
+        }
+
+        &-wrapper-img {
+            margin-top: 30px;
+        }
+
+        &-img-small {
+            width: 128px;
+            margin-top: 140px;
+        }
+
+        &-img-big {
+            width: 302px;
+        }
+    }
+
+    @include min-desktop {
+        &-section {
+            width: 1400px;
+            height: 970px;
+    
+            margin: auto;
+            margin-top: 20px;
+        }
+
+        &-title {
+            width: 874px;
+    
+            margin-top: 154px;
+    
+            font-size: 90px;
+        }
+
+        &-wrapper-img {
+            margin-top: 40px;
+        }
+
+        &-img-small {
+            width: 128px;
+            margin-top: 140px;
+        }
+
+        &-img-big {
+            width: 302px;
+        }
     }
 }
 
