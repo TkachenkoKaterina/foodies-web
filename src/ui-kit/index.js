@@ -9,6 +9,7 @@ import Button from './Button';
 import IconButton from './IconButton';
 import UserBar from './UserBar';
 import AuthBar from './AuthBar';
+import RecipeCard from './RecipeCard'
 
 export {
   Container,
@@ -22,4 +23,5 @@ export {
   IconButton,
   UserBar,
   AuthBar,
+  RecipeCard,
 };
