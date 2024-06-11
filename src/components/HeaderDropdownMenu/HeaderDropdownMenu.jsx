@@ -1,6 +1,6 @@
 // DropdownMenu.js
 import React, { useState } from 'react';
-import styles from './HeaderDropdownMenu.module.css';
+import styles from './HeaderDropdownMenu.module.scss';
 import { NavLink } from 'react-router-dom';
 
 const HeaderDropdownMenu = () => {
@@ -14,8 +14,8 @@ const HeaderDropdownMenu = () => {
     <div className={styles.dropdown}>
       <button onClick={toggleMenu} className={styles.iconButton}>
       <svg className={styles.icon}>
-          <use xlinkHref="#icon-user" />
-        </svg>
+        <use xlinkHref="../../assets/icons/icons.svg#icon-chevron-down" />
+      </svg>
       </button>
       {isOpen && (
         <div className={styles.menu}>
