@@ -1,6 +1,9 @@
+import { useSelector } from 'react-redux';
 import { IconButton } from '..';
 import { routes } from '../../constants/routes';
 import { useNavigate } from 'react-router-dom';
+import { getIsLoggedIn } from '../../redux/auth/authSelectors';
+import getImagePath from '../../helpers/getImagePath';
 
 const RecipeCard = ({
   title,
@@ -13,11 +16,11 @@ const RecipeCard = ({
   favoritesHendler,
 }) => {
   const navigate = useNavigate();
-
+  const isLoggedIn = useSelector(getIsLoggedIn);
   const goToRecipe = () => {
     navigate(getPathWithId(routes.recipe, recipe?.id));
   };
-  const user = 'current user';
+
   return (
     <li key={id}>
       <img src={img} alt={title} />
@@ -25,9 +28,9 @@ const RecipeCard = ({
       <p>{description}</p>
       <button
         type="button"
-        onClick={user ? navigatetoUserPage : navigateToSignIN}
+        onClick={isLoggedIn ? navigatetoUserPage : navigateToSignIN}
       >
-        <img src={owner.avatar} alt="Avatar" />
+        <img src={getImagePath(owner.avatar)} alt="Avatar" />
         <p>{owner.name}</p>
       </button>
       <IconButton icon="icon-heart" onClick={favoritesHendler} />

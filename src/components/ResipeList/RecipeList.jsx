@@ -3,10 +3,10 @@ import recipes from './recipes.json';
 const RecipeList = ({ user, category }) => {
   return (
     <ul key={category}>
-      {recipes.map(item => {
+      {recipes.map((item, index) => {
         return (
           <RecipeCard
-            key={item._id}
+            key={item._id + index}
             title={item.title}
             description={item.description}
             owner={item.owner}
