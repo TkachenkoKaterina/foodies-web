@@ -22,15 +22,15 @@ const Hero = () => {
                                 alt="food"
                             />
                         </div>
-                        <div>
-                        <img
-                            width='302'
-                            src={ images.imageBig1x }
-                            srcSet={`${images.imageBig1x} 1x,
-                                ${images.imageBig2x} 2x,
-                                ${images.imageBig2x} 3x`}
-                            alt="food"
-                        />
+                        <div className={css['hero-img-big']}>
+                            <img
+                                width='302'
+                                src={ images.imageBig1x }
+                                srcSet={`${images.imageBig1x} 1x,
+                                    ${images.imageBig2x} 2x,
+                                    ${images.imageBig2x} 3x`}
+                                alt="food"
+                            />
                         </div>
                     </div>
                 </div>
