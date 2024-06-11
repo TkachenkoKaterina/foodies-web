@@ -1,14 +1,16 @@
 import { BASE_URL } from '../services/BaseUrl';
 import defaultAvatar from '../assets/images/default/default-user-image.png';
 
-const getImagePath = path => {
+export const getImagePath = (path, type) => {
   if (path) {
     return path.includes('www') || path.includes('https')
       ? path
       : `${BASE_URL}/${path}`;
   }
 
-  return defaultAvatar;
+  return type === 'avatar' ? defaultAvatar : '';
 };
 
-export default getImagePath;
+export const TYPE_IMG = {
+  AVATAR: 'avatar',
+};

@@ -4,7 +4,7 @@ import styles from './UserCard.module.scss';
 import { Button, IconButton } from '../../ui-kit';
 import { routes } from '../../constants/routes';
 import { getPathWithId } from '../../helpers/getPathWithId';
-import getImagePath from '../../helpers/getImagePath';
+import { getImagePath, TYPE_IMG } from '../../helpers/getImagePath';
 
 const UserCard = ({ user, onFollow, onUnfollow, owner }) => {
   const navigate = useNavigate();
@@ -29,7 +29,10 @@ const UserCard = ({ user, onFollow, onUnfollow, owner }) => {
     <div className={styles.item}>
       <div className={styles.left}>
         <div className={styles.img}>
-          <img src={getImagePath(user?.avatar)} alt={user?.name} />
+          <img
+            src={getImagePath(user?.avatar, TYPE_IMG.AVATAR)}
+            alt={user?.name}
+          />
         </div>
         <div className={styles.info}>
           <p className={styles.name}>{user?.name}</p>
@@ -44,7 +47,10 @@ const UserCard = ({ user, onFollow, onUnfollow, owner }) => {
       <ul className={styles.center}>
         {user?.recipes.map(recipe => (
           <li key={recipe._id} className={styles.recipe}>
-            <img src={getImagePath(recipe?.thumb)} alt={recipe?.title} />
+            <img
+              src={getImagePath(recipe?.thumb, TYPE_IMG.RECIPE)}
+              alt={recipe?.title}
+            />
           </li>
         ))}
       </ul>

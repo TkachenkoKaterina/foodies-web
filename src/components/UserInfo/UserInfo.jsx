@@ -1,13 +1,13 @@
 import styles from './UserInfo.module.scss';
 import { UploadButton } from '../../ui-kit';
-import getImagePath from '../../helpers/getImagePath';
+import { getImagePath, TYPE_IMG } from '../../helpers/getImagePath';
 
 const UserInfo = ({ isOwner, user, userImg, onUpdateAvatar }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.avatar}>
         <div className={styles.img}>
-          <img src={getImagePath(userImg)} alt={user?.name} />
+          <img src={getImagePath(userImg, TYPE_IMG.AVATAR)} alt={user?.name} />
         </div>
         {isOwner && <UploadButton onChange={onUpdateAvatar} />}
       </div>
