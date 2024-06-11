@@ -1,11 +1,12 @@
-import { RecipeCard } from './RecipeCard';
+import { RecipeCard } from '../../ui-kit';
 import recipes from './recipes.json';
-export const RecipeList = ({ user, category }) => {
+const RecipeList = ({ user, category }) => {
   return (
     <ul>
       {recipes.map((title, description, owner, img, _id) => {
         return (
           <RecipeCard
+            key={_id}
             title={title}
             description={description}
             owner={owner}
@@ -17,3 +18,4 @@ export const RecipeList = ({ user, category }) => {
     </ul>
   );
 };
+export default RecipeList;

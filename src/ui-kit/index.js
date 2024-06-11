@@ -6,6 +6,7 @@ import Subtitle from './Subtitle';
 import UploadButton from './UploadButton';
 import Button from './Button';
 import IconButton from './IconButton';
+import RecipeCard from './RecipeCard'
 
 export {
   Container,
@@ -16,4 +17,5 @@ export {
   UploadButton,
   Button,
   IconButton,
+  RecipeCard,
 };
