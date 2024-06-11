@@ -1,0 +1,546 @@
+[
+  {
+    "_id": {
+      "$oid": "6462a8f74c3d0ddd28897fcd"
+    },
+    "title": "Battenberg Cake",
+    "category": "Dessert",
+    "owner": {
+      "_id": "64c8d958249fae54bae90bb9",
+      "name": "Tomy",
+      "avatar": "//www.gravatar.com/avatar/c5b0841a24691bcd1c6a3410ea0ccdbf?s=100&r=x&d…"
+    },
+    "area": "British",
+    "instructions": "Heat oven to 180C/160C fan/gas 4 and line the base and sides of a 20cm square tin with baking parchment (the easiest way is to cross 2 x 20cm-long strips over the base). To make the almond sponge, put the butter, sugar, flour, ground almonds, baking powder, eggs, vanilla and almond extract in a large bowl. Beat with an electric whisk until the mix comes together smoothly. Scrape into the tin, spreading to the corners, and bake for 25-30 mins – when you poke in a skewer, it should come out clean. Cool in the tin for 10 mins, then transfer to a wire rack to finish cooling while you make the second sponge.\r\nFor the pink sponge, line the tin as above. Mix all the ingredients together as above, but don’t add the almond extract. Fold in some pink food colouring. Then scrape it all into the tin and bake as before. Cool.\r\nTo assemble, heat the jam in a small pan until runny, then sieve. Barely trim two opposite edges from the almond sponge, then well trim a third edge. Roughly measure the height of the sponge, then cutting from the well-trimmed edge, use a ruler to help you cut 4 slices each the same width as the sponge height. Discard or nibble leftover sponge. Repeat with pink cake.\r\nTake 2 x almond slices and 2 x pink slices and trim so they are all the same length. Roll out one marzipan block on a surface lightly dusted with icing sugar to just over 20cm wide, then keep rolling lengthways until the marzipan is roughly 0.5cm thick. Brush with apricot jam, then lay a pink and an almond slice side by side at one end of the marzipan, brushing jam in between to stick sponges, and leaving 4cm clear marzipan at the end. Brush more jam on top of the sponges, then sandwich remaining 2 slices on top, alternating colours to give a checkerboard effect. Trim the marzipan to the length of the cakes.\r\nCarefully lift up the marzipan and smooth over the cake with your hands, but leave a small marzipan fold along the bottom edge before you stick it to the first side. Trim opposite side to match size of fold, then crimp edges using fingers and thumb (or, more simply, press with prongs of fork). If you like, mark the 10 slices using the prongs of a fork.\r\nAssemble second Battenberg and keep in an airtight box or well wrapped in cling film for up to 3 days. Can be frozen for up to a month.",
+    "description": "A classic British cake made with almond sponge cake and covered with marzipan. It is traditionally pink and yellow checkered in appearance.",
+    "thumb": "https://ftp.goit.study/img/so-yummy/preview/Battenberg%20Cake.jpg",
+    "time": "60",
+    "ingredients": [
+      {
+        "id": "640c2dd963a319ea671e367e",
+        "measure": "175g"
+      },
+      {
+        "id": "640c2dd963a319ea671e3687",
+        "measure": "175g"
+      },
+      {
+        "id": "640c2dd963a319ea671e3762",
+        "measure": "140g"
+      },
+      {
+        "id": "640c2dd963a319ea671e3814",
+        "measure": "50g"
+      },
+      {
+        "id": "640c2dd963a319ea671e3665",
+        "measure": "½ tsp"
+      },
+      {
+        "id": "640c2dd963a319ea671e36ca",
+        "measure": "3 Medium"
+      },
+      {
+        "id": "640c2dd963a319ea671e3786",
+        "measure": "½ tsp"
+      },
+      {
+        "id": "640c2dd963a319ea671e3861",
+        "measure": "¼ teaspoon"
+      },
+      {
+        "id": "640c2dd963a319ea671e380f",
+        "measure": "½ tsp"
+      },
+      {
+        "id": "640c2dd963a319ea671e37bf",
+        "measure": "200g"
+      },
+      {
+        "id": "640c2dd963a319ea671e3813",
+        "measure": "1kg"
+      },
+      {
+        "id": "640c2dd963a319ea671e379d",
+        "measure": "Dusting"
+      }
+    ],
+    "createdAt": {
+      "$date": {
+        "$numberLong": "1678562733243"
+      }
+    },
+    "updatedAt": {
+      "$date": {
+        "$numberLong": "1709506071976"
+      }
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6462a8f74c3d0ddd28897fbc"
+    },
+    "title": "Irish stew",
+    "category": "Beef",
+    "owner": {
+      "_id": "64c8d958249fae54bae90bb9",
+      "name": "GoIT",
+      "avatar": "//www.gravatar.com/avatar/c5b0841a24691bcd1c6a3410ea0ccdbf?s=100&r=x&d…"
+    },
+    "area": "Irish",
+    "instructions": "Heat the oven to 180C/350F/gas mark 4. Drain and rinse the soaked wheat, put it in a medium pan with lots of water, bring to a boil and simmer for an hour, until cooked. Drain and set aside.\r\n\r\nSeason the lamb with a teaspoon of salt and some black pepper. Put one tablespoon of oil in a large, deep sauté pan for which you have a lid; place on a medium-high heat. Add some of the lamb – don't overcrowd the pan – and sear for four minutes on all sides. Transfer to a bowl, and repeat with the remaining lamb, adding oil as needed.\r\n\r\nLower the heat to medium and add a tablespoon of oil to the pan. Add the shallots and fry for four minutes, until caramelised. Tip these into the lamb bowl, and repeat with the remaining vegetables until they are all nice and brown, adding more oil as you need it.\r\n\r\nOnce all the vegetables are seared and removed from the pan, add the wine along with the sugar, herbs, a teaspoon of salt and a good grind of black pepper. Boil on a high heat for about three minutes.\r\n\r\nTip the lamb, vegetables and whole wheat back into the pot, and add the stock. Cover and boil for five minutes, then transfer to the oven for an hour and a half.\r\n\r\nRemove the stew from the oven and check the liquid; if there is a lot, remove the lid and boil for a few minutes.",
+    "description": "A traditional Irish dish made with lamb, potatoes, carrots, onions, and herbs, cooked in a broth or gravy.",
+    "thumb": "https://ftp.goit.study/img/so-yummy/preview/Irish%20stew.jpg",
+    "time": "160",
+    "ingredients": [
+      {
+        "id": "640c2dd963a319ea671e3796",
+        "measure": "300g soaked overnight in water"
+      },
+      {
+        "id": "640c2dd963a319ea671e370c",
+        "measure": "2kg cut into 3cm cubes"
+      },
+      {
+        "id": "640c2dd963a319ea671e372c",
+        "measure": "120ml"
+      },
+      {
+        "id": "640c2dd963a319ea671e3765",
+        "measure": "24 Skinned"
+      },
+      {
+        "id": "640c2dd963a319ea671e3684",
+        "measure": "4 large"
+      },
+      {
+        "id": "640c2dd963a319ea671e3784",
+        "measure": "2"
+      },
+      {
+        "id": "640c2dd963a319ea671e3689",
+        "measure": "1"
+      },
+      {
+        "id": "640c2dd963a319ea671e368d",
+        "measure": "350g"
+      },
+      {
+        "id": "640c2dd963a319ea671e3794",
+        "measure": "150ml"
+      },
+      {
+        "id": "640c2dd963a319ea671e3687",
+        "measure": "1 tsp"
+      },
+      {
+        "id": "640c2dd963a319ea671e36de",
+        "measure": "4 sprigs"
+      },
+      {
+        "id": "640c2dd963a319ea671e3731",
+        "measure": "4 sprigs"
+      },
+      {
+        "id": "640c2dd963a319ea671e3696",
+        "measure": "450ml"
+      }
+    ],
+    "createdAt": {
+      "$date": {
+        "$numberLong": "1678562733240"
+      }
+    },
+    "updatedAt": {
+      "$date": {
+        "$numberLong": "1706220769038"
+      }
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6462a8f74c3d0ddd2889800c"
+    },
+    "title": "Lancashire hotpot",
+    "category": "Lamb",
+    "owner": {
+      "_id": "64c8d958249fae54bae90bb9",
+      "name": "GoIT",
+      "avatar": null
+    },
+    "area": "British",
+    "instructions": "Heat oven to 160C/fan 140C/gas 3. Heat some dripping or butter in a large shallow casserole dish, brown the lamb in batches, lift to a plate, then repeat with the kidneys.\r\nFry the onions and carrots in the pan with a little more dripping until golden. Sprinkle over the flour, allow to cook for a couple of mins, shake over the Worcestershire sauce, pour in the stock, then bring to the boil. Stir in the meat and bay leaves, then turn off the heat. Arrange the sliced potatoes on top of the meat, then drizzle with a little more dripping. Cover, then place in the oven for about 1½ hrs until the potatoes are cooked.\r\nRemove the lid, brush the potatoes with a little more dripping, then turn the oven up to brown the potatoes, or finish under the grill for 5-8 mins until brown.",
+    "description": "A hearty casserole with tender lamb and vegetables, topped with sliced potatoes.",
+    "thumb": "https://ftp.goit.study/img/so-yummy/preview/Lancashire%20hotpot.jpg",
+    "time": "115",
+    "ingredients": [
+      {
+        "id": "640c2dd963a319ea671e367e",
+        "measure": "100g "
+      },
+      {
+        "id": "640c2dd963a319ea671e370b",
+        "measure": "900g"
+      },
+      {
+        "id": "640c2dd963a319ea671e3801",
+        "measure": "3"
+      },
+      {
+        "id": "640c2dd963a319ea671e372e",
+        "measure": "2 medium"
+      },
+      {
+        "id": "640c2dd963a319ea671e3684",
+        "measure": "4 sliced"
+      },
+      {
+        "id": "640c2dd963a319ea671e3743",
+        "measure": "25g"
+      },
+      {
+        "id": "640c2dd963a319ea671e3798",
+        "measure": "2 tsp"
+      },
+      {
+        "id": "640c2dd963a319ea671e3696",
+        "measure": "500ml"
+      },
+      {
+        "id": "640c2dd963a319ea671e366b",
+        "measure": "2"
+      },
+      {
+        "id": "640c2dd963a319ea671e3746",
+        "measure": "900g"
+      }
+    ],
+    "createdAt": {
+      "$date": {
+        "$numberLong": "1678562733242"
+      }
+    },
+    "updatedAt": {
+      "$date": {
+        "$numberLong": "1701383864274"
+      }
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6462a8f74c3d0ddd28897fbf"
+    },
+    "title": "Teriyaki Chicken Casserole",
+    "category": "Chicken",
+    "owner": {
+      "_id": "64c8d958249fae54bae90bb9",
+      "name": "GoIT",
+      "avatar": null
+    },
+    "area": "Japanese",
+    "instructions": "Preheat oven to 350° F. Spray a 9x13-inch baking pan with non-stick spray.\r\nCombine soy sauce, ½ cup water, brown sugar, ginger and garlic in a small saucepan and cover. Bring to a boil over medium heat. Remove lid and cook for one minute once boiling.\r\nMeanwhile, stir together the corn starch and 2 tablespoons of water in a separate dish until smooth. Once sauce is boiling, add mixture to the saucepan and stir to combine. Cook until the sauce starts to thicken then remove from heat.\r\nPlace the chicken breasts in the prepared pan. Pour one cup of the sauce over top of chicken. Place chicken in oven and bake 35 minutes or until cooked through. Remove from oven and shred chicken in the dish using two forks.\r\n*Meanwhile, steam or cook the vegetables according to package directions.\r\nAdd the cooked vegetables and rice to the casserole dish with the chicken. Add most of the remaining sauce, reserving a bit to drizzle over the top when serving. Gently toss everything together in the casserole dish until combined. Return to oven and cook 15 minutes. Remove from oven and let stand 5 minutes before serving. Drizzle each serving with remaining sauce. Enjoy!",
+    "description": "A Japanese-inspired casserole made with chicken, teriyaki sauce, rice, and vegetables.",
+    "thumb": "https://ftp.goit.study/img/so-yummy/preview/Teriyaki%20Chicken%20Casserole.jpg",
+    "time": "75",
+    "ingredients": [
+      {
+        "id": "640c2dd963a319ea671e376c",
+        "measure": "3/4 cup"
+      },
+      {
+        "id": "640c2dd963a319ea671e378f",
+        "measure": "1/2 cup"
+      },
+      {
+        "id": "640c2dd963a319ea671e367d",
+        "measure": "1/4 cup"
+      },
+      {
+        "id": "640c2dd963a319ea671e36f8",
+        "measure": "1/2 teaspoon"
+      },
+      {
+        "id": "640c2dd963a319ea671e3720",
+        "measure": "1/2 teaspoon"
+      },
+      {
+        "id": "640c2dd963a319ea671e36b3",
+        "measure": "4 Tablespoons"
+      },
+      {
+        "id": "640c2dd963a319ea671e3694",
+        "measure": "2"
+      },
+      {
+        "id": "640c2dd963a319ea671e3772",
+        "measure": "1 (12 oz.)"
+      },
+      {
+        "id": "640c2dd963a319ea671e367c",
+        "measure": "3 cups"
+      }
+    ],
+    "createdAt": {
+      "$date": {
+        "$numberLong": "1678562733240"
+      }
+    },
+    "updatedAt": {
+      "$date": {
+        "$numberLong": "1706301557199"
+      }
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6462a8f74c3d0ddd28897fc3"
+    },
+    "title": "Honey Teriyaki Salmon",
+    "category": "Seafood",
+    "owner": {
+      "_id": "64c8d958249fae54bae90bb9",
+      "name": "GoIT",
+      "avatar": null
+    },
+    "area": "Japanese",
+    "instructions": "Mix all the ingredients in the Honey Teriyaki Glaze together. Whisk to blend well. Combine the salmon and the Glaze together.\r\n\r\nHeat up a skillet on medium-low heat. Add the oil, Pan-fry the salmon on both sides until it’s completely cooked inside and the glaze thickens.\r\n\r\nGarnish with sesame and serve immediately.",
+    "description": "A Japanese-inspired dish made with salmon fillets, teriyaki sauce, honey, and sesame seeds.",
+    "thumb": "https://ftp.goit.study/img/so-yummy/preview/Honey%20Teriyaki%20Salmon.jpg",
+    "time": "25",
+    "ingredients": [
+      {
+        "id": "640c2dd963a319ea671e365c",
+        "measure": "1 lb"
+      },
+      {
+        "id": "640c2dd963a319ea671e372c",
+        "measure": "1 tablespoon"
+      },
+      {
+        "id": "640c2dd963a319ea671e376c",
+        "measure": "2 tablespoons"
+      },
+      {
+        "id": "640c2dd963a319ea671e375c",
+        "measure": "2 tablespoons"
+      },
+      {
+        "id": "640c2dd963a319ea671e3764",
+        "measure": "4 tablespoons"
+      }
+    ],
+    "createdAt": {
+      "$date": {
+        "$numberLong": "1678562733240"
+      }
+    },
+    "updatedAt": {
+      "$date": {
+        "$numberLong": "1704918409835"
+      }
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6462a8f74c3d0ddd28898019"
+    },
+    "title": "Poutine",
+    "category": "Miscellaneous",
+    "owner": {
+      "_id": "64c8d958249fae54bae90bb9",
+      "name": "GoIT",
+      "avatar": null
+    },
+    "area": "Canadian",
+    "instructions": "Heat oil in a deep fryer or deep heavy skillet to 365°F (185°C).\r\nWarm gravy in saucepan or microwave.\r\nPlace the fries into the hot oil, and cook until light brown, about 5 minutes.\r\nRemove to a paper towel lined plate to drain.\r\nPlace the fries on a serving platter, and sprinkle the cheese over them.\r\nLadle gravy over the fries and cheese, and serve immediately.",
+    "description": "A Canadian dish made with french fries, cheese curds, and gravy.",
+    "thumb": "https://ftp.goit.study/img/so-yummy/preview/Poutine.jpg",
+    "time": "20",
+    "ingredients": [
+      {
+        "id": "640c2dd963a319ea671e3789",
+        "measure": "Dash"
+      },
+      {
+        "id": "640c2dd963a319ea671e366e",
+        "measure": "1 Can"
+      },
+      {
+        "id": "640c2dd963a319ea671e3746",
+        "measure": "5 thin cut"
+      },
+      {
+        "id": "640c2dd963a319ea671e3690",
+        "measure": "2 cups"
+      }
+    ],
+    "createdAt": {
+      "$date": {
+        "$numberLong": "1678562733240"
+      }
+    },
+    "updatedAt": {
+      "$date": {
+        "$numberLong": "1700580532671"
+      }
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6462a8f74c3d0ddd28897fbd"
+    },
+    "title": "Bakewell tart",
+    "category": "Dessert",
+    "owner": {
+      "_id": "64c8d958249fae54bae90bb9",
+      "name": "GoIT",
+      "avatar": null
+    },
+    "area": "British",
+    "instructions": "To make the pastry, measure the flour into a bowl and rub in the butter with your fingertips until the mixture resembles fine breadcrumbs. Add the water, mixing to form a soft dough.\r\nRoll out the dough on a lightly floured work surface and use to line a 20cm/8in flan tin. Leave in the fridge to chill for 30 minutes.\r\nPreheat the oven to 200C/400F/Gas 6 (180C fan).\r\nLine the pastry case with foil and fill with baking beans. Bake blind for about 15 minutes, then remove the beans and foil and cook for a further five minutes to dry out the base.\r\nFor the filing, spread the base of the flan generously with raspberry jam.\r\nMelt the butter in a pan, take off the heat and then stir in the sugar. Add ground almonds, egg and almond extract. Pour into the flan tin and sprinkle over the flaked almonds.\r\nBake for about 35 minutes. If the almonds seem to be browning too quickly, cover the tart loosely with foil to prevent them burning.",
+    "description": "A British dessert consisting of a shortcrust pastry shell filled with raspberry jam, frangipane, and topped with almonds.",
+    "thumb": "https://ftp.goit.study/img/so-yummy/preview/Bakewell%20tart.jpg",
+    "time": "85",
+    "ingredients": [
+      {
+        "id": "640c2dd963a319ea671e3743",
+        "measure": "175g/6oz"
+      },
+      {
+        "id": "640c2dd963a319ea671e369a",
+        "measure": "75g/2½oz"
+      },
+      {
+        "id": "640c2dd963a319ea671e36ad",
+        "measure": "2-3 tbsp"
+      },
+      {
+        "id": "640c2dd963a319ea671e3749",
+        "measure": "1 tbsp"
+      },
+      {
+        "id": "640c2dd963a319ea671e367e",
+        "measure": "125g/4½oz"
+      },
+      {
+        "id": "640c2dd963a319ea671e3687",
+        "measure": "125g/4½oz"
+      },
+      {
+        "id": "640c2dd963a319ea671e36f6",
+        "measure": "125g/4½oz"
+      },
+      {
+        "id": "640c2dd963a319ea671e36da",
+        "measure": "1"
+      },
+      {
+        "id": "640c2dd963a319ea671e3861",
+        "measure": "½ tsp"
+      },
+      {
+        "id": "640c2dd963a319ea671e36d5",
+        "measure": "50g/1¾oz"
+      }
+    ],
+    "createdAt": {
+      "$date": {
+        "$numberLong": "1678562733239"
+      }
+    },
+    "updatedAt": {
+      "$date": {
+        "$numberLong": "1699098827388"
+      }
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6462a8f74c3d0ddd28897ffc"
+    },
+    "title": "Chicken Parmentier",
+    "category": "Chicken",
+    "owner": {
+      "_id": "64c8d958249fae54bae90bb9",
+      "name": "GoIT",
+      "avatar": null
+    },
+    "area": "French",
+    "instructions": "For the topping, boil the potatoes in salted water until tender. Drain and push through a potato ricer, or mash thoroughly. Stir in the butter, cream and egg yolks. Season and set aside.\r\nFor the filling, melt the butter in a large pan. Add the shallots, carrots and celery and gently fry until soft, then add the garlic. Pour in the wine and cook for 1 minute. Stir in the tomato purée, chopped tomatoes and stock and cook for 10–15 minutes, until thickened. Add the shredded chicken, olives and parsley. Season to taste with salt and pepper.\r\nPreheat the oven to 180C/160C Fan/Gas 4.\r\nPut the filling in a 20x30cm/8x12in ovenproof dish and top with the mashed potato. Grate over the Gruyère. Bake for 30–35 minutes, until piping hot and the potato is golden-brown.",
+    "description": "A French-inspired chicken dish with layers of mashed potatoes and cheese.",
+    "thumb": "https://ftp.goit.study/img/so-yummy/preview/Chicken%20Parmentier.jpg",
+    "time": "75",
+    "ingredients": [
+      {
+        "id": "640c2dd963a319ea671e3746",
+        "measure": "1.5kg"
+      },
+      {
+        "id": "640c2dd963a319ea671e367e",
+        "measure": "30g"
+      },
+      {
+        "id": "640c2dd963a319ea671e36c3",
+        "measure": "5 tblsp "
+      },
+      {
+        "id": "640c2dd963a319ea671e36c9",
+        "measure": "2"
+      },
+      {
+        "id": "640c2dd963a319ea671e3765",
+        "measure": "7"
+      },
+      {
+        "id": "640c2dd963a319ea671e3684",
+        "measure": "3 chopped"
+      },
+      {
+        "id": "640c2dd963a319ea671e368a",
+        "measure": "2 sticks"
+      },
+      {
+        "id": "640c2dd963a319ea671e36e4",
+        "measure": "1 finely chopped "
+      },
+      {
+        "id": "640c2dd963a319ea671e3794",
+        "measure": "4 tbsp"
+      },
+      {
+        "id": "640c2dd963a319ea671e377e",
+        "measure": "1 tbls"
+      },
+      {
+        "id": "640c2dd963a319ea671e37e8",
+        "measure": "400g"
+      },
+      {
+        "id": "640c2dd963a319ea671e3696",
+        "measure": "350ml"
+      },
+      {
+        "id": "640c2dd963a319ea671e365b",
+        "measure": "600g"
+      },
+      {
+        "id": "640c2dd963a319ea671e37ad",
+        "measure": "16"
+      },
+      {
+        "id": "640c2dd963a319ea671e3738",
+        "measure": "2 tbs"
+      }
+    ],
+    "createdAt": {
+      "$date": {
+        "$numberLong": "1678562733242"
+      }
+    },
+    "updatedAt": {
+      "$date": {
+        "$numberLong": "1697211980441"
+      }
+    }
+  }
+]
