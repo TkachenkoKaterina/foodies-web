@@ -4,50 +4,47 @@ import styles from './UserCard.module.scss';
 import { Button, IconButton } from '../../ui-kit';
 import { routes } from '../../constants/routes';
 import { getPathWithId } from '../../helpers/getPathWithId';
+import getImagePath from '../../helpers/getImagePath';
 
-const UserCard = ({ user }) => {
+const UserCard = ({ user, onFollow, onUnfollow, owner }) => {
   const navigate = useNavigate();
-  const followingList = ['2', '4'];
 
-  const isFollowing = followingList.includes(user?.id);
+  const isFollowing = owner?.following?.includes(user?._id);
 
   const goToProfile = () => {
-    navigate(getPathWithId(routes.user, user?.id));
+    navigate(getPathWithId(routes.user, user?._id));
   };
 
-  const onFollow = id => {
-    console.log('follow', id);
-  };
+  const isOwner = owner?._id === user?._id;
 
-  const onUnfollow = id => {
-    console.log('unfollow', id);
-  };
-
-  const buttonText = isFollowing ? 'following' : 'follow';
-  const onButtonClick = isFollowing
-    ? () => onUnfollow(user?.id)
-    : () => onFollow(user?.id);
+  const buttonText = isOwner ? 'me' : isFollowing ? 'following' : 'follow';
+  const onButtonClick = () =>
+    isOwner
+      ? () => {}
+      : isFollowing
+      ? onUnfollow(user?._id)
+      : onFollow(user?._id);
 
   return (
     <div className={styles.item}>
       <div className={styles.left}>
         <div className={styles.img}>
-          <img src={user?.img} alt="user" />
+          <img src={getImagePath(user?.avatar)} alt={user?.name} />
         </div>
         <div className={styles.info}>
           <p className={styles.name}>{user?.name}</p>
           <div
             className={styles.count}
-          >{`Own recipes: ${user?.ownRecipes}`}</div>
+          >{`Own recipes: ${user?.recipes?.length}`}</div>
           <Button onClick={onButtonClick} variant="outline_secondary">
             {buttonText}
           </Button>
         </div>
       </div>
       <ul className={styles.center}>
-        {user?.recipes.slice(0, 4).map(recipe => (
-          <li key={recipe.id} className={styles.recipe}>
-            <img src={recipe.img} alt="recipe" />
+        {user?.recipes.map(recipe => (
+          <li key={recipe._id} className={styles.recipe}>
+            <img src={getImagePath(recipe?.thumb)} alt={recipe?.title} />
           </li>
         ))}
       </ul>

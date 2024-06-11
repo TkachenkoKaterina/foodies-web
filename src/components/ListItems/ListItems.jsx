@@ -9,10 +9,18 @@ const ListItems = ({
   list,
   onDeleteRecipe,
   isOwner,
+  owner,
+  onFollow,
+  onUnfollow,
+  isLoading,
   // currentPage,
   // onCurrentPageChange,
 }) => {
-  if (!list.length) {
+  if (isLoading && !list?.length) {
+    return <div>Loading...</div>;
+  }
+
+  if (!list?.length && !isLoading) {
     return (
       <div className={styles.empty}>
         <p className={styles.empty_text}>{emptyText}</p>
@@ -26,7 +34,7 @@ const ListItems = ({
         {list.map(item => {
           if (type === TYPE_TABS.RECIPE) {
             return (
-              <li key={item.id} className={styles.item_recipe}>
+              <li key={item._id} className={styles.item_recipe}>
                 <RecipePreview
                   recipe={item}
                   onDeleteRecipe={onDeleteRecipe}
@@ -38,8 +46,13 @@ const ListItems = ({
 
           if (type === TYPE_TABS.USER) {
             return (
-              <li key={item.id} className={styles.item_user}>
-                <UserCard user={item} />
+              <li key={item._id} className={styles.item_user}>
+                <UserCard
+                  user={item}
+                  owner={owner}
+                  onFollow={onFollow}
+                  onUnfollow={onUnfollow}
+                />
               </li>
             );
           }

@@ -1,6 +1,7 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 
 import { routes } from './constants/routes';
+import PrivateRoute from './PrivateRoute';
 import HomePage from './pages/HomePage';
 import UserPage from './pages/UserPage';
 import Recipes from './pages/UserPage/Recipes';
@@ -13,24 +14,51 @@ const PublicRoutes = [
 ];
 
 const PrivateRoutes = [
-  <Route key={routes.user} path={`${routes.user}/:id`} element={<UserPage />}>
-    <Route key={routes.recipes} path={routes.recipes} element={<Recipes />} />
+  <Route
+    key={routes.user}
+    path={`${routes.user}/:id`}
+    element={
+      <PrivateRoute>
+        <UserPage />
+      </PrivateRoute>
+    }
+  >
+    <Route
+      key={routes.recipes}
+      path={routes.recipes}
+      element={
+        <PrivateRoute>
+          <Recipes />
+        </PrivateRoute>
+      }
+    />
     <Route
       key={routes.followers}
       path={routes.followers}
-      element={<Followers />}
+      element={
+        <PrivateRoute>
+          <Followers />
+        </PrivateRoute>
+      }
     />
     <Route
       key={routes.favorites}
       path={routes.favorites}
-      element={<Favorites />}
+      element={
+        <PrivateRoute>
+          <Favorites />
+        </PrivateRoute>
+      }
     />
     <Route
       key={routes.following}
       path={`${routes.user}/:id/${routes.following}`}
-      element={<Following />}
+      element={
+        <PrivateRoute>
+          <Following />
+        </PrivateRoute>
+      }
     />
-    ,
   </Route>,
 ];
 
@@ -39,7 +67,7 @@ const RoutesSwitch = () => {
     <Routes>
       {PublicRoutes}
       {PrivateRoutes}
-      <Route path="*" element={<div>Not Found</div>} />
+      <Route path="*" element={<Navigate to={routes.main} />} />
     </Routes>
   );
 };

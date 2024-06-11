@@ -1,132 +1,35 @@
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+
 import ListItems from '../../../components/ListItems';
 import { TYPE_TABS, EMPTY_TEXT } from '../../../constants/common';
-import userImg from '../../../assets/images/user.png';
-import foodImg from '../../../assets/images/food.png';
-
-const users = [
-  {
-    id: '1',
-    img: userImg,
-    name: 'viktoria',
-    ownRecipes: 30,
-    recipes: [
-      {
-        id: '1',
-        img: foodImg,
-      },
-      {
-        id: '2',
-        img: foodImg,
-      },
-      {
-        id: '3',
-        img: foodImg,
-      },
-      {
-        id: '4',
-        img: foodImg,
-      },
-    ],
-  },
-  {
-    id: '2',
-    img: userImg,
-    name: 'viktoria',
-    ownRecipes: 30,
-    recipes: [
-      {
-        id: '1',
-        img: foodImg,
-      },
-      {
-        id: '2',
-        img: foodImg,
-      },
-      {
-        id: '3',
-        img: foodImg,
-      },
-      {
-        id: '4',
-        img: foodImg,
-      },
-    ],
-  },
-  {
-    id: '3',
-    img: userImg,
-    name: 'viktoria',
-    ownRecipes: 30,
-    recipes: [
-      {
-        id: '1',
-        img: foodImg,
-      },
-      {
-        id: '2',
-        img: foodImg,
-      },
-      {
-        id: '3',
-        img: foodImg,
-      },
-      {
-        id: '4',
-        img: foodImg,
-      },
-    ],
-  },
-  {
-    id: '4',
-    img: userImg,
-    name: 'viktoria',
-    ownRecipes: 30,
-    recipes: [
-      {
-        id: '1',
-        img: foodImg,
-      },
-      {
-        id: '2',
-        img: foodImg,
-      },
-      {
-        id: '3',
-        img: foodImg,
-      },
-      {
-        id: '4',
-        img: foodImg,
-      },
-    ],
-  },
-  {
-    id: '5',
-    img: userImg,
-    name: 'viktoria',
-    ownRecipes: 30,
-    recipes: [
-      {
-        id: '1',
-        img: foodImg,
-      },
-      {
-        id: '2',
-        img: foodImg,
-      },
-      {
-        id: '3',
-        img: foodImg,
-      },
-      {
-        id: '4',
-        img: foodImg,
-      },
-    ],
-  },
-];
+import { userApi } from '../../../services/Api';
+import { useFollow, useOwner } from '../../../hooks/user';
 
 const Followers = () => {
+  const { id } = useParams();
+  const [users, setUsers] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const owner = useOwner();
+  const { onFollow, onUnfollow } = useFollow();
+
+  const getUsers = async () => {
+    try {
+      const { data } = await userApi.getFollowers(id);
+      setUsers(data?.followers);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!id) return;
+
+    getUsers();
+  }, [id]);
+
   return (
     <ListItems
       type={TYPE_TABS.USER}
@@ -134,6 +37,10 @@ const Followers = () => {
       currentPage={1}
       onCurrentPageChange={() => {}}
       list={users}
+      isLoading={isLoading}
+      owner={owner}
+      onFollow={onFollow}
+      onUnfollow={onUnfollow}
     />
   );
 };

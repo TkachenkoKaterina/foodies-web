@@ -1,5 +1,4 @@
 import { useParams } from 'react-router-dom';
-
 import ListItems from '../../../components/ListItems';
 import { TYPE_TABS, EMPTY_TEXT } from '../../../constants/common';
 import foodImg from '../../../assets/images/food.png';
@@ -72,6 +71,7 @@ const recipes = [
 
 const Recipes = () => {
   const { id } = useParams();
+
   const isOwner = id === '10';
 
   const onDeleteRecipe = id => {
