@@ -3,12 +3,15 @@ import 'modern-normalize';
 import './styles/styles.scss';
 import Layout from './components/Layout';
 import RoutesSwitch from './Router';
+import CurrentUser from './CurrentUser';
 
 const App = () => {
   return (
-    <Layout>
-      <RoutesSwitch />
-    </Layout>
+    <CurrentUser>
+      <Layout>
+        <RoutesSwitch />
+      </Layout>
+    </CurrentUser>
   );
 };
 

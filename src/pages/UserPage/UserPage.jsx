@@ -1,48 +1,49 @@
 import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 import User from '../../components/User';
-import userImg from '../../assets/images/user.png';
+import { userApi } from '../../services/Api';
+import { useFollow, useOwner, useUpdateAvatar } from '../../hooks/user';
+import { useLogout } from '../../hooks/auth';
 
 const UserPage = () => {
+  const owner = useOwner();
   const { id } = useParams();
-  const owner = {
-    id: '10',
-    followingList: ['2', '4'],
-  };
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const { onFollow, onUnfollow } = useFollow();
+  const { onLogout } = useLogout();
+  const { onUpdateAvatar } = useUpdateAvatar();
 
-  const user = {
-    id,
-    name: 'vICTORIA',
-    email: 'victoria28682@gmai.com',
-    recipes: 9,
-    favorites: 9,
-    followers: 5,
-    following: 5,
-    avatar: userImg,
-  };
-
-  const isOwner = owner?.id === user?.id;
-
-  const textButton = isOwner
-    ? 'log out'
-    : owner?.followingList?.includes(user?.id)
-    ? 'following'
-    : 'follow';
-
-  const onButtonClick = () => {
-    if (isOwner) {
-      console.log('log out');
-    } else {
-      console.log('follow');
+  const getUser = async () => {
+    try {
+      const { data } = await userApi.getProfile(id);
+      setUser(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
+  useEffect(() => {
+    if (!id) return;
+
+    getUser();
+  }, [id]);
+
   return (
     <User
-      isOwner={isOwner}
+      isOwner={owner?._id === user?._id}
       user={user}
-      onButtonClick={onButtonClick}
-      textButton={textButton}
+      userImg={owner?._id === user?._id ? owner?.avatar : user?.avatar}
+      isFollow={owner?.following.includes(user?._id)}
+      isLoading={isLoading}
+      onFollowClick={
+        owner?.following.includes(user?._id) ? onUnfollow : onFollow
+      }
+      onLogout={onLogout}
+      onUpdateAvatar={onUpdateAvatar}
     />
   );
 };

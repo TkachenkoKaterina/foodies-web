@@ -15,7 +15,7 @@ const RecipePreview = ({ isOwner, recipe, onDeleteRecipe }) => {
   return (
     <div className={styles.item}>
       <div className={styles.img}>
-        <img src={recipe.img} alt="recipe" />
+        <img src={recipe?.img} alt="recipe" />
       </div>
       <div className={styles.info}>
         <p className={styles.title}>{recipe?.title}</p>
@@ -27,7 +27,7 @@ const RecipePreview = ({ isOwner, recipe, onDeleteRecipe }) => {
         {isOwner && (
           <IconButton
             icon="icon-trash"
-            onClick={() => onDeleteRecipe(recipe.id)}
+            onClick={() => onDeleteRecipe(recipe?.id)}
           />
         )}
       </div>
