@@ -1,14 +1,14 @@
 import React from 'react';
 import styles from './UnauthHeader.module.scss';
-import { Container, LogoWhite, AuthBar } from '../../ui-kit';
+import { Container, LogoWhite, Logo, AuthBar } from '../../ui-kit';
 
-const UnauthHeader = () => {
+const UnauthHeader = ({isHomePage}) => {
   return (
     <header className={styles.header}>
       <Container>
         <nav className={styles.navbar}>
-          <LogoWhite />
-         <AuthBar />
+        {isHomePage ? <LogoWhite /> : <Logo />}
+          <AuthBar />
         </nav>
       </Container>
     </header>

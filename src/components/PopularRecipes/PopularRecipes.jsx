@@ -13,7 +13,7 @@ const PopularRecipes = () => {
               title={item.title}
               description={item.description}
               owner={item.owner}
-              img={item.img}
+              img={item.thumb}
               id={item._id}
             />
           );

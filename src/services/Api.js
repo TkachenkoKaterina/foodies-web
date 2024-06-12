@@ -38,11 +38,20 @@ export const userApi = {
   updateAvatar: data => apiInstanceImages.patch('/api/users/avatars', data),
 };
 
-export const recipeApi = {
-  getRecipes: (id, params) => apiInstance.get(`/api/recipes/${id}`, { params }),
-  deleteRecipe: id => apiInstance.delete(`/api/recipes/${id}`),
-  getFavoriteRecipes: params =>
-    apiInstance.get('/api/recipes/favorites', { params }),
-  addToFavorites: id => apiInstance.post(`/api/recipes/favorites/${id}`),
-  removeFromFavorites: id => apiInstance.delete(`/api/recipes/favorites/${id}`),
+
+// export const recipeApi = {
+//   getRecipes: (id, params) => apiInstance.get(`/api/recipes/${id}`, { params }),
+//   deleteRecipe: id => apiInstance.delete(`/api/recipes/${id}`),
+//   getFavoriteRecipes: params =>
+//     apiInstance.get('/api/recipes/favorites', { params }),
+//   addToFavorites: id => apiInstance.post(`/api/recipes/favorites/${id}`),
+//   removeFromFavorites: id => apiInstance.delete(`/api/recipes/favorites/${id}`),
+
+export const recipesApi = {
+  getRecipes: (category, area, ingredientId, page, limit) =>
+    apiInstance.get(
+      `/api/recipes/filter/${category}?area=${area}&ingredient=${ingredientId}&page=${page}&limit=${limit}`
+    ),
+  getRecipe: id => apiInstance.get(`/api/recipes/public/${id}`),
+  getPopularRecipes: () => apiInstance.get(`/api/recipes/popular`),
 };
