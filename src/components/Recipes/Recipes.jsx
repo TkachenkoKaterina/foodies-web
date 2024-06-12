@@ -1,16 +1,24 @@
 import { IconButton, MainTitle, Subtitle } from '../../ui-kit';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import RecipeList from '../ResipeList';
 import RecipeFilters from '../RecipeFilters';
+import { useDispatch, useSelector } from 'react-redux';
+import { getRecipesInCategory } from '../../redux/recipes/recipesOperations';
+import { getRecipes } from '../../redux/recipes/recipesSelectors';
 
 const Recipes = ({ category = 'Dessert' }) => {
   const [isRender, setIsRender] = useState(category);
-  let recipes;
+  const params = {};
   const goToCategory = e => {
     e.preventDefault();
     setIsRender(false);
   };
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(getRecipesInCategory(category, params));
+  }, [dispatch]);
+  const recipes = useSelector(getRecipes);
   return (
     <>
       {isRender && (

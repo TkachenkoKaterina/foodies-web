@@ -1,29 +1,29 @@
+import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { recipesApi } from '../../services/Api';
+import { BASE_URL } from '../../services/BaseUrl.js';
+import { recipesApi } from '../../services/Api.js';
+
+axios.defaults.baseURL = BASE_URL;
 
 export const getRecipesInCategory = createAsyncThunk(
   'recipes/filter',
-  async (category, area, inngredientId, page, limit, { rejectWithValue }) => {
+  async (category, params, thunkAPI) => {
     try {
-      const { data } = await recipesApi(
-        category,
-        area,
-        inngredientId,
-        page,
-        limit
-      );
+      console.log('argument passed to action creator:', category);
+
+      const { data } = await recipesApi.getRecipes(category, params);
       return data;
     } catch (error) {
-      rejectWithValue(error);
+      thunkAPI.rejectWithValue(error);
     }
   }
 );
-
+getRecipesInCategory('Beef');
 export const getRecipeById = createAsyncThunk(
   'recipes/recipe',
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await getRecipe(id);
+      const { data } = await recipesApi.getRecipe(id);
       return data;
     } catch (error) {
       rejectWithValue(error);
