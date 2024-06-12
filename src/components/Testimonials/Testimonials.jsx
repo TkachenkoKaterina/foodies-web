@@ -4,8 +4,9 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import css from './Testimonials.module.scss';
 import Container from '../../ui-kit/Container';
-// import ListPagination from '../../ui-kit/ListPagination';
 import quote from '../../assets/icons/quote.svg';
+
+// import ListPagination from '../../ui-kit/ListPagination';
 
 const testimonials = [
   {
@@ -41,7 +42,7 @@ const Testimonials = () => {
           className={css['swiper']}
         >
           {testimonials.map(testimonial => (
-            <SwiperSlide key={testimonial.id} className={css['swiperSlide']}>
+            <SwiperSlide key={testimonial._id} className={css['swiperSlide']}>
               <svg className={css['svg']}>
                 <use xlinkHref={`${quote}#icon-quote`} />
               </svg>

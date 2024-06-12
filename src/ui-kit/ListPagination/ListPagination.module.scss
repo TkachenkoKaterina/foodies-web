@@ -1,1 +1,38 @@
-// @import '../../styles/main.scss';
+@import '../../styles/main.scss';
+
+.pagination {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+  padding: 10px 20px;
+}
+
+.page {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  list-style: none;
+  margin: 0 5px;
+  padding: 5px 10px;
+  border-radius: 3px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid $--color-grey;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.page_active {
+  border-color: $--color-main;
+}
+
+.page_disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.current_page {
+  cursor: default;
+}
