@@ -1,14 +1,14 @@
 @import '../../styles/main.scss';
 
 .page {
-  padding: 64px 0;
+  padding: 126px 0 64px;
 
   @include min-desktop {
-    padding: 64px 0 100px;
+    padding: 150px 0 100px;
   }
 
   @include min-desktop {
-    padding: 80px 0 120px;
+    padding: 170px 0 120px;
   }
 }
 

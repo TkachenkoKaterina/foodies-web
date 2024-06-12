@@ -1,6 +1,7 @@
 export const routes = {
   main: '/',
   user: '/user',
+  recipe: '/recipe',
   recipes: '',
   favorites: 'favorites',
   followers: 'followers',

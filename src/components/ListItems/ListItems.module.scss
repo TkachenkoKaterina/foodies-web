@@ -1,6 +1,9 @@
 @import '../../styles/main.scss';
 
 .empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 80px 0 36px;
 
   @include min-tablet {
@@ -23,7 +26,6 @@
       line-height: 1.5;
       letter-spacing: -0.32px;
       max-width: 610px;
-      margin: 0 auto;
     }
   }
 }
@@ -48,7 +50,7 @@
     width: 100%;
 
     & .item_recipe {
-      &:not(:last-child) {
+      &:not(:first-child) {
         margin-top: 32px;
 
         @include min-tablet {

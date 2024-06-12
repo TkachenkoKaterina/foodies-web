@@ -32,14 +32,24 @@ export const userApi = {
   getProfile: id => apiInstance.get(`/api/users/profile/${id}`),
   followUser: id => apiInstance.post(`/api/users/follow/${id}`),
   unfollowUser: id => apiInstance.delete(`/api/users/follow/${id}`),
-  getFollowers: id => apiInstance.get(`/api/users/followers/${id}`),
-  getFollowing: () => apiInstance.get(`/api/users/following`),
+  getFollowers: (id, params) =>
+    apiInstance.get(`/api/users/followers/${id}`, { params }),
+  getFollowing: params => apiInstance.get(`/api/users/following`, { params }),
   updateAvatar: data => apiInstanceImages.patch('/api/users/avatars', data),
 };
+
+export const recipeApi = {
+  getRecipes: (id, params) => apiInstance.get(`/api/recipes/${id}`, { params }),
+  deleteRecipe: id => apiInstance.delete(`/api/recipes/${id}`),
+  getFavoriteRecipes: params =>
+    apiInstance.get('/api/recipes/favorites', { params }),
+  addToFavorites: id => apiInstance.post(`/api/recipes/favorites/${id}`),
+  removeFromFavorites: id => apiInstance.delete(`/api/recipes/favorites/${id}`),
 
 export const categoriesApi = {
   getCategories: () => apiInstance.get('/api/categories'),
 };
+
 
 export const recipesApi = {
   getRecipes: (category, area, ingredientId, page, limit) =>

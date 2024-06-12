@@ -9,11 +9,16 @@ const Following = () => {
   const [isLoading, setIsLoading] = useState(true);
   const owner = useOwner();
   const { onFollow, onUnfollow } = useFollow();
+  const [page, setPage] = useState(1);
+
+  const onChangePage = page => {
+    setPage(page);
+  };
 
   const getUsers = async () => {
     try {
-      const { data } = await userApi.getFollowing();
-      setUsers(data.following);
+      const { data } = await userApi.getFollowing({ page });
+      setUsers(data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -29,13 +34,15 @@ const Following = () => {
     <ListItems
       emptyText={EMPTY_TEXT.FOLLOWING}
       onCurrentPageChange={() => {}}
-      list={users}
+      data={users}
       type={TYPE_TABS.USER}
       isLoading={isLoading}
       followingList={owner?.following}
       onFollow={onFollow}
       onUnfollow={onUnfollow}
       owner={owner}
+      currentPage={page}
+      onChangePage={onChangePage}
     />
   );
 };
