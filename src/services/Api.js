@@ -21,6 +21,8 @@ export const apiInstanceImages = axios.create({
   },
 });
 
+
+
 export const authApi = {
   register: data => apiInstance.post('/api/users/signup', data),
   login: data => apiInstance.post('/api/users/signin', data),
@@ -35,4 +37,8 @@ export const userApi = {
   getFollowers: id => apiInstance.get(`/api/users/followers/${id}`),
   getFollowing: () => apiInstance.get(`/api/users/following`),
   updateAvatar: data => apiInstanceImages.patch('/api/users/avatars', data),
+};
+
+export const categoriesApi = {
+  getCategories: () => apiInstance.get('/api/categories'),
 };
