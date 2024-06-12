@@ -1,20 +1,34 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 
 import { routes } from './constants/routes';
 import PrivateRoute from './PrivateRoute';
+import { PageLoader } from './ui-kit';
 import HomePage from './pages/HomePage';
-import UserPage from './pages/UserPage';
+const UserPage = lazy(() => import('./pages/UserPage'));
 import Recipes from './pages/UserPage/Recipes';
 import Followers from './pages/UserPage/Followers';
 import Favorites from './pages/UserPage/Favorites';
 import Following from './pages/UserPage/Following';
 import AddRecipePage from './pages/AddRecipePage/AddRecipePage';
+import RecipePage from './pages/RecipePage';
+
 
 const PublicRoutes = [
   <Route key={routes.main} path={routes.main} element={<HomePage />} />,
+  <Route key={routes.recipe} path={`${routes.recipe}/:id`} element={<RecipePage />} />,
 ];
 
 const PrivateRoutes = [
+  <Route
+    key={routes.recipe}
+    path={`${routes.recipe}/:id`}
+    element={
+      <PrivateRoute>
+        <div>Recipe Page</div>
+      </PrivateRoute>
+    }
+  />,
   <Route
     key={routes.user}
     path={`${routes.user}/:id`}
@@ -70,11 +84,13 @@ const PrivateRoutes = [
 
 const RoutesSwitch = () => {
   return (
-    <Routes>
-      {PublicRoutes}
-      {PrivateRoutes}
-      <Route path="*" element={<Navigate to={routes.main} />} />
-    </Routes>
+    <Suspense fallback={<PageLoader />}>
+      <Routes>
+        {PublicRoutes}
+        {PrivateRoutes}
+        <Route path="*" element={<Navigate to={routes.main} />} />
+      </Routes>
+    </Suspense>
   );
 };
 

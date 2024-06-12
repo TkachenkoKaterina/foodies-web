@@ -12,6 +12,13 @@
   }
 }
 
+.img-other-wrapper {
+  @include min-desktop {
+    display: flex;
+    gap: 80px;
+  }
+}
+
 .title {
   margin-bottom: 16px;
   font-weight: 800;
@@ -21,55 +28,86 @@
   text-transform: uppercase;
 
   @include min-tablet {
-    padding-bottom: 20px;
+    margin-bottom: 20px;
     font-size: 40px;
     line-height: 1.1;
-    letter-spacing: -0.02em;
   }
 }
 
 .text {
   margin-bottom: 32px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.43;
+  letter-spacing: -0.02em;
+  color: $--color-main-opacity80;
+
   @include min-tablet {
     margin-bottom: 40px;
     max-width: 443px;
+    font-size: 16px;
+    line-height: 1.5;
   }
 }
 
 .form {
-  /* Стили для формы */
 }
 
 .container-form {
-  /* Стили для контейнеров отдельных полей формы */
+}
+
+.input-counter-wrapper {
+  position: relative;
+  width: 343px;
+  margin-bottom: 76px;
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -16px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: $--color-main-opacity20;
+
+    @include min-tablet {
+      width: 649px;
+      margin-bottom: 48px;
+    }
+  }
 }
 
 .label {
   display: block;
   margin-bottom: 8px;
   font-weight: 800;
+  font-size: 16px;
   line-height: 1.5;
   letter-spacing: -0.02em;
   text-transform: uppercase;
   color: $--color-main;
+
   @include min-tablet {
     margin-bottom: 16px;
+    font-size: 20px;
+    line-height: 1.2;
   }
 }
 
 .input {
   margin-bottom: 32px;
-  width: 343px;
+  width: 270px;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.43;
   letter-spacing: -0.02em;
   color: $--color-main-opacity80;
   @include min-tablet {
-    margin-bottom: 16px;
+    margin-bottom: 60px;
     line-height: 1.5;
-    width: 649px;
+    width: 550px;
     height: 24px;
+    font-size: 16px;
+    line-height: 1.5;
   }
 
   &::placeholder {
@@ -85,15 +123,10 @@
   }
 }
 
-.input-file {
-  margin-bottom: 32px;
-  border: 1px dashed $--color-main-opacity20;
-  border-radius: 30px;
-  width: 343px;
-  height: 318px;
+.input-quantity {
+  width: 270px;
   @include min-tablet {
-    width: 704px;
-    height: 400px;
+    width: 550px;
   }
 }
 
@@ -103,7 +136,6 @@
   line-height: 1.33;
   letter-spacing: -0.02em;
   text-transform: uppercase;
-  color: var(--main);
 
   @include min-tablet {
     font-size: 24px;
@@ -125,9 +157,45 @@
   }
 }
 
-.input-description {
-  border: none;
-  border-bottom: 1px solid $--color-main-opacity12;
+.input-file {
+  margin-bottom: 32px;
+  border: 1px dashed $--color-main-opacity20;
+  border-radius: 30px;
+  width: 343px;
+  height: 318px;
+  @include min-tablet {
+    width: 704px;
+    height: 400px;
+  }
+}
+
+.category-area-wrapper {
+  @include min-tablet {
+    display: flex;
+    gap: 19px;
+  }
+}
+
+.ingredient-quantity-wrapper {
+  @include min-tablet {
+    display: flex;
+    gap: 19px;
+  }
+}
+
+.ingredient-title {
+  margin-bottom: 8px;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: $--color-main;
+  @include min-tablet {
+    margin-bottom: 16px;
+    font-size: 20px;
+    line-height: 1.2;
+  }
 }
 
 .input-time {
@@ -147,13 +215,19 @@
   }
 }
 
-.input-quantity {
-}
-
-.error {
-}
+// .error {
+// }
 
 .character-count {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.43;
+  letter-spacing: -0.02em;
+  color: $--color-main-opacity60;
 }
 
 .select {
@@ -175,26 +249,26 @@
   }
 }
 
-.select-category {
-}
+// .select-category {
+// }
 
-.select-area {
-}
+// .select-area {
+// }
 
-.select-ingredient {
-}
+// .select-ingredient {
+// }
 
-.image-preview-container {
-}
+// .image-preview-container {
+// }
 
-.image-preview {
-}
+// .image-preview {
+// }
 
-.remove-image-container {
-}
+// .remove-image-container {
+// }
 
-.remove-image-button {
-}
+// .remove-image-button {
+// }
 
 .time-container {
   display: flex;
@@ -216,6 +290,7 @@
   padding: 16px;
   width: 48px;
   height: 48px;
+
   @include min-tablet {
     width: 56px;
     height: 56px;
@@ -232,6 +307,19 @@
   padding: 14px 20px;
   width: 186px;
   height: 48px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.43;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+
+  @include min-tablet {
+    padding: 16px 32px;
+    width: 229px;
+    height: 56px;
+    font-size: 16px;
+    line-height: 1.5;
+  }
 }
 
 .textarea {
@@ -242,9 +330,19 @@
 }
 
 .textarea-preparation {
-  stroke-width: 1px;
-  stroke: $--color-main-opacity12;
   width: 343px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.43;
+  letter-spacing: -0.02em;
+  color: $--color-main-opacity80;
+  border: none;
+  border-bottom: 1px solid $--color-main-opacity12;
+  @include min-tablet {
+    width: 649px;
+    font-size: 16px;
+    line-height: 1.5;
+  }
   &::placeholder {
     width: 649px;
     font-weight: 500;
@@ -252,6 +350,10 @@
     line-height: 1.43;
     letter-spacing: -0.02em;
     color: $--color-main-opacity60;
+    @include min-tablet {
+      font-size: 16px;
+      line-height: 1.5;
+    }
   }
 }
 

@@ -1,0 +1,28 @@
+@import '../../styles/main.scss';
+
+.categories {
+
+    &-section {
+        margin-top: 120px;
+    }
+
+    &-title {
+        text-transform: uppercase;
+        font-size: 40px;
+        font-weight: 800;
+        line-height: 1.1em;
+        letter-spacing: -0.02em;
+        color: $--color-main;
+    }
+
+    &-description {
+        width: 530px;
+
+        margin-top: 20px;
+
+        font-weight: 500;
+        line-height: 1.5em;
+        letter-spacing: -0.02em;
+        color: $--color-main-opacity80;
+    }
+}
