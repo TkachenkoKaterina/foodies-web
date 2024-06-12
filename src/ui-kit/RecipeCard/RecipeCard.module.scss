@@ -1,0 +1,78 @@
+@import '../../styles/main.scss';
+
+.card {
+  display: block;
+  width: 342px;
+
+  & .img {
+    border-radius: 20px;
+    @include min-tablet {
+      border-radius: 30px;
+    }
+  }
+  & .title {
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -0.02em;
+    text-align: left;
+    text-transform: uppercase;
+    margin-top: 16px;
+    @include min-tablet {
+      font-size: 20px;
+    }
+  }
+
+  & .description {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: -0.02em;
+    color: var($--color-main-opacity80);
+    text-align: left;
+    @include min-tablet {
+      font-size: 16px;
+    }
+  }
+
+  & .cardFooter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    & .ownerInfo {
+      display: flex;
+      align-items: center;
+
+      & .avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 30px;
+        margin-right: 8px;
+        @include min-tablet {
+          width: 40px;
+          height: 40px;
+        }
+      }
+      & .name {
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 24px;
+        letter-spacing: -0.02em;
+        text-align: left;
+        @include min-tablet {
+          font-size: 16px;
+        }
+      }
+    }
+    & .actionsBlock {
+      display: flex;
+      flex-direction: row;
+      & .heardBtn {
+        margin-left: 4px;
+      }
+    }
+  }
+}

@@ -11,12 +11,13 @@ const Header = ({ isAuthenticated, onSignInClick, onSignUpClick }) => {
 
 
   return (
-    <AuthHeader />
+    <AuthHeader  isHomePage={isHomePage} />
     // <>
     // {isAuthenticated ? (
-    //     <AuthHeader />
+    //     <AuthHeader  isHomePage={isHomePage} />
     //   ) : (
     //     <UnauthHeader
+    //       isHomePage={isHomePage} 
     //       onSignInClick={onSignInClick}
     //       onSignUpClick={onSignUpClick}
     //     />

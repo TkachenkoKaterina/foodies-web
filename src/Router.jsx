@@ -9,9 +9,12 @@ import Followers from './pages/UserPage/Followers';
 import Favorites from './pages/UserPage/Favorites';
 import Following from './pages/UserPage/Following';
 import AddRecipePage from './pages/AddRecipePage/AddRecipePage';
+import RecipePage from './pages/RecipePage';
+
 
 const PublicRoutes = [
   <Route key={routes.main} path={routes.main} element={<HomePage />} />,
+  <Route key={routes.recipe} path={`${routes.recipe}/:id`} element={<RecipePage />} />,
 ];
 
 const PrivateRoutes = [

@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
-import styles from './Nav.module.scss';
+import styles from './NavWhite.module.scss';
 
-const Nav = () => {
+const NavWhite = () => {
     return (
 <ul className={styles.list}>
         <li className={styles.item}>
@@ -24,4 +24,4 @@ const Nav = () => {
       );
     };
     
-    export default Nav;
+    export default NavWhite;

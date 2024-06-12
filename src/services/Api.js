@@ -21,8 +21,6 @@ export const apiInstanceImages = axios.create({
   },
 });
 
-
-
 export const authApi = {
   register: data => apiInstance.post('/api/users/signup', data),
   login: data => apiInstance.post('/api/users/signin', data),
@@ -41,4 +39,13 @@ export const userApi = {
 
 export const categoriesApi = {
   getCategories: () => apiInstance.get('/api/categories'),
+};
+
+export const recipesApi = {
+  getRecipes: (category, area, ingredientId, page, limit) =>
+    apiInstance.get(
+      `/api/recipes/filter/${category}?area=${area}&ingredient=${ingredientId}&page=${page}&limit=${limit}`
+    ),
+  getRecipe: id => apiInstance.get(`/api/recipes/public/${id}`),
+  getPopularRecipes: () => apiInstance.get(`/api/recipes/popular`),
 };

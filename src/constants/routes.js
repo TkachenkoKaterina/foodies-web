@@ -6,4 +6,5 @@ export const routes = {
   followers: 'followers',
   following: 'following',
   addRecipe: '/recipe/add',
+  recipe: '/recipe',
 };
