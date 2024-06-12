@@ -4,22 +4,26 @@ import styles from './RecipePreview.module.scss';
 import { IconButton } from '../../ui-kit';
 import { routes } from '../../constants/routes';
 import { getPathWithId } from '../../helpers/getPathWithId';
+import { getImagePath, TYPE_IMG } from '../../helpers/getImagePath';
 
 const RecipePreview = ({ isOwner, recipe, onDeleteRecipe }) => {
   const navigate = useNavigate();
 
   const goToRecipe = () => {
-    navigate(getPathWithId(routes.recipe, recipe?.id));
+    navigate(getPathWithId(routes.recipe, recipe?._id));
   };
 
   return (
     <div className={styles.item}>
       <div className={styles.img}>
-        <img src={recipe?.img} alt="recipe" />
+        <img
+          src={getImagePath(recipe?.thumb, TYPE_IMG.RECIPE)}
+          alt={recipe?.title}
+        />
       </div>
       <div className={styles.info}>
         <p className={styles.title}>{recipe?.title}</p>
-        <p className={styles.descr}>{recipe?.decription}</p>
+        <p className={styles.descr}>{recipe?.description}</p>
       </div>
       <div className={styles.buttons}>
         <IconButton icon="icon-arrow-up-right" onClick={goToRecipe} />
@@ -27,7 +31,7 @@ const RecipePreview = ({ isOwner, recipe, onDeleteRecipe }) => {
         {isOwner && (
           <IconButton
             icon="icon-trash"
-            onClick={() => onDeleteRecipe(recipe?.id)}
+            onClick={() => onDeleteRecipe(recipe?._id)}
           />
         )}
       </div>

@@ -1,14 +1,43 @@
-import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 import ListItems from '../../../components/ListItems';
 import { TYPE_TABS, EMPTY_TEXT } from '../../../constants/common';
+import { recipeApi } from '../../../services/Api';
 
 const Favorites = () => {
-  const { id } = useParams();
-  const isOwner = id === '10';
+  const [recipes, setRecipes] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [page, setPage] = useState(1);
 
-  const onDeleteRecipe = id => {
-    console.log('delete', id);
+  const onChangePage = page => {
+    setPage(page);
+  };
+
+  const getRecipes = async () => {
+    try {
+      const { data } = await recipeApi.getFavoriteRecipes({ page, limit: 9 });
+      setRecipes({
+        total: 0,
+        result: data?.avorites,
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getRecipes();
+  }, []);
+
+  const onDeleteRecipe = async id => {
+    try {
+      await recipeApi.removeFromFavorites(id);
+      setRecipes(prev => prev.filter(recipe => recipe._id !== id));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -16,10 +45,13 @@ const Favorites = () => {
       emptyText={EMPTY_TEXT.FAVORITES}
       currentPage={1}
       onCurrentPageChange={() => {}}
-      list={[]}
       type={TYPE_TABS.RECIPE}
+      isOwner={true}
+      data={recipes}
+      isLoading={isLoading}
       onDeleteRecipe={onDeleteRecipe}
-      isOwner={isOwner}
+      page={page}
+      onChangePage={onChangePage}
     />
   );
 };

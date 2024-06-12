@@ -1,5 +1,12 @@
 import styles from './User.module.scss';
-import { Container, PathInfo, MainTitle, Subtitle, Button } from '../../ui-kit';
+import {
+  Container,
+  PathInfo,
+  MainTitle,
+  Subtitle,
+  Button,
+  PageLoader,
+} from '../../ui-kit';
 import UserInfo from '../UserInfo';
 import TabsList from '../TabsList';
 
@@ -24,7 +31,7 @@ const User = ({
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <PageLoader />;
   }
 
   return (
