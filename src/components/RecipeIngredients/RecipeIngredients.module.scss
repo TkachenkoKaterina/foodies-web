@@ -1,0 +1,21 @@
+@import '../../styles/main.scss';
+
+.ingredient_image_container {
+    width: 90px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid $--color-main-opacity10;
+    margin-right: 10px;
+    border-radius: 15px;
+    overflow: hidden;
+
+}
+
+.ingredient_image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+}
