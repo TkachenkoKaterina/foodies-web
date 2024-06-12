@@ -1,6 +1,6 @@
 import Container from '../../ui-kit/Container';
 
-import images from '../../assets/images'
+import images from '../../assets/images/hero'
 
 import css from './Hero.module.scss';
 const Hero = () => {

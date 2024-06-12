@@ -37,6 +37,10 @@ export const userApi = {
   updateAvatar: data => apiInstanceImages.patch('/api/users/avatars', data),
 };
 
+export const categoriesApi = {
+  getCategories: () => apiInstance.get('/api/categories'),
+};
+
 export const recipesApi = {
   getRecipes: (category, area, ingredientId, page, limit) =>
     apiInstance.get(
