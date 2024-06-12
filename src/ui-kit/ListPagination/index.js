@@ -1,1 +1,1 @@
-// export { default } from './ListPagination';
+export { default } from './ListPagination';
