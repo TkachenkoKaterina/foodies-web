@@ -3,7 +3,7 @@ import { IconButton } from '..';
 import { routes } from '../../constants/routes';
 import { useNavigate } from 'react-router-dom';
 import { getIsLoggedIn } from '../../redux/auth/authSelectors';
-import getImagePath from '../../helpers/getImagePath';
+import { getImagePath } from '../../helpers/getImagePath';
 import styles from './RecipeCard.module.scss';
 
 const RecipeCard = ({
