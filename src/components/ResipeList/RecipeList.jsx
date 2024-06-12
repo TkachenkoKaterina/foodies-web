@@ -1,16 +1,17 @@
 import { RecipeCard } from '../../ui-kit';
 import recipes from './recipes.json';
-const RecipeList = ({ user, category }) => {
+import styles from './RecipeList.module.scss';
+const RecipeList = ({ category }) => {
   return (
-    <ul key={category}>
-      {recipes.map(item => {
+    <ul key={category} className={styles.recipesList}>
+      {recipes.map((item, index) => {
         return (
           <RecipeCard
-            key={item._id}
+            key={item._id + index}
             title={item.title}
             description={item.description}
             owner={item.owner}
-            img={item.img}
+            img={item.thumb}
             id={item._id}
           />
         );

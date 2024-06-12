@@ -36,3 +36,12 @@ export const userApi = {
   getFollowing: () => apiInstance.get(`/api/users/following`),
   updateAvatar: data => apiInstanceImages.patch('/api/users/avatars', data),
 };
+
+export const recipesApi = {
+  getRecipes: (category, area, ingredientId, page, limit) =>
+    apiInstance.get(
+      `/api/recipes/filter/${category}?area=${area}&ingredient=${ingredientId}&page=${page}&limit=${limit}`
+    ),
+  getRecipe: id => apiInstance.get(`/api/recipes/public/${id}`),
+  getPopularRecipes: () => apiInstance.get(`/api/recipes/popular`),
+};

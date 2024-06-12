@@ -14,7 +14,7 @@ const Recipes = ({ category = 'Dessert' }) => {
   return (
     <>
       {isRender && (
-        <div>
+        <div className="">
           <IconButton icon="icon-arrow-left" onClick={goToCategory} />
           <MainTitle text={category} />
           <Subtitle text="Go on a taste journey, where every sip is a sophisticated creative chord, and every dessert is an expression of the most refined gastronomic desires." />
