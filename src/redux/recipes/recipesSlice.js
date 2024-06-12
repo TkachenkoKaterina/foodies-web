@@ -21,8 +21,8 @@ const recipesSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(getRecipesInCategory.fulfilled, state => {
-        state.recipesList = initialState.recipesList;
+      .addCase(getRecipesInCategory.fulfilled, (state, action) => {
+        state.recipesList = action.payload;
         state.isLoading = false;
       })
       .addCase(getRecipesInCategory.rejected, (state, action) => {

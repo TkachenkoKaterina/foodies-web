@@ -8,20 +8,24 @@ import { getRecipes } from '../../redux/recipes/recipesSelectors';
 const RecipeList = ({ recipes }) => {
   // const recipes = useSelector(getRecipes);
   return (
-    <ul key="recipes" className={styles.recipesList}>
-      {recipes.map((item, index) => {
-        return (
-          <RecipeCard
-            key={item._id + index}
-            title={item.title}
-            description={item.description}
-            owner={item.owner}
-            img={item.thumb}
-            id={item._id}
-          />
-        );
-      })}
-    </ul>
+    <>
+      {recipes && (
+        <ul className={styles.recipesList}>
+          {recipes?.map((item, index) => {
+            return (
+              <RecipeCard
+                key={item._id + index}
+                title={item.title}
+                description={item.description}
+                owner={item.owner}
+                img={item.thumb}
+                id={item._id}
+              />
+            );
+          })}
+        </ul>
+      )}
+    </>
   );
 };
 export default RecipeList;
