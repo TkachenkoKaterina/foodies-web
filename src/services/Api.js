@@ -45,11 +45,11 @@ export const recipeApi = {
     apiInstance.get('/api/recipes/favorites', { params }),
   addToFavorites: id => apiInstance.post(`/api/recipes/favorites/${id}`),
   removeFromFavorites: id => apiInstance.delete(`/api/recipes/favorites/${id}`),
+};
 
 export const categoriesApi = {
   getCategories: () => apiInstance.get('/api/categories'),
 };
-
 
 export const recipesApi = {
   getRecipes: (category, area, ingredientId, page, limit) =>
