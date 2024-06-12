@@ -1,8 +1,8 @@
-import styles from './HeaderDropdownMenu.module.scss';
+import styles from './HeaderDropdownMenuWhite.module.scss';
 import { NavLink } from 'react-router-dom';
 import icons from '../../assets/icons/icons.svg';
 
-const HeaderDropdownMenu = ({isOpen}) => {
+const HeaderDropdownMenuWhite = ({isOpen}) => {
 
   return (
     <div className={styles.dropdown}>
@@ -14,7 +14,7 @@ const HeaderDropdownMenu = ({isOpen}) => {
           <NavLink to="/profile" className={styles.menuItem}>Profile</NavLink>
           <NavLink to="/logout" className={styles.menuItem}>
             Log out
-            <svg className={styles.iconArrow}>
+            <svg className={styles.icon}>
               <use href={`${icons}#icon-arrow-up-right`} />
             </svg>
           </NavLink>
@@ -24,4 +24,4 @@ const HeaderDropdownMenu = ({isOpen}) => {
   );
 };
 
-export default HeaderDropdownMenu;
+export default HeaderDropdownMenuWhite;
