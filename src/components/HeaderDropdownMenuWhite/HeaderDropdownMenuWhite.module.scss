@@ -13,14 +13,6 @@
     fill: $--color-main;
     transition: transform $--transition-primary;
   }
-
-.iconArrow {
-  width: 18px;
-    height: 18px;
-    stroke: $--color-main;
-    fill: $--color-white;
-    transition: transform $--transition-primary;
-}
   
 .menu {
     position: absolute;
@@ -30,7 +22,7 @@
     border-radius: 4px;
     z-index: 1000;
     border-radius: 15px;
-    border: 1px solid $--color-main-opacity20;
+    border: 1px solid rgba(255, 255, 255, 0.20);
     width: 148px;
     height: 74px;
     flex-shrink: 0;
@@ -41,7 +33,7 @@
     align-items: center; 
     gap: 2px; 
     display: flex;
-    color: $--color-main;
+    color: $--color-white;
     font-size: 12px;
     font-weight: 700;
     line-height: 1.5;
