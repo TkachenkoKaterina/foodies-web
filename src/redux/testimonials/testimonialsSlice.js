@@ -14,7 +14,9 @@
 // const testimonialsSlice = createSlice({
 //   name: 'testimonials',
 //   initialState: {
-//     testimonials: [],
+//       testimonials: [],
+//       total: 0,
+//       result: [],
 //     isLoading: false,
 //     error: null,
 //   },
