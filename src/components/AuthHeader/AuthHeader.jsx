@@ -4,6 +4,7 @@ import Nav from '../Nav';
 import NavWhite from '../NavWhite';
 import BurgerMenu from '../BurgerMenu';
 
+
 const AuthHeader = ({isHomePage}) => {
   return (
     <header className={styles.header}>
