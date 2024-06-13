@@ -7,19 +7,37 @@ import { getRecipesInCategory } from '../../redux/recipes/recipesOperations';
 import { getRecipes } from '../../redux/recipes/recipesSelectors';
 
 const Recipes = ({ category, onClick }) => {
+  const areasSelect = document.getElementById('Area');
+  console.log(areasSelect);
   const [isRender, setIsRender] = useState(category);
-  const params = {};
-  // const goToCategory = e => {
-  //   e.preventDefault();
-  //   setIsRender(false);
-  // };
+  const [ingredientId, setIngredientId] = useState('');
+  const [area, setArea] = useState('');
+  const params = {
+    area: area,
+    ingredient: ingredientId,
+  };
+
   const dispatch = useDispatch();
-  console.log(category);
+
   useEffect(() => {
     dispatch(getRecipesInCategory(category, params));
   }, [dispatch, category]);
   const recipes = useSelector(getRecipes);
 
+  const hendleAreaChoose = e => {
+    e.preventDefault();
+    const selection = e.target.value.substring(
+      e.target.selectionStart,
+      e.target.selectionEnd
+    );
+    console.log(selection);
+
+    if (e.target.id === 'Area') {
+      console.log(e.targer);
+      // setCategory(e.target.);
+    }
+  };
+  areasSelect?.addEventListener('select', hendleAreaChoose);
   return (
     <>
       {isRender && (
@@ -27,7 +45,7 @@ const Recipes = ({ category, onClick }) => {
           <IconButton icon="icon-arrow-left" onClick={onClick} />
           <MainTitle text={category} />
           <Subtitle text="Go on a taste journey, where every sip is a sophisticated creative chord, and every dessert is an expression of the most refined gastronomic desires." />
-          <RecipeFilters />
+          <RecipeFilters hendleAreaChoose={hendleAreaChoose} />
           <RecipeList recipes={recipes} />
           {/* <RecipePagination/> */}
         </Container>

@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import Select from '../../ui-kit/Select';
+
 const RecipeFilters = () => {
   const ingredients = [
     {
@@ -63,28 +66,12 @@ const RecipeFilters = () => {
 
   return (
     <>
-      <label id="ingredients">
-        <select name="selectedingredients" placeholder="Ingredients">
-          {ingredients.map(item => {
-            return (
-              <option value={item.name} id={item._id} key={item._id}>
-                {item.name}
-              </option>
-            );
-          })}
-        </select>
-      </label>
-      <label id="areas">
-        <select name="selectedArea" placeholder="Area">
-          {areas.map(item => {
-            return (
-              <option value={item.name} id={item._id} key={item._id}>
-                {item.name}
-              </option>
-            );
-          })}
-        </select>
-      </label>
+      <Select arrayOfObjects={areas} placeholder="Area" id="area" />
+      <Select
+        arrayOfObjects={ingredients}
+        placeholder="Ingredients"
+        id="ingredients"
+      />
     </>
   );
 };

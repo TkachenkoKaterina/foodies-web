@@ -4,6 +4,7 @@ import { routes } from '../../constants/routes';
 import { useNavigate } from 'react-router-dom';
 import { getIsLoggedIn } from '../../redux/auth/authSelectors';
 import { getImagePath } from '../../helpers/getImagePath';
+import { getPathWithId } from '../../helpers/getPathWithId';
 import styles from './RecipeCard.module.scss';
 
 const RecipeCard = ({
@@ -19,7 +20,15 @@ const RecipeCard = ({
   const navigate = useNavigate();
   const isLoggedIn = useSelector(getIsLoggedIn);
   const goToRecipe = () => {
-    navigate(getPathWithId(routes.recipes, recipe?.id));
+    navigate(getPathWithId(routes.recipe, id));
+  };
+
+  const goUserProfile = () => {
+    navigate(getPathWithId(routes.user, owner));
+
+    // if (!isLoggedIn) {
+    //   navigate(getPathWithId(routes.user, owner));
+    // }
   };
 
   return (
@@ -31,7 +40,7 @@ const RecipeCard = ({
         <button
           className={styles.ownerInfo}
           type="button"
-          onClick={isLoggedIn ? navigatetoUserPage : navigateToSignIN}
+          onClick={isLoggedIn ? goUserProfile : navigateToSignIN}
         >
           <img
             className={styles.avatar}

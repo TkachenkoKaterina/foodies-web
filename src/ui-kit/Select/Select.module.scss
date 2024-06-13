@@ -1,0 +1,16 @@
+@import '../../styles/main.scss';
+.selectBox {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  & .input {
+    padding: 16px 18px 16px 18px;
+    gap: 210px;
+    border-radius: 30px;
+    // border: 1px solid var($--color-main-opacity12);
+    border: 1px solid rgba(5, 5, 5, 0.12);
+  }
+  & .datalist {
+    position: fixed;
+  }
+}

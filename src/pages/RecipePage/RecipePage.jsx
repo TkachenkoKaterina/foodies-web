@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import PathInfo from '../../ui-kit/PathInfo';
 import RecipeInfo from '../../components/RecipeInfo';
-
+import PopularRecipes from '../../components/PopularRecipes/PopularRecipes';
 
 const RecipePage = () => {
   const { id } = useParams();
@@ -14,7 +14,9 @@ const RecipePage = () => {
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const response = await axios.get(`https://foodies-1u0q.onrender.com/api/recipes/public/${id}`);
+        const response = await axios.get(
+          `https://foodies-1u0q.onrender.com/api/recipes/public/${id}`
+        );
         setRecipe(response.data);
         setLoading(false);
       } catch (err) {
@@ -42,6 +44,7 @@ const RecipePage = () => {
     <>
       <PathInfo path={recipe.title} />
       <RecipeInfo recipe={recipe} />
+      <PopularRecipes />
     </>
   );
 };
