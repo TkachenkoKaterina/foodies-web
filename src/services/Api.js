@@ -52,10 +52,8 @@ export const categoriesApi = {
 };
 
 export const recipesApi = {
-  getRecipes: (category, area, ingredientId, page, limit) =>
-    apiInstance.get(
-      `/api/recipes/filter/${category}?area=${area}&ingredient=${ingredientId}&page=${page}&limit=${limit}`
-    ),
+  getRecipes: (category, params) =>
+    apiInstance.get(`/api/recipes/filter/${category}`, params),
   getRecipe: id => apiInstance.get(`/api/recipes/public/${id}`),
   getPopularRecipes: () => apiInstance.get(`/api/recipes/popular`),
 };
