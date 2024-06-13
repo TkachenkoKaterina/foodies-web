@@ -1,0 +1,28 @@
+.formWrapper {
+  width: 100%;
+  max-width: 343px;
+  height: auto;
+  padding: 60px 30px;
+  border-radius: 20px;
+  background-color: white;
+}
+
+.title {
+  text-transform: uppercase;
+}
+
+.link {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+  color: rgba(5, 5, 5, 1);
+}
+
+.textContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 16px;
+}

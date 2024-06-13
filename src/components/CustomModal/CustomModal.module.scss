@@ -1,0 +1,50 @@
+@import '../../styles/main.scss';
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  overflow: hidden;
+  overflow-y: auto;
+  z-index: 9999;
+  /* opacity: 0; */
+  transition: opacity 0.3s;
+}
+
+.content {
+  min-height: 200px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px;
+  background-color: #fff;
+  border-radius: 30px;
+  transition: transform 0.3s;
+  padding: 80px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.close {
+  width: 24px;
+  height: 24px;
+  stroke: $--color-main;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  &:hover {
+    stroke: blue;
+  }
+}
