@@ -3,7 +3,7 @@ import CategoryList from '../CategoryList';
 
 import css from './Categories.module.scss';
 
-const Categories = ({ hendlerCategoryChoose }) => {
+const Categories = ({ handlerCategoryChoose }) => {
   return (
     <section className={css['categories-section']}>
       <Container>
@@ -13,7 +13,7 @@ const Categories = ({ hendlerCategoryChoose }) => {
           exquisite recipes that combine taste, style and the warm atmosphere of
           the kitchen.
         </p>
-        <CategoryList hendlerCategoryChoose={hendlerCategoryChoose} />
+        <CategoryList handlerCategoryChoose={handlerCategoryChoose} />
       </Container>
     </section>
   );

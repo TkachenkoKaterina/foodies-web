@@ -1,7 +1,117 @@
-.categories {
+@import '../../styles/main.scss';
+
+.category {
 
     &-img {
+        width: 100%;
+        height: 100%;
+
         object-fit: cover;
+    }
+
+    &-info {
+        position: absolute;
+        display: flex;
+    }
+
+    &-title {
+        margin-right: 4px;
+
         border-radius: 30px;
+        border: solid 1px $--color-white-opacity40;
+        background-color: $--color-white-opacity30;
+
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 1.2em;
+        color: $--color-white;
+    }
+
+    &-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 30px;
+        border: solid 1px $--color-white-opacity40;
+    }
+
+    &-icon {
+        stroke: $--color-white;
+        fill: transparent;
+    }
+}
+
+@include min-mobile {
+    .category {
+
+        &-img {
+            border-radius: 20px;
+        }
+    
+        &-info {
+            top: 194px;
+            left: 16px;
+        }
+    
+        &-title {
+            padding: 8px 12px;
+            font-size: 16px;
+        }
+    
+        &-btn {
+            width: 40px;
+            height: 40px;
+        }
+    }
+}
+
+@include min-tablet {
+    .category {
+
+        &-img {
+            border-radius: 30px;
+        }
+    
+        &-info {
+            top: 300px;
+            left: 24px;
+        }
+    
+        &-title {
+            padding: 10px 14px;
+            border-radius: 30px;
+            font-size: 20px;
+        }
+    
+        &-btn {
+            width: 44px;
+            height: 44px;
+        }
+    }
+}
+
+@include min-desktop {
+    .category {
+
+        &-img {
+            border-radius: 30px;
+        }
+    
+        &-info {
+            top: 300px;
+            left: 24px;
+        }
+    
+        &-title {
+            padding: 10px 14px;
+            border-radius: 30px;
+            font-size: 20px;
+        }
+    
+        &-btn {
+            width: 44px;
+            height: 44px;
+        }
     }
 }

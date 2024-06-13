@@ -9,7 +9,7 @@ import { useState } from 'react';
 const HomePage = () => {
   const [category, setCategory] = useState('');
   // const categoryBtn = document.querySelector();
-  const hendlerCategoryChoose = e => {
+  const handlerCategoryChoose = e => {
     e.preventDefault();
     if (e.target.nodeName === 'IMG') {
       setCategory(e.target.alt);
@@ -23,7 +23,7 @@ const HomePage = () => {
     <>
       <Hero />
       {!category && (
-        <Categories hendlerCategoryChoose={hendlerCategoryChoose} />
+        <Categories handlerCategoryChoose={handlerCategoryChoose} />
       )}
       {category && <Recipes category={category} onClick={goToCategory} />}
 

@@ -8,14 +8,15 @@ import { fetchCategories } from '../../redux/categories/categoriesOperations.js'
 
 import css from './CategoryList.module.scss';
 
-const CategoryList = ({ hendlerCategoryChoose }) => {
+const CategoryList = ({ handlerCategoryChoose }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
 
-  const categories = useSelector(selectCategories);
+  const categoriesInfo = useSelector(selectCategories);
+  const categories = categoriesInfo.result;
 
   return (
     <ul className={css['category-list']}>
@@ -27,11 +28,14 @@ const CategoryList = ({ hendlerCategoryChoose }) => {
           >
             <CategoriesItem
               name={category.name}
-              hendlerCategoryChoose={hendlerCategoryChoose}
+              handlerCategoryChoose={handlerCategoryChoose}
             />
           </li>
         );
       })}
+      <li className={css['category-item-11']}>
+        <button type='button' className={css['category-btn']}>All categories</button>
+      </li>
     </ul>
   );
 };

@@ -14,7 +14,10 @@ const handleRejected = (state, action) => {
 const categoriesSlice = createSlice({
     name: 'categories',
     initialState: {
-        categories: [],
+        categories: {
+            total: 0,
+            result: []
+        },
         isLoading: false,
         error: null,
     },

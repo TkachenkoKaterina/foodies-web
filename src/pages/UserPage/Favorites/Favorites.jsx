@@ -16,10 +16,7 @@ const Favorites = () => {
   const getRecipes = async () => {
     try {
       const { data } = await recipeApi.getFavoriteRecipes({ page, limit: 9 });
-      setRecipes({
-        total: 0,
-        result: data?.avorites,
-      });
+      setRecipes(data);
     } catch (error) {
       console.log(error);
     } finally {
