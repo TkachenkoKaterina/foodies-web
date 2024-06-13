@@ -11,10 +11,6 @@ const UserCard = ({ user, onFollow, onUnfollow, owner }) => {
 
   const isFollowing = owner?.following?.includes(user?._id);
 
-  const goToProfile = () => {
-    navigate(getPathWithId(routes.user, user?._id));
-  };
-
   const isOwner = owner?._id === user?._id;
 
   const buttonText = isOwner ? 'me' : isFollowing ? 'following' : 'follow';
@@ -24,6 +20,14 @@ const UserCard = ({ user, onFollow, onUnfollow, owner }) => {
       : isFollowing
       ? onUnfollow(user?._id)
       : onFollow(user?._id);
+
+  const goToProfile = () => {
+    navigate(getPathWithId(routes.user, user?._id));
+  };
+
+  const goToRecipe = id => {
+    navigate(getPathWithId(routes.recipe, id));
+  };
 
   return (
     <div className={styles.item}>
@@ -46,7 +50,11 @@ const UserCard = ({ user, onFollow, onUnfollow, owner }) => {
       </div>
       <ul className={styles.center}>
         {user?.recipes.map(recipe => (
-          <li key={recipe._id} className={styles.recipe}>
+          <li
+            key={recipe._id}
+            className={styles.recipe}
+            onClick={() => goToRecipe(recipe._id)}
+          >
             <img
               src={getImagePath(recipe?.thumb, TYPE_IMG.RECIPE)}
               alt={recipe?.title}
