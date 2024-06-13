@@ -33,6 +33,9 @@ const CategoryList = ({ handlerCategoryChoose }) => {
           </li>
         );
       })}
+      <li className={css['category-item-11']}>
+        <button type='button' className={css['category-btn']}>All categories</button>
+      </li>
     </ul>
   );
 };
