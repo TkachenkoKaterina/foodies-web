@@ -35,9 +35,11 @@ const Layout = ({ children }) => {
       {isSignedUp ? (
         <SignUpModal isOpen={isSignedUp} onRequestClose={setIsSignedUp} />
       ) : null}
+      ;
       {isSignedIn ? (
         <SignInModal isOpen={isSignedIn} onRequestClose={setIsSignedIn} />
       ) : null}
+      ;
     </div>
   );
 };

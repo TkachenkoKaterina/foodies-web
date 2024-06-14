@@ -1,0 +1,66 @@
+@import '../../styles/main.scss';
+
+.signUpWrapper {
+  background-color: white;
+  padding: 60px 30px;
+  @include min-tablet {
+    padding: 80px;
+  }
+}
+
+.title {
+  display: none;
+  color: $--color-main;
+  text-align: left;
+  font-family: Mulish;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.64px;
+  text-transform: uppercase;
+  @include min-tablet {
+    display: flex;
+  }
+}
+
+.btnWraper {
+  padding-top: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  @include min-tablet {
+    padding-top: 40px;
+    gap: 20px;
+  }
+}
+
+.textContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 16px;
+  font-size: 14px;
+  @include min-tablet {
+    font-size: 16px;
+  }
+}
+
+.titleSmall {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $--color-main;
+  font-family: Mulish;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.14;
+  letter-spacing: -0.56px;
+  text-transform: uppercase;
+  @include min-tablet {
+    display: none;
+  }
+}
