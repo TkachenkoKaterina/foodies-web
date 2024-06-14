@@ -1,0 +1,29 @@
+@import '../../styles/main.scss';
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.loader__spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid $--color-main-opacity10;
+  border-top-color: $--color-main;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

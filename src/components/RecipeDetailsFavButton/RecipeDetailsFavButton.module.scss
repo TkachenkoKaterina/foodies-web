@@ -1,0 +1,13 @@
+@import '../../styles/main.scss';
+
+.favButton {
+    padding: 16px 32px;
+    border-radius: 30px;
+    border: 1px solid $--color-main-opacity12;
+    color: $--color-main-opacity90;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: -0.32px;
+    text-transform: uppercase;
+}

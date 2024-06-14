@@ -2,11 +2,12 @@ import styles from './ListItems.module.scss';
 import { TYPE_TABS } from '../../constants/common';
 import RecipePreview from '../RecipePreview';
 import UserCard from '../UserCard';
+import { Loader } from '../../ui-kit';
 
 const ListItems = ({
   emptyText,
   type,
-  list,
+  data,
   onDeleteRecipe,
   isOwner,
   owner,
@@ -16,11 +17,15 @@ const ListItems = ({
   // currentPage,
   // onCurrentPageChange,
 }) => {
-  if (isLoading && !list?.length) {
-    return <div>Loading...</div>;
+  if (isLoading) {
+    return (
+      <div className={styles.empty}>
+        <Loader />
+      </div>
+    );
   }
 
-  if (!list?.length && !isLoading) {
+  if (!data?.result?.length) {
     return (
       <div className={styles.empty}>
         <p className={styles.empty_text}>{emptyText}</p>
@@ -31,7 +36,7 @@ const ListItems = ({
   return (
     <div className={styles.wrapper}>
       <ul className={styles.list}>
-        {list.map(item => {
+        {data?.result?.map(item => {
           if (type === TYPE_TABS.RECIPE) {
             return (
               <li key={item._id} className={styles.item_recipe}>

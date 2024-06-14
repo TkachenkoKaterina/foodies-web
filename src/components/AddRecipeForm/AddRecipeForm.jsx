@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './AddRecipeForm.module.scss';
 import Container from '../../ui-kit/Container/index';
+import { Button } from '../../ui-kit';
+import icons from '../../assets/icons/icons.svg';
 
 const AddRecipeForm = () => {
   const {
@@ -92,248 +94,293 @@ const AddRecipeForm = () => {
   };
 
   return (
-    <Container>
-      <div className={styles['add-recipe-form-container']}>
-        <h1 className={styles.title}>Add recipe</h1>
-        <p className={styles.text}>
-          Reveal your culinary art, share your favorite recipe and create
-          gastronomic masterpieces with us.
-        </p>
+    <div className={styles['add-recipe-form-container']}>
+      <h1 className={styles.title}>Add recipe</h1>
+      <p className={styles.text}>
+        Reveal your culinary art, share your favorite recipe and create
+        gastronomic masterpieces with us.
+      </p>
 
-        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-          <div className={styles['container-form']}>
-            <label htmlFor="file" className={styles.label}></label>
-            <input
-              type="file"
-              id="file"
-              accept="image/*"
-              {...register('file')}
-              onChange={handleImageChange}
-              ref={fileInputRef}
-              className={`${styles.input} ${styles['input-file']}`}
-            />
-          </div>
-          {imagePreview && (
-            <div className={styles['image-preview-container']}>
-              <img
-                src={imagePreview}
-                alt="Recipe Preview"
-                className={styles['image-preview']}
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+        <div className={styles['img-other-wrapper']}>
+          {' '}
+          <div>
+            <div className={styles['container-form']}>
+              <label htmlFor="file" className={styles.label}></label>
+              <input
+                type="file"
+                id="file"
+                accept="image/*"
+                {...register('file')}
+                onChange={handleImageChange}
+                ref={fileInputRef}
+                className={`${styles.input} ${styles['input-file']}`}
               />
-              <div className={styles['remove-image-container']}>
-                <button
-                  type="button"
-                  onClick={handleRemoveImage}
-                  className={styles['remove-image-button']}
-                >
-                  Upload another photo
-                </button>
+            </div>
+            {imagePreview && (
+              <div className={styles['image-preview-container']}>
+                <img
+                  src={imagePreview}
+                  alt="Recipe Preview"
+                  className={styles['image-preview']}
+                />
+                <div className={styles['remove-image-container']}>
+                  <button
+                    type="button"
+                    onClick={handleRemoveImage}
+                    className={styles['remove-image-button']}
+                  >
+                    Upload another photo
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+          <div>
+            <div className={styles['container-form']}>
+              <label htmlFor="name" className={styles.label}></label>
+              <input
+                placeholder="The name of the recipe"
+                id="name"
+                {...register('name', { required: true })}
+                onChange={handleInputChange}
+                className={`${styles.input} ${styles['input-name']}`}
+              />
+              {errors.name && (
+                <span className={styles.error}>This field is required</span>
+              )}
+            </div>
+
+            <div className={styles['container-form']}>
+              <label htmlFor="description" className={styles.label}></label>
+              <div className={styles['input-counter-wrapper']}>
+                <input
+                  placeholder="Enter a description of the dish"
+                  id="description"
+                  {...register('description', {
+                    required: true,
+                    maxLength: maxInputLength,
+                  })}
+                  onChange={handleInputChange}
+                  maxLength={maxInputLength}
+                  className={`${styles.input} ${styles['input-description']}`}
+                />
+                <div className={styles['character-count']}>
+                  {descriptionLength}/{maxInputLength}
+                </div>
+              </div>
+
+              {errors.description && (
+                <span className={styles.error}>This field is required</span>
+              )}
+            </div>
+            <div className={styles['category-area-wrapper']}>
+              {' '}
+              <div className={styles['container-form']}>
+                <label htmlFor="category" className={styles.label}>
+                  Category
+                </label>
+                <div className={`${styles['custom-select']}`}>
+                  <select
+                    id="category"
+                    {...register('category', { required: true })}
+                    onChange={e => storeFormData(e.target.name, e.target.value)}
+                    className={`${styles.select} ${styles['select-category']}`}
+                  >
+                    <option value="">Select a category</option>
+                    <option value="appetizer">Appetizer</option>
+                    <option value="main">Main Course</option>
+                    <option value="dessert">Dessert</option>
+                  </select>
+                  {errors.category && (
+                    <span className={styles.error}>This field is required</span>
+                  )}
+                  <svg className={`${styles['icon-select']}`}>
+                    <use href={`${icons}#icon-chevron-down`} />
+                  </svg>
+                </div>
+              </div>
+              <div className={styles['container-form']}>
+                <label htmlFor="area" className={styles.label}>
+                  Area
+                </label>
+                <div className={`${styles['custom-select']}`}>
+                  <select
+                    id="area"
+                    {...register('area', { required: true })}
+                    onChange={e => storeFormData(e.target.name, e.target.value)}
+                  >
+                    <option value="">Select an area</option>
+                    <option value="Ukraine">Ukraine</option>
+                    <option value="USA">USA</option>
+                    <option value="Italy">Italy</option>
+                  </select>
+                  {errors.area && (
+                    <span className={styles.error}>This field is required</span>
+                  )}
+                  <svg className={`${styles['icon-select']}`}>
+                    <use href={`${icons}#icon-chevron-down`} />
+                  </svg>
+                </div>
               </div>
             </div>
-          )}
 
-          <div className={styles['container-form']}>
-            <label htmlFor="name" className={styles.label}></label>
-            <input
-              placeholder="The name of the recipe"
-              id="name"
-              {...register('name', { required: true })}
-              onChange={handleInputChange}
-              className={`${styles.input} ${styles['input-name']}`}
-            />
-            {errors.name && (
-              <span className={styles.error}>This field is required</span>
-            )}
-          </div>
-
-          <div className={styles['container-form']}>
-            <label htmlFor="description" className={styles.label}></label>
-            <input
-              placeholder="Enter a description of the dish"
-              id="description"
-              {...register('description', {
-                required: true,
-                maxLength: maxInputLength,
-              })}
-              onChange={handleInputChange}
-              maxLength={maxInputLength}
-              className={`${styles.input} ${styles['input-description']}`}
-            />
-            <div className={styles['character-count']}>
-              {descriptionLength}/{maxInputLength}
-            </div>
-            {errors.description && (
-              <span className={styles.error}>This field is required</span>
-            )}
-          </div>
-
-          <div className={styles['container-form']}>
-            <label htmlFor="category" className={styles.label}>
-              Category
-            </label>
-            <select
-              id="category"
-              {...register('category', { required: true })}
-              onChange={e => storeFormData(e.target.name, e.target.value)}
-              className={`${styles.select} ${styles['select-category']}`}
-            >
-              <option value="">Select a category</option>
-              <option value="appetizer">Appetizer</option>
-              <option value="main">Main Course</option>
-              <option value="dessert">Dessert</option>
-            </select>
-            {errors.category && (
-              <span className={styles.error}>This field is required</span>
-            )}
-          </div>
-
-          <div className={styles['container-form']}>
-            <label htmlFor="area" className={styles.label}>
-              Area
-            </label>
-            <select
-              id="area"
-              {...register('area', { required: true })}
-              onChange={e => storeFormData(e.target.name, e.target.value)}
-              className={`${styles.select} ${styles['select-area']}`}
-            >
-              <option value="">Select an area</option>
-              <option value="Ukraine">Ukraine</option>
-              <option value="USA">USA</option>
-              <option value="Italy">Italy</option>
-            </select>
-            {errors.area && (
-              <span className={styles.error}>This field is required</span>
-            )}
-          </div>
-
-          <div className={styles['container-form']}>
-            <label className={styles.label}>Cooking Time</label>
-            <div className={styles['time-container']}>
-              <button
-                type="button"
-                onClick={() => {
-                  const newValue = Math.max(0, watch('time') - 1);
-                  setValue('time', newValue);
-                  storeFormData('time', newValue);
-                }}
-                className={styles['time-button']}
-              >
-                -
-              </button>
-              <input
-                type="number"
-                {...register('time', { valueAsNumber: true })}
-                min="0"
-                defaultValue="0"
-                onChange={e => storeFormData(e.target.name, e.target.value)}
-                className={`${styles.input} ${styles['input-time']}`}
-              />
-              <button
-                type="button"
-                onClick={() => {
-                  const newValue = (watch('time') || 0) + 1;
-                  setValue('time', newValue);
-                  storeFormData('time', newValue);
-                }}
-                className={styles['time-button']}
-              >
-                +
-              </button>
-            </div>
-            {errors.time && (
-              <span className={styles.error}>This field is required</span>
-            )}
-          </div>
-          <label htmlFor="ingredients" className={styles.label}>
-            ingredients
-          </label>
-          {ingredients.map((ingredient, index) => (
-            <div className={styles['container-form']} key={ingredient.id}>
-              <select
-                id={`ingredients-${index}`}
-                {...register(`ingredients[${index}]`, { required: true })}
-                onChange={e =>
-                  storeFormData(`ingredients[${index}]`, e.target.value)
-                }
-                className={`${styles.select} ${styles['select-ingredient']}`}
-              >
-                <option value="">Add the ingredient</option>
-                <option value="tomato">Tomato</option>
-                <option value="cheese">Cheese</option>
-                <option value="basil">Basil</option>
-              </select>
-              {errors.ingredients && errors.ingredients[index] && (
-                <span className={styles.error}>This field is required</span>
-              )}
-              <label htmlFor={`quantity-${index}`} className={styles.label}>
-                Quantity
-              </label>
-              <input
-                type="text"
-                id={`quantity-${index}`}
-                placeholder="Enter quantity"
-                {...register(`quantities[${index}]`, { required: true })}
-                onChange={e =>
-                  storeFormData(`quantities[${index}]`, e.target.value)
-                }
-                className={`${styles.input} ${styles['input-quantity']}`}
-              />
-              {errors.quantities && errors.quantities[index] && (
+            <div className={styles['container-form']}>
+              <label className={styles.label}>Cooking Time</label>
+              <div className={styles['time-container']}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const newValue = Math.max(0, watch('time') - 10);
+                    setValue('time', newValue);
+                    storeFormData('time', newValue);
+                  }}
+                  className={styles['time-button']}
+                >
+                  <svg className={`${styles['icons-time']}`}>
+                    <use href={`${icons}#icon-minus`} />
+                  </svg>
+                </button>
+                <input
+                  type="number"
+                  {...register('time', { valueAsNumber: true })}
+                  min="0"
+                  defaultValue="0"
+                  onChange={e => storeFormData(e.target.name, e.target.value)}
+                  className={`${styles.input} ${styles['input-time']}`}
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    const newValue = (watch('time') || 0) + 10;
+                    setValue('time', newValue);
+                    storeFormData('time', newValue);
+                  }}
+                  className={styles['time-button']}
+                >
+                  <svg className={`${styles['icon-trash']}`}>
+                    <use href={`${icons}#icon-plus`} />
+                  </svg>
+                </button>
+              </div>
+              {errors.time && (
                 <span className={styles.error}>This field is required</span>
               )}
             </div>
-          ))}
+            <h3 className={styles['ingredient-title']}>Ingredients</h3>
+            {ingredients.map((ingredient, index) => (
+              <div
+                className={styles['ingredient-quantity-wrapper']}
+                key={ingredient.id}
+              >
+                <div className={`${styles['custom-select']}`}>
+                  <label htmlFor="ingredients" className={styles.label}></label>
+                  <select
+                    id={`ingredients-${index}`}
+                    {...register(`ingredients[${index}]`, { required: true })}
+                    onChange={e =>
+                      storeFormData(`ingredients[${index}]`, e.target.value)
+                    }
+                  >
+                    <option value="" disabled selected>
+                      Add the ingredient
+                    </option>
+                    <option value="tomato">Tomato</option>
+                    <option value="cheese">Cheese</option>
+                    <option value="basil">Basil</option>
+                  </select>
+                  <svg className={`${styles['icon-select']}`}>
+                    <use href={`${icons}#icon-chevron-down`} />
+                  </svg>
+                  {errors.ingredients && errors.ingredients[index] && (
+                    <span className={styles.error}>This field is required</span>
+                  )}
+                </div>
+                <div>
+                  <label
+                    htmlFor={`quantity-${index}`}
+                    className={styles.label}
+                  ></label>
+                  <div className={styles['input-quantity-wrapper']}>
+                    <input
+                      type="text"
+                      id={`quantity-${index}`}
+                      placeholder="Enter quantity"
+                      {...register(`quantities[${index}]`, {
+                        required: true,
+                      })}
+                      onChange={e =>
+                        storeFormData(`quantities[${index}]`, e.target.value)
+                      }
+                      className={`${styles.input} ${styles['input-quantity']}`}
+                    />
+                  </div>
 
-          <div>
+                  {errors.quantities && errors.quantities[index] && (
+                    <span className={styles.error}>This field is required</span>
+                  )}
+                </div>
+              </div>
+            ))}
+
             <button
               type="button"
               onClick={handleBtnIngredientClick}
               className={styles['add-button']}
             >
-              Add ingredient+
+              Add ingredient
+              <svg className={`${styles['icon-ingredient-plus']}`}>
+                <use href={`${icons}#icon-plus`} />
+              </svg>
             </button>
-          </div>
 
-          <div className={styles['container-form']}>
-            <label
-              htmlFor="preparation"
-              className={`${styles.label} ${styles['label-preparation']}`}
-            >
-              Recipe Preparation
-            </label>
-            <textarea
-              id="preparation"
-              placeholder="Enter recipe"
-              {...register('preparation', {
-                required: true,
-                maxLength: maxInputLength,
-              })}
-              onChange={handleInputChange}
-              maxLength={maxInputLength}
-              className={`${styles.textarea} ${styles['textarea-preparation']}`}
-            />
-            <div className={styles['character-count']}>
-              {preparationLength}/{maxInputLength}
+            <div className={styles['container-form']}>
+              <label
+                htmlFor="preparation"
+                className={`${styles.label} ${styles['label-preparation']}`}
+              >
+                Recipe Preparation
+              </label>
+              <div className={styles['input-counter-wrapper']}>
+                <textarea
+                  rows={1}
+                  id="preparation"
+                  placeholder="Enter recipe"
+                  {...register('preparation', {
+                    required: true,
+                    maxLength: maxInputLength,
+                  })}
+                  onChange={handleInputChange}
+                  maxLength={maxInputLength}
+                  className={`${styles.textarea} ${styles['textarea-preparation']}`}
+                />
+                <div className={styles['character-count']}>
+                  {preparationLength}/{maxInputLength}
+                </div>
+              </div>
+
+              {errors.preparation && (
+                <span className={styles.error}>This field is required</span>
+              )}
             </div>
-            {errors.preparation && (
-              <span className={styles.error}>This field is required</span>
-            )}
+            <div className={`${styles['clear-submit-wrapper']}`}>
+              <button
+                type="button"
+                onClick={() => reset()}
+                className={styles['clear-button']}
+              >
+                <svg className={`${styles['icon-trash']}`}>
+                  <use href={`${icons}#icon-trash`} />
+                </svg>
+              </button>
+              <button type="submit" className={styles['submit-button']}>
+                Publish
+              </button>
+            </div>
           </div>
-
-          <button
-            type="button"
-            onClick={() => reset()}
-            className={styles['clear-button']}
-          >
-            Clear
-          </button>
-          <button type="submit" className={styles['submit-button']}>
-            Publish
-          </button>
-        </form>
-      </div>
-    </Container>
+        </div>
+      </form>
+    </div>
   );
 };
 

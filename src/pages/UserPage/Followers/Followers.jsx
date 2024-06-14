@@ -12,11 +12,16 @@ const Followers = () => {
   const [isLoading, setIsLoading] = useState(true);
   const owner = useOwner();
   const { onFollow, onUnfollow } = useFollow();
+  const [page, setPage] = useState(1);
+
+  const onChangePage = page => {
+    setPage(page);
+  };
 
   const getUsers = async () => {
     try {
-      const { data } = await userApi.getFollowers(id);
-      setUsers(data?.followers);
+      const { data } = await userApi.getFollowers(id, { page });
+      setUsers(data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -36,11 +41,13 @@ const Followers = () => {
       emptyText={EMPTY_TEXT.FOLLOWERS}
       currentPage={1}
       onCurrentPageChange={() => {}}
-      list={users}
+      data={users}
       isLoading={isLoading}
       owner={owner}
       onFollow={onFollow}
       onUnfollow={onUnfollow}
+      page={page}
+      onChangePage={onChangePage}
     />
   );
 };
