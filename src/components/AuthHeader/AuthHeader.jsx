@@ -1,7 +1,6 @@
 import styles from './AuthHeader.module.scss';
-import { Container, LogoWhite, Logo, UserBar } from '../../ui-kit';
+import { Container, Logo, UserBar } from '../../ui-kit';
 import Nav from '../Nav';
-import NavWhite from '../NavWhite';
 import BurgerMenu from '../BurgerMenu';
 
 const AuthHeader = ({isHomePage}) => {
@@ -9,8 +8,8 @@ const AuthHeader = ({isHomePage}) => {
     <header className={styles.header}>
       <Container>
         <nav className={styles.navbar}>
-          {isHomePage ? <LogoWhite /> : <Logo />}
-          {isHomePage ? <NavWhite /> : <Nav />}
+        <Logo isHomePage={isHomePage} />
+        <Nav isHomePage={isHomePage} />
           <div className={styles.mobileWrapper}>
             <UserBar isHomePage={isHomePage} />
             <BurgerMenu  isHomePage={isHomePage} />
