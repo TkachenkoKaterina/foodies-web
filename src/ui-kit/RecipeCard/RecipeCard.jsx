@@ -20,6 +20,7 @@ const RecipeCard = ({
   const navigate = useNavigate();
   const isLoggedIn = useSelector(getIsLoggedIn);
   const goToRecipe = () => {
+    console.log(id);
     navigate(getPathWithId(routes.recipe, id));
   };
 

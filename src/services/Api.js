@@ -57,7 +57,7 @@ export const recipesApi = {
   getRecipes: (category, params) =>
     apiInstance.get(`/api/recipes/filter/${category}?`, { params }),
   getRecipe: id => apiInstance.get(`/api/recipes/public/${id}`),
-  getPopularRecipes: () => apiInstance.get(`/api/recipes/popular`),
+  getPopular: () => apiInstance.get(`/api/recipes/popular`),
 };
 
 export const testimonialsApi = {

@@ -4,7 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import CategoriesItem from '../CategoriesItem';
 
 import { selectCategories } from '../../redux/categories/categoriesSelectors.js';
-import { fetchCategories, fetchMoreCategories } from '../../redux/categories/categoriesOperations.js';
+import {
+  fetchCategories,
+  fetchMoreCategories,
+} from '../../redux/categories/categoriesOperations.js';
 
 import css from './CategoryList.module.scss';
 
@@ -33,22 +36,22 @@ const CategoryList = ({ handlerCategoryChoose }) => {
           >
             <CategoriesItem
               name={category.name}
-              handlerCategoryChoose={handlerCategoryChoose}
+              handlerCategoryChoose={() => handlerCategoryChoose(category.name)}
             />
           </li>
         );
       })}
-      {categories.length !== categoriesInfo.total &&
+      {categories.length !== categoriesInfo.total && (
         <li className={css['category-item-11']}>
           <button
-            type='button'
+            type="button"
             onClick={getMoreCategories}
             className={css['category-btn']}
           >
             All categories
           </button>
         </li>
-      }
+      )}
     </ul>
   );
 };
