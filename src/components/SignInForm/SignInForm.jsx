@@ -47,6 +47,7 @@ const SignInForm = ({ onRequestClose }) => {
 
       if (isLoggedIn) {
         onRequestClose(() => false);
+        alert('Login OK');
       }
 
       if (errormMsg) {

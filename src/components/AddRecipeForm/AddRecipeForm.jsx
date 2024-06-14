@@ -1,42 +1,50 @@
 import { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
+import { useSelector, useDispatch } from 'react-redux';
 import styles from './AddRecipeForm.module.scss';
-import Container from '../../ui-kit/Container/index';
-import { Button } from '../../ui-kit';
 import icons from '../../assets/icons/icons.svg';
+import { selectCategories } from '../../redux/categories/categoriesSelectors';
+import { fetchCategories } from '../../redux/categories/categoriesOperations';
+import { selectAreas } from '../../redux/areas/areasSelectors';
+import { fetchAreas } from '../../redux/areas/areasOperations';
+import { fetchIngredients } from '../../redux/ingredients/ingredientsOperatins';
+import { selectIngredients } from '../../redux/ingredients/ingredientsSelectors';
 
 const AddRecipeForm = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-    watch,
-    setValue,
-  } = useForm();
-  const [ingredients, setIngredients] = useState([{ id: 1 }]);
+  const dispatch = useDispatch();
+  const categories = useSelector(selectCategories);
+  const areas = useSelector(selectAreas);
+  const ingredientsAll = useSelector(selectIngredients);
+  const { register, handleSubmit, reset, watch, setValue } = useForm();
+  const [ingredients, setIngredients] = useState([]);
   const [imagePreview, setImagePreview] = useState(null);
   const [descriptionLength, setDescriptionLength] = useState(0);
   const [preparationLength, setPreparationLength] = useState(0);
   const fileInputRef = useRef(null);
+  const [file, setFile] = useState(null);
 
   const maxInputLength = 200;
 
   useEffect(() => {
-    const storedValues = JSON.parse(localStorage.getItem('formData'));
-    if (storedValues) {
-      Object.keys(storedValues).forEach(key => {
-        setValue(key, storedValues[key]);
-      });
-      setDescriptionLength(storedValues.description?.length || 0);
-      setPreparationLength(storedValues.preparation?.length || 0);
-      setImagePreview(storedValues.imagePreview || null);
+    if (categories.result.length === 0) {
+      dispatch(fetchCategories());
     }
-  }, [setValue]);
+  }, [dispatch, categories.result.length]);
+
+  useEffect(() => {
+    if (areas.length === 0) {
+      dispatch(fetchAreas());
+    }
+  }, [dispatch, areas.length]);
+
+  useEffect(() => {
+    if (ingredientsAll.length === 0) {
+      dispatch(fetchIngredients());
+    }
+  }, [dispatch, ingredientsAll.length]);
 
   const handleInputChange = event => {
     const { name, value } = event.target;
-    storeFormData(name, value);
 
     if (name === 'description') {
       setDescriptionLength(value.length);
@@ -50,17 +58,15 @@ const AddRecipeForm = () => {
     if (file) {
       const previewUrl = URL.createObjectURL(file);
       setImagePreview(previewUrl);
-      storeFormData('imagePreview', previewUrl);
-      storeFormData('file', file);
+      setFile(file);
     }
   };
 
   const handleRemoveImage = () => {
     setImagePreview(null);
+    setFile(null);
     setValue('file', null);
     fileInputRef.current.value = null;
-    localStorage.removeItem('imagePreview');
-    localStorage.removeItem('file');
     openFileDialog();
   };
 
@@ -69,28 +75,56 @@ const AddRecipeForm = () => {
   };
 
   const handleBtnIngredientClick = () => {
-    setIngredients([...ingredients, { id: ingredients.length + 1 }]);
+    const selectedIngredient = JSON.parse(watch('ingredient'));
+    const quantity = watch('quantity');
+
+    if (selectedIngredient && quantity) {
+      const newIngredients = [
+        ...ingredients,
+        {
+          ...selectedIngredient,
+          quantity,
+        },
+      ];
+      setIngredients(newIngredients);
+      setValue('ingredient', '');
+      setValue('quantity', '');
+    }
   };
 
-  const storeFormData = (name, value) => {
-    const formData = JSON.parse(localStorage.getItem('formData')) || {};
-    formData[name] = value;
-    localStorage.setItem('formData', JSON.stringify(formData));
-  };
+  console.log('ingredients', ingredients);
 
   const onSubmit = data => {
     const formData = new FormData();
-    Object.keys(data).forEach(key => {
-      formData.append(key, data[key]);
-    });
+    formData.append('title', data.name);
+    formData.append('category', data.category);
+    formData.append('area', data.area);
+    formData.append('instructions', data.preparation);
+    formData.append('description', data.description);
+    formData.append('time', data.time);
+    formData.append('thumbRecipeImages', file);
 
-    const storedFile = JSON.parse(localStorage.getItem('formData')).file;
-    if (storedFile) {
-      formData.append('file', storedFile);
-    }
+    const ingredientsArray = ingredients.map(ingredient => ({
+      id: ingredient._id,
+      measure: ingredient.quantity,
+    }));
 
-    console.log('Submitted Data:', Object.fromEntries(formData));
-    localStorage.removeItem('formData');
+    formData.append('ingredients', JSON.stringify(ingredientsArray));
+
+    const formDataObject = {
+      title: data.name,
+      category: data.category,
+      area: data.area,
+      instructions: data.preparation,
+      description: data.description,
+      time: data.time,
+      thumbRecipeImages: file,
+      ingredients: ingredientsArray,
+    };
+
+    console.log('Form Data Object:', formDataObject);
+    console.log('ingredients', ingredients);
+    // recipeApi.createRecipe();
   };
 
   return (
@@ -103,22 +137,24 @@ const AddRecipeForm = () => {
 
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <div className={styles['img-other-wrapper']}>
-          {' '}
           <div>
-            <div className={styles['container-form']}>
-              <label htmlFor="file" className={styles.label}></label>
-              <input
-                type="file"
-                id="file"
-                accept="image/*"
-                {...register('file')}
-                onChange={handleImageChange}
-                ref={fileInputRef}
-                className={`${styles.input} ${styles['input-file']}`}
-              />
-            </div>
+            {!imagePreview && (
+              <div className={styles['container-form']}>
+                <label htmlFor="file" className={styles.label}></label>
+                <input
+                  type="file"
+                  id="file"
+                  megre
+                  accept="image/*"
+                  {...register('file')}
+                  onChange={handleImageChange}
+                  ref={fileInputRef}
+                  className={`${styles.input} ${styles['input-file']}`}
+                />
+              </div>
+            )}
             {imagePreview && (
-              <div className={styles['image-preview-container']}>
+              <div className={styles[' ']}>
                 <img
                   src={imagePreview}
                   alt="Recipe Preview"
@@ -142,13 +178,10 @@ const AddRecipeForm = () => {
               <input
                 placeholder="The name of the recipe"
                 id="name"
-                {...register('name', { required: true })}
+                {...register('name')}
                 onChange={handleInputChange}
                 className={`${styles.input} ${styles['input-name']}`}
               />
-              {errors.name && (
-                <span className={styles.error}>This field is required</span>
-              )}
             </div>
 
             <div className={styles['container-form']}>
@@ -158,7 +191,6 @@ const AddRecipeForm = () => {
                   placeholder="Enter a description of the dish"
                   id="description"
                   {...register('description', {
-                    required: true,
                     maxLength: maxInputLength,
                   })}
                   onChange={handleInputChange}
@@ -169,13 +201,8 @@ const AddRecipeForm = () => {
                   {descriptionLength}/{maxInputLength}
                 </div>
               </div>
-
-              {errors.description && (
-                <span className={styles.error}>This field is required</span>
-              )}
             </div>
             <div className={styles['category-area-wrapper']}>
-              {' '}
               <div className={styles['container-form']}>
                 <label htmlFor="category" className={styles.label}>
                   Category
@@ -183,18 +210,17 @@ const AddRecipeForm = () => {
                 <div className={`${styles['custom-select']}`}>
                   <select
                     id="category"
-                    {...register('category', { required: true })}
-                    onChange={e => storeFormData(e.target.name, e.target.value)}
+                    {...register('category')}
+                    defaultValue=""
                     className={`${styles.select} ${styles['select-category']}`}
                   >
                     <option value="">Select a category</option>
-                    <option value="appetizer">Appetizer</option>
-                    <option value="main">Main Course</option>
-                    <option value="dessert">Dessert</option>
+                    {categories.result.map(category => (
+                      <option key={category._id} value={category.name}>
+                        {category.name}
+                      </option>
+                    ))}
                   </select>
-                  {errors.category && (
-                    <span className={styles.error}>This field is required</span>
-                  )}
                   <svg className={`${styles['icon-select']}`}>
                     <use href={`${icons}#icon-chevron-down`} />
                   </svg>
@@ -205,19 +231,14 @@ const AddRecipeForm = () => {
                   Area
                 </label>
                 <div className={`${styles['custom-select']}`}>
-                  <select
-                    id="area"
-                    {...register('area', { required: true })}
-                    onChange={e => storeFormData(e.target.name, e.target.value)}
-                  >
+                  <select id="area" {...register('area')} defaultValue="">
                     <option value="">Select an area</option>
-                    <option value="Ukraine">Ukraine</option>
-                    <option value="USA">USA</option>
-                    <option value="Italy">Italy</option>
+                    {areas.map(area => (
+                      <option key={area._id} value={area.name}>
+                        {area.name}
+                      </option>
+                    ))}
                   </select>
-                  {errors.area && (
-                    <span className={styles.error}>This field is required</span>
-                  )}
                   <svg className={`${styles['icon-select']}`}>
                     <use href={`${icons}#icon-chevron-down`} />
                   </svg>
@@ -233,7 +254,6 @@ const AddRecipeForm = () => {
                   onClick={() => {
                     const newValue = Math.max(0, watch('time') - 10);
                     setValue('time', newValue);
-                    storeFormData('time', newValue);
                   }}
                   className={styles['time-button']}
                 >
@@ -246,7 +266,6 @@ const AddRecipeForm = () => {
                   {...register('time', { valueAsNumber: true })}
                   min="0"
                   defaultValue="0"
-                  onChange={e => storeFormData(e.target.name, e.target.value)}
                   className={`${styles.input} ${styles['input-time']}`}
                 />
                 <button
@@ -254,7 +273,6 @@ const AddRecipeForm = () => {
                   onClick={() => {
                     const newValue = (watch('time') || 0) + 10;
                     setValue('time', newValue);
-                    storeFormData('time', newValue);
                   }}
                   className={styles['time-button']}
                 >
@@ -263,66 +281,46 @@ const AddRecipeForm = () => {
                   </svg>
                 </button>
               </div>
-              {errors.time && (
-                <span className={styles.error}>This field is required</span>
-              )}
             </div>
             <h3 className={styles['ingredient-title']}>Ingredients</h3>
-            {ingredients.map((ingredient, index) => (
-              <div
-                className={styles['ingredient-quantity-wrapper']}
-                key={ingredient.id}
-              >
-                <div className={`${styles['custom-select']}`}>
-                  <label htmlFor="ingredients" className={styles.label}></label>
-                  <select
-                    id={`ingredients-${index}`}
-                    {...register(`ingredients[${index}]`, { required: true })}
-                    onChange={e =>
-                      storeFormData(`ingredients[${index}]`, e.target.value)
-                    }
-                  >
-                    <option value="" disabled selected>
-                      Add the ingredient
+            <div className={styles['ingredient-quantity-wrapper']}>
+              <div className={`${styles['custom-select']}`}>
+                <label htmlFor="ingredient" className={styles.label}></label>
+                <select
+                  id="ingredient"
+                  {...register('ingredient')}
+                  defaultValue=""
+                  className={`${styles.select} ${styles['select-ingredient']}`}
+                >
+                  <option value="" disabled>
+                    Add the ingredient
+                  </option>
+                  {ingredientsAll.map(ingredient => (
+                    <option
+                      key={ingredient._id}
+                      value={JSON.stringify(ingredient)}
+                    >
+                      {ingredient.name}
                     </option>
-                    <option value="tomato">Tomato</option>
-                    <option value="cheese">Cheese</option>
-                    <option value="basil">Basil</option>
-                  </select>
-                  <svg className={`${styles['icon-select']}`}>
-                    <use href={`${icons}#icon-chevron-down`} />
-                  </svg>
-                  {errors.ingredients && errors.ingredients[index] && (
-                    <span className={styles.error}>This field is required</span>
-                  )}
-                </div>
-                <div>
-                  <label
-                    htmlFor={`quantity-${index}`}
-                    className={styles.label}
-                  ></label>
-                  <div className={styles['input-quantity-wrapper']}>
-                    <input
-                      type="text"
-                      id={`quantity-${index}`}
-                      placeholder="Enter quantity"
-                      {...register(`quantities[${index}]`, {
-                        required: true,
-                      })}
-                      onChange={e =>
-                        storeFormData(`quantities[${index}]`, e.target.value)
-                      }
-                      className={`${styles.input} ${styles['input-quantity']}`}
-                    />
-                  </div>
-
-                  {errors.quantities && errors.quantities[index] && (
-                    <span className={styles.error}>This field is required</span>
-                  )}
+                  ))}
+                </select>
+                <svg className={`${styles['icon-select']}`}>
+                  <use href={`${icons}#icon-chevron-down`} />
+                </svg>
+              </div>
+              <div>
+                <label htmlFor="quantity" className={styles.label}></label>
+                <div className={styles['input-quantity-wrapper']}>
+                  <input
+                    type="text"
+                    id="quantity"
+                    placeholder="Enter quantity"
+                    {...register('quantity')}
+                    className={`${styles.input} ${styles['input-quantity']}`}
+                  />
                 </div>
               </div>
-            ))}
-
+            </div>
             <button
               type="button"
               onClick={handleBtnIngredientClick}
@@ -347,7 +345,6 @@ const AddRecipeForm = () => {
                   id="preparation"
                   placeholder="Enter recipe"
                   {...register('preparation', {
-                    required: true,
                     maxLength: maxInputLength,
                   })}
                   onChange={handleInputChange}
@@ -358,10 +355,6 @@ const AddRecipeForm = () => {
                   {preparationLength}/{maxInputLength}
                 </div>
               </div>
-
-              {errors.preparation && (
-                <span className={styles.error}>This field is required</span>
-              )}
             </div>
             <div className={`${styles['clear-submit-wrapper']}`}>
               <button
