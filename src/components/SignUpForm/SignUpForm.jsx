@@ -1,13 +1,23 @@
 import styles from './SignUpForm.module.scss';
-import { authApi } from '../../services/Api';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useState } from 'react';
 import icons from '../../assets/icons/icons.svg';
 import { Button } from '../../ui-kit';
+import { useDispatch } from 'react-redux';
+import { useStore } from 'react-redux';
+import { register as signUP } from '../../redux/auth/authOperations';
+import {
+  getError,
+  getIsLoggedIn,
+  getLoading,
+} from '../../redux/auth/authSelectors';
 
 const SignUpForm = ({ onRequestClose }) => {
+  const dispatch = useDispatch();
+  const store = useStore();
+
   const [passHiddenState, setpassHiddenState] = useState(true);
 
   const schema = yup.object().shape({
@@ -34,28 +44,20 @@ const SignUpForm = ({ onRequestClose }) => {
   });
 
   const onSubmit = async data => {
-    try {
-      const response = await authApi.register(data);
-      if (response.data) {
-        localStorage.setItem('user', JSON.stringify(response.data.user));
-        alert('Registered!');
+    dispatch(signUP(data)).then(() => {
+      const state = store.getState();
+      const isLoading = getLoading(state);
+      const isLoggedIn = getIsLoggedIn(state);
+      const errormMsg = getError(state);
+
+      if (isLoggedIn) {
+        onRequestClose(() => false);
       }
-      onRequestClose(() => false);
-      // const loginResponse = await authApi.login({
-      //   email: data.email,
-      //   password: '12345678',
-      // });
-      // if (loginResponse.data) {
-      //   localStorage.setItem(
-      //     'login2',
-      //     JSON.stringify(loginResponse.data.token)
-      //   );
-      //   onRequestClose(() => false);
-      //   alert('Logged in!');
-      // }
-    } catch (error) {
-      alert(error.response.data.message);
-    }
+
+      if (errormMsg) {
+        alert(errormMsg);
+      }
+    });
   };
 
   return (
