@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import icons from '../../assets/icons/icons.svg';
 import { LogoWhite } from '../../ui-kit';
@@ -6,17 +6,37 @@ import styles from './BurgerMenu.module.scss';
 import images from '../../assets/images/hero'
 
 
-const BurgerMenu = () => {
+const BurgerMenu = ({isHomePage}) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const toggleDrawer = () => {
     setIsDrawerOpen((prevState) => !prevState);
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Escape') {
+      setIsDrawerOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isDrawerOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+    } else {
+      window.removeEventListener('keydown', handleKeyDown);
+    }
+    
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isDrawerOpen]);
+
+  const iconColor = isHomePage ? styles.iconWhite : styles.iconBlack;
+
   return (
     <div>
       <button onClick={toggleDrawer} className={styles.menuButton}>
-        <svg className={styles.icon}>
+      <svg className={`${styles.icon} ${iconColor}`}>
           <use href={`${icons}#icon-burger`} />
         </svg>
       </button>
@@ -34,7 +54,7 @@ const BurgerMenu = () => {
             <NavLink to="/" className={styles.menuItem} onClick={toggleDrawer}>
               Home
             </NavLink>
-            <NavLink to="/addRecipe" className={styles.menuItem} onClick={toggleDrawer}>
+            <NavLink  to="/recipe/add" className={styles.menuItem} onClick={toggleDrawer}>
               Add Recipe
             </NavLink>
           </nav>

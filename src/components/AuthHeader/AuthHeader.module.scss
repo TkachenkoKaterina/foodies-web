@@ -2,17 +2,29 @@
 
 .header {
   position: absolute;
-  top: 40px;
+  top: 24px;
   width: 100%;
   z-index: 1000; 
+
+  @include min-tablet {
+    top: 36px;
+  }
+
+  @include min-desktop {
+    top: 40px;
+  }
 }
 
 .navbar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+
 }
 
-.whiteLogo {
-  color: $--color-white;
+.mobileWrapper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 

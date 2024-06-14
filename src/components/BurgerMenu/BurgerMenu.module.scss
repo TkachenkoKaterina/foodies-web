@@ -4,11 +4,15 @@
   background: none;
   border: none;
   cursor: pointer;
+ display:flex;
 
   svg {
     width: 24px;
     height: 24px;
-    fill: currentColor;
+  }
+
+  @include min-tablet {
+    display: none;
   }
 }
 
@@ -22,6 +26,10 @@
   color: $--color-white;
   transition: transform 0.3s ease;
   z-index: 1000; 
+
+  @include min-tablet {
+    display: none;
+  }
 }
 
 .drawerHeader {
@@ -85,5 +93,13 @@
 .heroImgBig {
     width: 190px;
     margin-top: 145px;
+}
+
+.iconWhite {
+  stroke: $--color-white;
+}
+
+.iconBlack {
+  stroke: $--color-main;
 }
 
