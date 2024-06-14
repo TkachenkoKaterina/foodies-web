@@ -1,0 +1,41 @@
+@import '../../styles/main.scss';
+
+.recipe_description {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .title {
+        font-family: $--font-mulish;
+        font-size: 18px;
+        font-weight: 800;
+        line-height: 24px;
+        letter-spacing: -0.02em;
+        text-align: left;
+        color: $--color-main;
+        text-transform: uppercase;
+    }
+
+    .instruction {
+        font-family: $--font-mulish;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+        letter-spacing: -0.02em;
+        text-align: left;
+        color: $--color-main-opacity80;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .recipe_preparation_wrap {
+        .title {
+            font-size: 20px;
+        }
+
+        .instruction {
+            font-size: 16px;
+            line-height: 24px;
+        }
+    }
+}
