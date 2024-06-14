@@ -1,4 +1,4 @@
-import styles from './SignUpForm.module.scss';
+import styles from './SignInForm.module.scss';
 import { authApi } from '../../services/Api';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -11,10 +11,6 @@ const SignUpForm = ({ onRequestClose }) => {
   const [passHiddenState, setpassHiddenState] = useState(true);
 
   const schema = yup.object().shape({
-    name: yup
-      .string()
-      .min(3, '*  Name - must be at least 3 characters')
-      .required('*  Name is required'),
     email: yup
       .string()
       .email('*  Invalid email')
@@ -35,24 +31,18 @@ const SignUpForm = ({ onRequestClose }) => {
 
   const onSubmit = async data => {
     try {
-      const response = await authApi.register(data);
-      if (response.data) {
-        localStorage.setItem('user', JSON.stringify(response.data.user));
-        alert('Registered!');
+      const loginResponse = await authApi.login({
+        email: data.email,
+        password: data.password,
+      });
+      if (loginResponse.data) {
+        localStorage.setItem(
+          'login2',
+          JSON.stringify(loginResponse.data.token)
+        );
+        onRequestClose(() => false);
+        alert('Logged in!');
       }
-      onRequestClose(() => false);
-      // const loginResponse = await authApi.login({
-      //   email: data.email,
-      //   password: '12345678',
-      // });
-      // if (loginResponse.data) {
-      //   localStorage.setItem(
-      //     'login2',
-      //     JSON.stringify(loginResponse.data.token)
-      //   );
-      //   onRequestClose(() => false);
-      //   alert('Logged in!');
-      // }
     } catch (error) {
       alert(error.response.data.message);
     }
@@ -61,7 +51,7 @@ const SignUpForm = ({ onRequestClose }) => {
   return (
     <div className={styles.formWrapper}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <div className={styles.inputContainer}>
+        {/* <div className={styles.inputContainer}>
           <input
             className={`${styles.input} ${
               errors.name ? styles.inputError : ''
@@ -78,7 +68,7 @@ const SignUpForm = ({ onRequestClose }) => {
             })}
           />
           <p className={styles.error}>{errors.name?.message}</p>
-        </div>
+        </div> */}
         <div className={styles.inputContainer}>
           <input
             className={`${styles.input} ${
@@ -118,7 +108,7 @@ const SignUpForm = ({ onRequestClose }) => {
         </div>
         <div className={styles.btnWraper}>
           <Button type={'submit'} variant={'auth'}>
-            Create
+            sign in
           </Button>
         </div>
       </form>

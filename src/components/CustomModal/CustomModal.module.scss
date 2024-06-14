@@ -26,14 +26,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 80px;
-  background-color: #fff;
-  border-radius: 30px;
   transition: transform 0.3s;
-  padding: 80px;
-
   &:focus {
     outline: none;
+  }
+  border-radius: 20px;
+  background-color: white;
+  overflow: hidden;
+  @include min-tablet {
+    border-radius: 30px;
   }
 }
 
@@ -42,9 +43,14 @@
   height: 24px;
   stroke: $--color-main;
   position: absolute;
-  right: 20px;
-  top: 20px;
+  right: 16px;
+  top: 16px;
+  transition: transform 0.3s ease;
+  @include min-tablet {
+    right: 20px;
+    top: 20px;
+  }
   &:hover {
-    stroke: blue;
+    transform: scale(1.1);
   }
 }

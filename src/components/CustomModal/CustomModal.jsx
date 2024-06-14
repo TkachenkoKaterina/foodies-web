@@ -1,17 +1,19 @@
 import Modal from 'react-modal';
 import icons from '../../assets/icons/icons.svg';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import styles from './CustomModal.module.scss';
 
-const CustomModal = ({ isOpen, children }) => {
-  const [modalOpen, setModalOpen] = useState(isOpen);
-
+const CustomModal = ({ isOpen, children, onRequestClose }) => {
   useEffect(() => {
     document.body.classList.add('modal-open');
+
+    return () => {
+      document.body.classList.remove('modal-open');
+    };
   }, []);
 
   const onClose = () => {
-    setModalOpen(false);
+    onRequestClose(() => false);
     document.body.classList.remove('modal-open');
   };
 
@@ -19,7 +21,7 @@ const CustomModal = ({ isOpen, children }) => {
   if (!isOpen) return null;
   return (
     <Modal
-      isOpen={modalOpen}
+      isOpen={isOpen}
       onRequestClose={onClose}
       className={styles.content}
       overlayClassName={styles.overlay}

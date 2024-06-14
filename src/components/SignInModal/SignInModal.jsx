@@ -1,19 +1,19 @@
 import CustomModal from '../CustomModal/CustomModal';
-import SignUpForm from '../SignUpForm';
-import styles from './SignUpModal.module.scss';
+import SignInForm from '../SignInForm';
+import styles from './SignInModal.module.scss';
 
-const SignUpModal = ({ isOpen, onRequestClose }) => {
+const SignInModal = ({ isOpen, onRequestClose }) => {
   return (
     <CustomModal isOpen={isOpen} onRequestClose={onRequestClose}>
       <div className={styles.signUpWrapper}>
-        <h2 className={styles.title}>Sign Up</h2>
+        <h2 className={styles.title}>Sign In</h2>
         <div className={styles.formWrapper}>
-          <SignUpForm onRequestClose={onRequestClose} />
+          <SignInForm onRequestClose={onRequestClose} />
         </div>
         <div className={styles.textContainer}>
           <a className={styles.link} onClick={() => alert('Sign in')}>
-            I already have an account?
-            <span className={styles.linkText}> Sign in</span>
+            Don&apos;t have an account?
+            <span className={styles.linkText}> Create an account</span>
           </a>
         </div>
       </div>
@@ -21,4 +21,4 @@ const SignUpModal = ({ isOpen, onRequestClose }) => {
   );
 };
 
-export default SignUpModal;
+export default SignInModal;

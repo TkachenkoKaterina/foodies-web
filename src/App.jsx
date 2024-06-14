@@ -4,8 +4,6 @@ import './styles/styles.scss';
 import Layout from './components/Layout';
 import RoutesSwitch from './Router';
 import CurrentUser from './CurrentUser';
-import SignUpModal from './components/SignUpModal/SignUpModal';
-import CustomModal from './components/CustomModal/CustomModal';
 
 const App = () => {
   return (
@@ -15,7 +13,6 @@ const App = () => {
           <RoutesSwitch />
         </Layout>
       </CurrentUser>
-      <SignUpModal isOpen={true} />
     </>
   );
 };
