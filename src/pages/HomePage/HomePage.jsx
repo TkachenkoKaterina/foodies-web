@@ -11,14 +11,16 @@ const HomePage = () => {
   // const categoryBtn = document.querySelector();
   const handlerCategoryChoose = e => {
     e.preventDefault();
-    if (e.target.nodeName === 'IMG') {
-      setCategory(e.target.alt);
+    console.log(e.currentTarget.parentNode.nodeName);
+    if (e.currentTarget.nodeName === 'BUTTON') {
+      setCategory(e.currentTarget.parentNode.firstChild.textContent);
     }
   };
   const goToCategory = e => {
     e.preventDefault();
     setCategory(false);
   };
+
   return (
     <>
       <Hero />
