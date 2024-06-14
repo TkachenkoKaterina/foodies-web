@@ -2,22 +2,22 @@ import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import styles from './ListPagination.module.scss';
 
-const itemsData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+// const itemsData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
 
-function PaginatedItems({ currentItems }) {
-  return (
-    <>
-      {currentItems &&
-        currentItems.map(item => (
-          <div key={item}>
-            <h3>Item #{item}</h3>
-          </div>
-        ))}
-    </>
-  );
-}
+// function PaginatedItems({ currentItems }) {
+//   return (
+//     <>
+//       {currentItems &&
+//         currentItems.map(item => (
+//           <div key={item}>
+//             <h3>Item #{item}</h3>
+//           </div>
+//         ))}
+//     </>
+//   );
+// }
 
-function ListPagination({ itemsPerPage = 5 }) {
+function ListPagination({ itemsPerPage = 1 }) {
   const [itemOffset, setItemOffset] = useState(0);
 
   const endOffset = itemOffset + itemsPerPage;
@@ -33,18 +33,18 @@ function ListPagination({ itemsPerPage = 5 }) {
     <>
       <PaginatedItems currentItems={currentItems} />
       <ReactPaginate
-        // breakLabel="..."
-        nextLabel=" "
+        breakLabel="..."
+        nextLabel="  "
         onPageChange={handlePageClick}
-        pageRangeDisplayed={3}
+        pageRangeDisplayed={2}
+        marginPagesDisplayed={1}
         pageCount={pageCount}
-        previousLabel=" "
+        previousLabel="  "
         renderOnZeroPageCount={null}
         currentPage={styles.current_page}
         containerClassName={styles.pagination}
         pageClassName={styles.page}
         activeClassName={styles.page_active}
-        // onPageActive={styles.active}
         disabledClassName={styles.page_disabled}
       />
     </>
