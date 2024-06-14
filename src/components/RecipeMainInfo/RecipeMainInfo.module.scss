@@ -1,8 +1,118 @@
 @import '../../styles/main.scss';
 
+.recipe_main_info {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    .thumb_wrap {
+        width: 343px;
+        height: 318px;
+        border-radius: 30px;
+        overflow: hidden;
+
+        img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .recipe_details {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .title {
+            font-family: $--font-mulish;
+            font-size: 18px;
+            font-weight: 800;
+            line-height: 24px;
+            letter-spacing: -0.02em;
+            text-align: left;
+            text-transform: uppercase;
+            color: $--color-main;
+        }
+
+        .category_time {
+            display: flex;
+            gap: 8px;
+
+            .category {
+                padding: 10px;
+                border-radius: 20px;
+                border: 1px solid $--color-main-opacity12;
+
+                font-family: $--font-mulish;
+                font-size: 14px;
+                font-weight: 500;
+                line-height: 18px;
+                letter-spacing: -0.02em;
+                text-align: left;
+                color: $--color-main;
+                opacity: 0.6;
+            }
+        }
+
+        .description {
+            font-family:$--font-mulish;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 20px;
+            letter-spacing: -0.02em;
+            text-align: left;
+            color: $--color-main-opacity80;
+        }
+    }
+}
+
 .avatar {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     opacity: 0px;
+}
+
+
+@media screen and (min-width: 768px) {
+    .recipe_main_info {
+        gap: 40px;
+
+        .thumb_wrap {
+            width: 704px;
+            height: 400px;
+        }
+
+        .recipe_details {
+            .title {
+                font-size: 24px;
+                line-height: 28px;
+                gap: 40px;
+            }
+
+            .description {
+                font-size: 16px;
+                line-height: 24px;
+                gap: 40px;
+            }
+        }
+    }
+}
+
+
+@media screen and (min-width: 1440px) {
+    .recipe_main_info {
+        flex-direction: row;
+        gap: 80px;
+
+        .thumb_wrap {
+            width: 551px;
+            height: 400px;
+            flex-shrink: 0;
+        }
+
+        .recipe_details {
+            flex: 1;
+        }
+    }
 }
