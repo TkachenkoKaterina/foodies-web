@@ -2,7 +2,11 @@ import CustomModal from '../CustomModal/CustomModal';
 import SignUpForm from '../SignUpForm';
 import styles from './SignUpModal.module.scss';
 
-const SignUpModal = ({ isOpen, onRequestClose }) => {
+const SignUpModal = ({ isOpen, onRequestClose, togle }) => {
+  const handleClick = () => {
+    togle(() => true);
+  };
+
   return (
     <CustomModal isOpen={isOpen} onRequestClose={onRequestClose}>
       <div className={styles.signUpWrapper}>
@@ -11,7 +15,7 @@ const SignUpModal = ({ isOpen, onRequestClose }) => {
           <SignUpForm onRequestClose={onRequestClose} />
         </div>
         <div className={styles.textContainer}>
-          <a className={styles.link} onClick={() => alert('Sign in')}>
+          <a className={styles.link} onClick={() => handleClick()}>
             I already have an account?
             <span className={styles.linkText}> Sign in</span>
           </a>

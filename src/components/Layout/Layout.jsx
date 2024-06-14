@@ -3,24 +3,22 @@ import styles from './Layout.module.scss';
 import Header from '../Header';
 import Footer from '../Footer';
 // import { Sign } from 'crypto';
-import SignUpModal from '../SignUpModal/SignUpModal';
-import SignInModal from '../SignInModal/SignInModal';
+import FormSwitcher from '../FormSwitcher/FormSwitcher';
 
 const Layout = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [modal, setModal] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(false);
-  const [isSignedUp, setIsSignedUp] = useState(false);
+  // setIsAuthenticated(true);
 
   const handleSignInClick = () => {
-    // setIsAuthenticated(true);
     setIsSignedIn(() => true);
-    setIsSignedUp(() => false);
+    setModal(() => true);
   };
 
   const handleSignUpClick = () => {
-    // setIsAuthenticated(true);
-    setIsSignedUp(() => true);
     setIsSignedIn(() => false);
+    setModal(() => true);
   };
 
   return (
@@ -32,11 +30,13 @@ const Layout = ({ children }) => {
       />
       <main className={styles.main}>{children}</main>
       <Footer />
-      {isSignedUp ? (
-        <SignUpModal isOpen={isSignedUp} onRequestClose={setIsSignedUp} />
-      ) : null}
-      {isSignedIn ? (
-        <SignInModal isOpen={isSignedIn} onRequestClose={setIsSignedIn} />
+
+      {modal ? (
+        <FormSwitcher
+          state={isSignedIn}
+          togle={setIsSignedIn}
+          onRequestClose={setModal}
+        />
       ) : null}
     </div>
   );
