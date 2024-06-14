@@ -59,9 +59,10 @@ export const recipesApi = {
   getPopularRecipes: () => apiInstance.get(`/api/recipes/popular`),
 };
 
-// export const testimonialsApi = {
-//   getTestimonials: () => apiInstance.get('/api/testimonials'),
-// };
+export const testimonialsApi = {
+  getTestimonials: () => apiInstance.get('/api/testimonials'),
+};
+
 export const areasApi = {
   getAreas: () => apiInstance.get('/api/areas'),
 };
