@@ -45,6 +45,7 @@ export const recipeApi = {
     apiInstance.get('/api/recipes/favorites', { params }),
   addToFavorites: id => apiInstance.post(`/api/recipes/favorites/${id}`),
   removeFromFavorites: id => apiInstance.delete(`/api/recipes/favorites/${id}`),
+  createRecipe: formData => apiInstanceImages.post('/api/recipes/', formData),
 };
 
 export const categoriesApi = {
