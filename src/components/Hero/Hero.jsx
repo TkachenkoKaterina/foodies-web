@@ -1,16 +1,22 @@
+import { Link } from 'react-router-dom';
+
 import Container from '../../ui-kit/Container';
 
 import images from '../../assets/images/hero'
 
 import css from './Hero.module.scss';
+
 const Hero = () => {
     return (
         <section className={css['hero-section']}>
             <Container>
                 <div className={css['hero-wrapper']}>
                     <h1 className={css['hero-title']}>Improve Your Culinary Talents</h1>
-                    <p className={css['hero-description']}>Amazing recipes for beginners in the world of cooking, enveloping you in the aromas and tastes of various cuisines.</p>
-                    <button className={css['hero-button']}>Add recipe</button>
+                    <p className={css['hero-description']}>
+                        Amazing recipes for beginners in the world of cooking,
+                        enveloping you in the aromas and tastes of various cuisines.
+                    </p>
+                    <Link to="/recipe/add" className={css['hero-link']}>Add recipe</Link>
                     <div className={css['hero-wrapper-img']}>
                         <div className={css['hero-img-small']}>
                             <img
