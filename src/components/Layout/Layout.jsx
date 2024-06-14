@@ -4,10 +4,13 @@ import Header from '../Header';
 import Footer from '../Footer';
 // import { Sign } from 'crypto';
 import FormSwitcher from '../FormSwitcher/FormSwitcher';
+import LogOutModal from '../LogOutModal/LogOutModal';
 
 const Layout = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [modal, setModal] = useState(false);
+  const [logOutModlal, setLogOutModal] = useState(false);
+
   const [isSignedIn, setIsSignedIn] = useState(false);
   // setIsAuthenticated(true);
 
@@ -38,6 +41,9 @@ const Layout = ({ children }) => {
         />
       ) : null}
       ;
+      {logOutModlal ? (
+        <LogOutModal isOpen={logOutModlal} onRequestClose={setLogOutModal} />
+      ) : null}
     </div>
   );
 };
