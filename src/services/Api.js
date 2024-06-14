@@ -49,6 +49,7 @@ export const recipeApi = {
 
 export const categoriesApi = {
   getCategories: () => apiInstance.get('/api/categories'),
+  getMoreCategories: value => apiInstance.get(`/api/categories?page=${value}`),
 };
 
 export const recipesApi = {
