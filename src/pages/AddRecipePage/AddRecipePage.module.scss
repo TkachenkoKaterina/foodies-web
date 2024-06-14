@@ -1,0 +1,11 @@
+@import '../../styles/main.scss';
+
+.add-recipe-page {
+  padding-top: 126px;
+  @include min-tablet {
+    padding-top: 150px;
+  }
+  @include min-desktop {
+    padding-top: 170px;
+  }
+}
