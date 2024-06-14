@@ -16,7 +16,7 @@ const SignInModal = ({ isOpen, onRequestClose, togle }) => {
         <div className={styles.textContainer}>
           <a className={styles.link} onClick={() => handleClick()}>
             Don&apos;t have an account?
-            <span className={styles.linkText}>Create an account</span>
+            <span className={styles.linkText}> Create an account</span>
           </a>
         </div>
       </div>
