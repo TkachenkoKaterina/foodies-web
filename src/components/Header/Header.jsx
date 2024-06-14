@@ -11,7 +11,6 @@ const Header = ({user, onSignUpClick , onSignInClick}) => {
   const isAuthenticated = useSelector(getIsLoggedIn);
 
   return (
-    // <AuthHeader  isHomePage={isHomePage} />
     <>
       {isAuthenticated ? (
         <AuthHeader isHomePage={isHomePage} user={user} />
