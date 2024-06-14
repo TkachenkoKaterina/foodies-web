@@ -1,78 +1,97 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Select from '../../ui-kit/Select';
+import { useDispatch, useSelector } from 'react-redux';
+import styles from '../../ui-kit/Select/Select.module.scss';
+import { fetchAreas } from '../../redux/areas/areasOperations';
+import { selectAreas } from '../../redux/areas/areasSelectors';
+import { fetchIngredients } from '../../redux/ingredients/ingredientsOperatins';
+import { selectIngredients } from '../../redux/ingredients/ingredientsSelectors';
+// import { getRecipes } from '../../redux/recipes/recipesSelectors';
 
-const RecipeFilters = () => {
-  const ingredients = [
-    {
-      _id: '640c2dd963a319ea671e37aa',
-      name: 'Squid',
-    },
-    {
-      _id: '640c2dd963a319ea671e37f5',
-      name: 'Cabbage',
-    },
-    {
-      _id: '640c2dd963a319ea671e3665',
-      name: 'Baking Powder',
-    },
-    {
-      _id: '640c2dd963a319ea671e3804',
-      name: 'Smoked Haddock',
-    },
-    {
-      _id: '640c2dd963a319ea671e382c',
-      name: 'Pears',
-    },
-    {
-      _id: '640c2dd963a319ea671e3770',
-      name: 'Spring Onions',
-    },
-    {
-      _id: '640c2dd963a319ea671e36e9',
-      name: 'Ginger Cordial',
-    },
-  ];
+const RecipeFilters = ({ selectHendler, handleChange }) => {
+  const dispatch = useDispatch();
+  const area = useSelector(selectAreas);
+  const ingredients = useSelector(selectIngredients);
+  // const selectArrays = [area, ingredients];
+  // console.log(areas);
+  useEffect(() => {
+    dispatch(fetchIngredients());
+  }, [dispatch]);
 
-  const areas = [
-    {
-      _id: '6462a6f04c3d0ddd28897f9b',
-      name: 'Ukrainian',
-    },
-    {
-      _id: '6462a6f04c3d0ddd28897f9c',
-      name: 'Italian',
-    },
-    {
-      _id: '6462a6f04c3d0ddd28897f9d',
-      name: 'Moroccan',
-    },
-    {
-      _id: '6462a6f04c3d0ddd28897f9e',
-      name: 'Unknown',
-    },
-    {
-      _id: '6462a6f04c3d0ddd28897f9f',
-      name: 'Thai',
-    },
-    {
-      _id: '6462a6f04c3d0ddd28897fa0',
-      name: 'Irish',
-    },
-    {
-      _id: '6462a6f04c3d0ddd28897fa1',
-      name: 'British',
-    },
-  ];
+  useEffect(() => {
+    dispatch(fetchAreas());
+  }, [dispatch]);
+
+  // const handleChange = event => {
+  //   if (!event.nativeEvent.inputType) {
+  //     event.target.blur();
+  //   }
+  // };
+  // return (
+  //   <>
+  //     {selectArrays?.map((arrayItem, index) => {
+  //       let name;
+  //       if (index === 0) {
+  //         name = 'Area';
+  //       } else {
+  //         name = 'Ingredients';
+  //       }
+  //       return (
+  //         <Select
+  //           key={index}
+  //           arrayOfObjects={arrayItem}
+  //           placeholder={name}
+  //           selectHendler={selectHendler}
+  //         />
+  //       );
+  //     })}
+  //   </>
+  // );
 
   return (
     <>
-      <Select arrayOfObjects={areas} placeholder="Area" id="area" />
-      <Select
-        arrayOfObjects={ingredients}
-        placeholder="Ingredients"
-        id="ingredients"
-      />
+      <div className={styles.selectBox}>
+        <input
+          className={styles.input}
+          type="input"
+          list="area"
+          onChange={handleChange}
+          onClick={selectHendler}
+          onFocus={selectHendler}
+          placeholder="Area"
+          id="Area"
+          defaultValue=""
+        />
+        <datalist id="area" className={styles.datalist}>
+          {area.map(({ _id, name }) => (
+            <option key={_id + name} id={_id}>
+              {name}
+            </option>
+          ))}
+        </datalist>
+      </div>
+      <div className={styles.selectBox}>
+        <input
+          className={styles.input}
+          type="input"
+          list="ingredients"
+          onChange={handleChange}
+          onClick={selectHendler}
+          onFocus={selectHendler}
+          placeholder="Ingredients"
+          id="Ingredients"
+          defaultValue=""
+        />
+        <datalist id="ingredients" className={styles.datalist}>
+          {ingredients.map(({ _id, name }) => (
+            <option key={_id + name} id={_id}>
+              {name}
+            </option>
+          ))}
+        </datalist>
+      </div>
     </>
   );
 };
+
 export default RecipeFilters;

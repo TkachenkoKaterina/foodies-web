@@ -7,8 +7,8 @@ import { BASE_URL } from '../../services/BaseUrl.js';
 
 axios.defaults.baseURL = BASE_URL;
 
-export const fetchCategories = createAsyncThunk(
-  'Areas',
+export const fetchIngredients = createAsyncThunk(
+  'getIngredients',
   async (_, thunkAPI) => {
     try {
       const res = await ingredientsApi.getIngredients();

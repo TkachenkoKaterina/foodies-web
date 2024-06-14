@@ -7,14 +7,11 @@ import { BASE_URL } from '../../services/BaseUrl.js';
 
 axios.defaults.baseURL = BASE_URL;
 
-export const areas = createAsyncThunk(
-  'Areas',
-  async (_, thunkAPI) => {
-    try {
-      const res = await areasApi.getAreas();
-      return res.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
+export const fetchAreas = createAsyncThunk('getAreas', async (_, thunkAPI) => {
+  try {
+    const res = await areasApi.getAreas();
+    return res.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
   }
-);
+});

@@ -4,6 +4,8 @@
   flex-direction: column;
   position: relative;
   & .input {
+    // position: fixed;
+    top: 0;
     padding: 16px 18px 16px 18px;
     gap: 210px;
     border-radius: 30px;
@@ -11,6 +13,8 @@
     border: 1px solid rgba(5, 5, 5, 0.12);
   }
   & .datalist {
-    position: fixed;
+    // position: fixed;
+    right: 0;
+    top: 0;
   }
 }

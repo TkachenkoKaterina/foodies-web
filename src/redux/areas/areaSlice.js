@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { areas } from "./areasOperations.js"
+import { fetchAreas } from './areasOperations.js';
 
 const handlePending = state => {
   state.isLoading = true;
@@ -20,13 +20,13 @@ const areasSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(areas.pending, handlePending)
-      .addCase(areas.fulfilled, (state, action) => {
+      .addCase(fetchAreas.pending, handlePending)
+      .addCase(fetchAreas.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
         state.areas = action.payload;
       })
-      .addCase(areas.rejected, handleRejected);
+      .addCase(fetchAreas.rejected, handleRejected);
   },
 });
 

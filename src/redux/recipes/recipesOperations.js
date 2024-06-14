@@ -9,8 +9,8 @@ export const getRecipesInCategory = createAsyncThunk(
   'recipes/filter',
   async (category, params, thunkAPI) => {
     try {
-      console.log('argument passed to action creator:', category);
-      const res = await recipesApi.getRecipes(category, params);
+      console.log('argument passed to action creator:', category, { params });
+      const res = await recipesApi.getRecipes(category, { params });
       return res.data;
     } catch (error) {
       thunkAPI.rejectWithValue(error);
