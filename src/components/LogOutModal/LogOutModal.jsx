@@ -33,7 +33,6 @@ const LogOutModal = ({ isOpen, onCancel, onSuccess }) => {
           >
             cancel
           </Button>
-        </div>
       </div>
     </CustomModal>
   );
