@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import PathInfo from '../../ui-kit/PathInfo';
 import RecipeInfo from '../../components/RecipeInfo';
 
+// import PopularRecipes from '../../components/PopularRecipes/PopularRecipes'; // Irina
+
+import PopularRecipes from '../../components/PopularRecipes';
+import styles from './RecipePage.module.scss';
+import { Container } from '../../ui-kit';
+import { recipeApi } from '../../services/Api.js';
+import { PageLoader } from '../../ui-kit/Loader';
 
 const RecipePage = () => {
   const { id } = useParams();
@@ -14,7 +20,12 @@ const RecipePage = () => {
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const response = await axios.get(`https://foodies-1u0q.onrender.com/api/recipes/public/${id}`);
+
+//         const response = await axios.get(
+//           `https://foodies-1u0q.onrender.com/api/recipes/public/${id}`
+//         );
+
+        const response = await recipeApi.getRecipes(`public/${id}`);
         setRecipe(response.data);
         setLoading(false);
       } catch (err) {
@@ -27,7 +38,7 @@ const RecipePage = () => {
   }, [id]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <PageLoader />;
   }
 
   if (error) {
@@ -39,10 +50,12 @@ const RecipePage = () => {
   }
 
   return (
-    <>
+    <Container>
+      <div className={styles.cont} >
       <PathInfo path={recipe.title} />
       <RecipeInfo recipe={recipe} />
-    </>
+      <PopularRecipes />
+    </Container>
   );
 };
 

@@ -1,21 +1,117 @@
 @import '../../styles/main.scss';
 
-.ingredient_image_container {
-    width: 90px;
-    height: 90px;
+.ingredients_wrap {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid $--color-main-opacity10;
-    margin-right: 10px;
-    border-radius: 15px;
-    overflow: hidden;
+    flex-direction: column;
+    gap: 20px;
 
+    .title {
+        font-family: $--font-mulish;
+        font-size: 20px;
+        font-weight: 800;
+        line-height: 24px;
+        letter-spacing: -0.02em;
+        text-align: left;
+        color: $--color-main;
+        margin: 0;
+        padding: 0;
+    }
+
+    .ingredients_list_wrap {
+        ul.ingredients_list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+    }
 }
 
-.ingredient_image {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 50%;
+li.ingredient_item {
+    display: flex;
+    gap: 10px;
+    width: 152px;
+
+    .ingredient_image {
+        width: 75px;
+        height: 75px;
+        padding: 10px;
+        border-radius: 15px;
+        border: 1px solid $--color-main-opacity10;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        flex-shrink: 0;
+
+        img {
+            width: 55px;
+            height: 55px;
+        }
+    }
+
+    .ingredient_info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2px;
+
+        .ingredient_name {
+            font-family: $--font-mulish;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 20px;
+            letter-spacing: -0.02em;
+            text-align: left;
+            color: $--color-main;
+        }
+
+        .ingredient_measure {
+            font-family: $--font-mulish;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 20px;
+            letter-spacing: -0.02em;
+            text-align: left;
+            color: $--color-main-opacity60;
+        }
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .ingredients_wrap {
+            display: flex;
+    
+            .ingredients_list_wrap {
+                ul.ingredients_list {
+                    gap: 20px;
+                }
+            }
+        }
+    li.ingredient_item {
+        width: 178px;
+
+        .ingredient_image {
+            width: 90px;
+            height: 90px;
+
+            img {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        .ingredient_info {
+            gap: 4px;
+
+            .ingredient_name {
+                font-size: 16px;
+                line-height: 24px;
+            }
+
+            .ingredient_measure {
+                font-size: 16px;
+                line-height: 24px;
+            }
+        }
+    }
 }
