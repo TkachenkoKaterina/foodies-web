@@ -1,22 +1,41 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 import Container from '../../ui-kit/Container';
+
+import { getIsLoggedIn } from "../../redux/auth/authSelectors.js";
 
 import images from '../../assets/images/hero'
 
 import css from './Hero.module.scss';
 
 const Hero = () => {
+    const navigate = useNavigate();
+
+    const isLogin = useSelector(getIsLoggedIn);
+
+    const handleClick = () => {
+        isLogin
+        ? navigate('/recipe/add')
+        : console.log('Open Modal');
+    };
+
     return (
         <section className={css['hero-section']}>
             <Container>
                 <div className={css['hero-wrapper']}>
                     <h1 className={css['hero-title']}>Improve Your Culinary Talents</h1>
-                    <p className={css['hero-description']}>
+                    <h3 className={css['hero-description']}>
                         Amazing recipes for beginners in the world of cooking,
                         enveloping you in the aromas and tastes of various cuisines.
-                    </p>
-                    <Link to="/recipe/add" className={css['hero-link']}>Add recipe</Link>
+                    </h3>
+                    <button
+                        type='button'
+                        onClick={handleClick}
+                        className={css['hero-btn']}
+                    >
+                        Add recipe
+                    </button>
                     <div className={css['hero-wrapper-img']}>
                         <div className={css['hero-img-small']}>
                             <img
