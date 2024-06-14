@@ -52,6 +52,7 @@ const SignUpForm = ({ onRequestClose }) => {
 
       if (isLoggedIn) {
         onRequestClose(() => false);
+        alert('SignUp and Login OK');
       }
 
       if (errormMsg) {
