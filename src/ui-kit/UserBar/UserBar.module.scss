@@ -15,10 +15,15 @@
   
 .wrapper {
   display: flex;
-  padding-right: 14px;
+  padding-right: 6px;
   padding-left: 6px;
   align-items: center;
   gap: 4px;
+
+  @include min-tablet {
+    padding-right: 14px;
+  }
+  
   }
   
 .name {

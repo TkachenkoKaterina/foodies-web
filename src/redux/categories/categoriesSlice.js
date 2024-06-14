@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { fetchCategories } from './categoriesOperations.js';
+import { fetchCategories, fetchMoreCategories } from './categoriesOperations.js';
 
 const handlePending = state => {
     state.isLoading = true;
@@ -29,7 +29,14 @@ const categoriesSlice = createSlice({
                 state.error = null;
                 state.categories = action.payload;
             })
-            .addCase(fetchCategories.rejected, handleRejected);
+            .addCase(fetchCategories.rejected, handleRejected)
+            .addCase(fetchMoreCategories.pending, handlePending)
+            .addCase(fetchMoreCategories.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.error = null;
+                state.categories.result.push(...action.payload.result);
+            })
+            .addCase(fetchMoreCategories.rejected, handleRejected);
     },
 });
 

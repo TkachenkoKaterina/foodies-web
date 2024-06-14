@@ -44,4 +44,25 @@
       padding: 10px;
     }
   }
+  &.auth {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid $--color-main-opacity12;
+    background: $--color-main-opacity20;
+    color: $--color-white-opacity40;
+    font-size: 14px;
+    transition: 0.3s;
+
+    &:hover,
+    &:focus {
+      background: $--color-main;
+      color: $--color-white;
+      opacity: 1;
+    }
+
+    @include min-tablet {
+      padding: 16px;
+      font-size: 16px;
+    }
+  }
 }

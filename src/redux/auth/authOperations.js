@@ -22,3 +22,31 @@ export const getMe = createAsyncThunk(
     }
   }
 );
+
+export const register = createAsyncThunk(
+  'auth/register',
+  async (user, { rejectWithValue }) => {
+    try {
+      const { data } = await authApi.register(user);
+      return {
+        ...data,
+      };
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const login = createAsyncThunk(
+  'auth/login',
+  async (user, { rejectWithValue }) => {
+    try {
+      const { data } = await authApi.login(user);
+      return {
+        ...data,
+      };
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);

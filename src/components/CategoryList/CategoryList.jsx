@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CategoriesItem from '../CategoriesItem';
 
 import { selectCategories } from '../../redux/categories/categoriesSelectors.js';
-import { fetchCategories } from '../../redux/categories/categoriesOperations.js';
+import { fetchCategories, fetchMoreCategories } from '../../redux/categories/categoriesOperations.js';
 
 import css from './CategoryList.module.scss';
 
@@ -14,6 +14,11 @@ const CategoryList = ({ handlerCategoryChoose }) => {
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
+
+  const getMoreCategories = () => {
+    const page = 2;
+    dispatch(fetchMoreCategories(page));
+  };
 
   const categoriesInfo = useSelector(selectCategories);
   const categories = categoriesInfo.result;
@@ -33,9 +38,17 @@ const CategoryList = ({ handlerCategoryChoose }) => {
           </li>
         );
       })}
-      <li className={css['category-item-11']}>
-        <button type='button' className={css['category-btn']}>All categories</button>
-      </li>
+      {categories.length !== categoriesInfo.total &&
+        <li className={css['category-item-11']}>
+          <button
+            type='button'
+            onClick={getMoreCategories}
+            className={css['category-btn']}
+          >
+            All categories
+          </button>
+        </li>
+      }
     </ul>
   );
 };

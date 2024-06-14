@@ -41,26 +41,27 @@ const RecipeIngredients = ({ ingredients }) => {
     return <div>Error: {error}</div>;
   }
 
-return (
-  <div className={styles.ingredients}>
-    <h3>Ingredients</h3>
-    <ul>
-      {ingredientsDetails.map((ingredient, index) => (
-        <li key={index} className={styles.ingredient_item}>
-          <div className={styles.ingredient_image_container}>
-            <img 
-              src={ingredient.img || 'https://via.placeholder.com/150'}
-              alt={ingredient.name}
-              className={styles.ingredient_image}
-            />
-          </div>
-          <div className={styles.ingredient_info}>
-            <span className={styles.ingredient_name}>{ingredient.name}</span>
-            <span className={styles.ingredient_quantity}>{ingredient.measure}</span>
-          </div>
-        </li>
-      ))}
-    </ul>
+  return (
+  <div className={styles.ingredients_wrap}>
+    <h3 className={styles.title}>INGREDIENTS</h3>
+    <div className={styles.ingredients_list_wrap}>
+      <ul className={styles.ingredients_list}>
+        {ingredientsDetails.map((ingredient, index) => (
+          <li key={index} className={styles.ingredient_item}>
+            <div className={styles.ingredient_image}>
+              <img 
+                src={ingredient.img}
+                alt={ingredient.name}
+              />
+            </div>
+            <div className={styles.ingredient_info}>
+              <span className={styles.ingredient_name}>{ingredient.name}</span>
+              <span className={styles.ingredient_measure}>{ingredient.measure}</span>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
   </div>
 );
 };

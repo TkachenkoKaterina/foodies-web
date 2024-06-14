@@ -49,15 +49,24 @@ export const recipeApi = {
 
 export const categoriesApi = {
   getCategories: () => apiInstance.get('/api/categories'),
+  getMoreCategories: value => apiInstance.get(`/api/categories?page=${value}`),
 };
 
 export const recipesApi = {
   getRecipes: (category, params) =>
-    apiInstance.get(`/api/recipes/filter/${category}`, params),
+    apiInstance.get(`/api/recipes/filter/${category}?`, { params }),
   getRecipe: id => apiInstance.get(`/api/recipes/public/${id}`),
   getPopularRecipes: () => apiInstance.get(`/api/recipes/popular`),
 };
 
 export const testimonialsApi = {
   getTestimonials: () => apiInstance.get('/api/testimonials'),
+};
+
+export const areasApi = {
+  getAreas: () => apiInstance.get('/api/areas'),
+};
+
+export const ingredientsApi = {
+  getIngredients: () => apiInstance.get('/api/ingredients'),
 };

@@ -1,11 +1,16 @@
 @import '../../styles/main.scss';
 
 .list {
+  display: none;
+    
+
+  @include min-tablet {
     display: flex;
     gap: 40px;
     flex-grow: 1;
     align-items: center;
     justify-content: center;
+  }
   }
   
   .link {
