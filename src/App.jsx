@@ -7,11 +7,13 @@ import CurrentUser from './CurrentUser';
 
 const App = () => {
   return (
-    <CurrentUser>
-      <Layout>
-        <RoutesSwitch />
-      </Layout>
-    </CurrentUser>
+    <>
+      <CurrentUser>
+        <Layout>
+          <RoutesSwitch />
+        </Layout>
+      </CurrentUser>
+    </>
   );
 };
 

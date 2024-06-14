@@ -1,0 +1,77 @@
+@import '../../styles/main.scss';
+
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.inputContainer {
+  position: relative;
+  width: 100%;
+}
+
+.input {
+  width: 225px;
+  height: 48px;
+  padding: 14px 0px 14px 14px;
+  font-size: 14px;
+  border-radius: 30px;
+  border: 1px solid rgba(5, 5, 5, 0.12);
+  outline: 1px solid rgba(5, 5, 5, 0.12);
+  transition: 250ms;
+  &:focus {
+    outline: 1px solid rgba(5, 5, 5, 1);
+    border: 1px solid rgba(5, 5, 5, 1);
+  }
+  @include min-tablet {
+    width: 331px;
+    height: 56px;
+    padding: 16px 0px 16px 18px;
+    font-size: 16px;
+  }
+}
+
+.inputError {
+  color: rgba(135, 21, 21, 0.852);
+}
+
+.btnWraper {
+  width: 100%;
+  padding-top: 12px;
+  @include min-tablet {
+    padding-top: 20px;
+  }
+}
+
+.error {
+  padding-left: 10px;
+  min-height: 20px;
+  font-size: 12px;
+  text-align: left;
+  color: rgba(135, 21, 21, 0.852);
+  @include min-tablet {
+    font-size: 14px;
+  }
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  stroke: $--color-main;
+  fill: white;
+  position: absolute;
+  right: 16px;
+  top: 13px;
+  transition: transform 250ms;
+  &:hover {
+    transform: scale(1.2);
+  }
+  @include min-tablet {
+    right: 18px;
+    top: 16px;
+    width: 24px;
+    height: 24px;
+  }
+}
