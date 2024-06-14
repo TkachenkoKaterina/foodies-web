@@ -5,45 +5,59 @@ import Footer from '../Footer';
 // import { Sign } from 'crypto';
 import FormSwitcher from '../FormSwitcher/FormSwitcher';
 import LogOutModal from '../LogOutModal/LogOutModal';
+import { getUser } from '../../redux/auth/authSelectors';
+import { login, register } from '../../redux/auth/authOperations';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Layout = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [modal, setModal] = useState(false);
-  const [logOutModlal, setLogOutModal] = useState(false);
+  const user = useSelector(getUser);
+  const dispatch = useDispatch();
 
+  const [modal, setModal] = useState(false);
+  const [logOutModal, setLogOutModal] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(false);
-  // setIsAuthenticated(true);
+ 
 
   const handleSignInClick = () => {
-    setIsSignedIn(() => true);
-    setModal(() => true);
+    setIsSignedIn(true);
+    setModal(true);
   };
 
   const handleSignUpClick = () => {
-    setIsSignedIn(() => false);
-    setModal(() => true);
+    setIsSignedIn(false);
+    setModal(true);
+  };
+
+  const handleLogin = async (userData) => {
+    await dispatch(login(userData));
+    setModal(false);
+  };
+
+  const handleRegister = async (userData) => {
+    await dispatch(register(userData));
+    setModal(false);
   };
 
   return (
     <div className={styles.wrapper}>
       <Header
-        isAuthenticated={isAuthenticated}
+        user={user}
         onSignInClick={handleSignInClick}
         onSignUpClick={handleSignUpClick}
       />
       <main className={styles.main}>{children}</main>
       <Footer />
-      {modal ? (
+      {modal && (
         <FormSwitcher
           state={isSignedIn}
           togle={setIsSignedIn}
           onRequestClose={setModal}
+          onAuthenticate={isSignedIn ? handleLogin : handleRegister}
         />
-      ) : null}
-      ;
-      {logOutModlal ? (
-        <LogOutModal isOpen={logOutModlal} onRequestClose={setLogOutModal} />
-      ) : null}
+      )}
+      {logOutModal && (
+        <LogOutModal isOpen={logOutModal} onRequestClose={setLogOutModal} />
+      )}
     </div>
   );
 };
