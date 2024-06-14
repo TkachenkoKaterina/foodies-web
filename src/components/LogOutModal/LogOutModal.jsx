@@ -21,9 +21,6 @@ const LogOutModal = ({ isOpen, onCancel, onSuccess }) => {
         <div className={styles.btnWraper}>
 
           <Button className={styles.button} onClick={onSuccess}>
-
-//           <Button className={styles.button} onClick={handleClick}>
-
             log out
           </Button>
           <Button
@@ -33,6 +30,7 @@ const LogOutModal = ({ isOpen, onCancel, onSuccess }) => {
           >
             cancel
           </Button>
+        </div>
       </div>
     </CustomModal>
   );
