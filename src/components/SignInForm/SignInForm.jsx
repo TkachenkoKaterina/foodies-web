@@ -1,13 +1,22 @@
 import styles from './SignInForm.module.scss';
-import { authApi } from '../../services/Api';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useState } from 'react';
 import icons from '../../assets/icons/icons.svg';
 import { Button } from '../../ui-kit';
+import { useDispatch } from 'react-redux';
+import { login } from '../../redux/auth/authOperations';
+import { useStore } from 'react-redux';
+import {
+  getError,
+  getIsLoggedIn,
+  getLoading,
+} from '../../redux/auth/authSelectors';
 
-const SignUpForm = ({ onRequestClose }) => {
+const SignInForm = ({ onRequestClose }) => {
+  const dispatch = useDispatch();
+  const store = useStore();
   const [passHiddenState, setpassHiddenState] = useState(true);
 
   const schema = yup.object().shape({
@@ -30,45 +39,25 @@ const SignUpForm = ({ onRequestClose }) => {
   });
 
   const onSubmit = async data => {
-    try {
-      const loginResponse = await authApi.login({
-        email: data.email,
-        password: data.password,
-      });
-      if (loginResponse.data) {
-        localStorage.setItem(
-          'login2',
-          JSON.stringify(loginResponse.data.token)
-        );
+    dispatch(login(data)).then(() => {
+      const state = store.getState();
+      const isLoading = getLoading(state);
+      const isLoggedIn = getIsLoggedIn(state);
+      const errormMsg = getError(state);
+
+      if (isLoggedIn) {
         onRequestClose(() => false);
-        alert('Logged in!');
       }
-    } catch (error) {
-      alert(error.response.data.message);
-    }
+
+      if (errormMsg) {
+        alert(errormMsg);
+      }
+    });
   };
 
   return (
     <div className={styles.formWrapper}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        {/* <div className={styles.inputContainer}>
-          <input
-            className={`${styles.input} ${
-              errors.name ? styles.inputError : ''
-            }`}
-            name="name"
-            type="text"
-            placeholder="Name*"
-            {...register('name', {
-              required: 'Name is required.',
-              minLength: {
-                value: 2,
-                message: 'Min length of Name is 2 characters',
-              },
-            })}
-          />
-          <p className={styles.error}>{errors.name?.message}</p>
-        </div> */}
         <div className={styles.inputContainer}>
           <input
             className={`${styles.input} ${
@@ -116,4 +105,4 @@ const SignUpForm = ({ onRequestClose }) => {
   );
 };
 
-export default SignUpForm;
+export default SignInForm;

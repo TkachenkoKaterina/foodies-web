@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-
 import * as authOperations from './authOperations';
+import { setToken } from '../../utils/cookies';
 
 const initialState = {
   user: {
@@ -38,6 +38,36 @@ const authSlice = createSlice({
   },
   extraReducers: builder => {
     builder
+      .addCase(authOperations.register.pending, state => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(authOperations.register.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        setToken(action.payload.token, 30);
+        state.isLoggedIn = true;
+        state.isLoading = false;
+      })
+      .addCase(authOperations.register.rejected, (state, action) => {
+        state.error = action.payload.message;
+        state.isLoading = false;
+      })
+      .addCase(authOperations.login.pending, state => {
+        state.isLoading = true;
+        state.isLoggedIn = false;
+        state.error = null;
+      })
+      .addCase(authOperations.login.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        setToken(action.payload.token, 30);
+        state.isLoggedIn = true;
+        state.isLoading = false;
+      })
+      .addCase(authOperations.login.rejected, (state, action) => {
+        state.error = action.payload.message;
+        state.isLoading = false;
+        state.isLoggedIn = false;
+      })
       .addCase(authOperations.logout.pending, state => {
         state.isLoading = true;
         state.error = null;
