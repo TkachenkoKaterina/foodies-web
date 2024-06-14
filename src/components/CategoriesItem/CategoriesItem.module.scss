@@ -5,6 +5,7 @@
     &-img {
         width: 100%;
         height: 100%;
+        border-radius: 20px;
 
         object-fit: cover;
     }
@@ -32,6 +33,8 @@
         justify-content: center;
         align-items: center;
 
+        cursor: pointer;
+
         border-radius: 30px;
         border: solid 1px $--color-white-opacity40;
     }
@@ -45,10 +48,6 @@
 @include min-mobile {
     .category {
 
-        &-img {
-            border-radius: 20px;
-        }
-    
         &-info {
             top: 194px;
             left: 16px;

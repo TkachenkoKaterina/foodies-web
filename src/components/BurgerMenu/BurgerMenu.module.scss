@@ -1,0 +1,105 @@
+@import '../../styles/main.scss';
+
+.menuButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+ display:flex;
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  @include min-tablet {
+    display: none;
+  }
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; 
+  height: 100vh;
+  background-color: $--color-main;
+  color: $--color-white;
+  transition: transform 0.3s ease;
+  z-index: 1000; 
+
+  @include min-tablet {
+    display: none;
+  }
+}
+
+.drawerHeader {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 24px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 218px;
+  gap: 22px;
+}
+
+.menuItem {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.28px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: $--color-white;
+  text-align: center;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  svg {
+    width: 24px;
+    height: 24px;
+    stroke: $--color-white;
+  }
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+.heroWrapperImg {
+  display: flex;
+  justify-content: center;
+}
+
+.heroImgSmall {
+    width: 77px;
+    margin-top: 238px;
+}
+
+.heroImgBig {
+    width: 190px;
+    margin-top: 145px;
+}
+
+.iconWhite {
+  stroke: $--color-white;
+}
+
+.iconBlack {
+  stroke: $--color-main;
+}
+

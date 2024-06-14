@@ -30,7 +30,6 @@ const Layout = ({ children }) => {
       />
       <main className={styles.main}>{children}</main>
       <Footer />
-
       {modal ? (
         <FormSwitcher
           state={isSignedIn}
@@ -38,6 +37,7 @@ const Layout = ({ children }) => {
           onRequestClose={setModal}
         />
       ) : null}
+      ;
     </div>
   );
 };
