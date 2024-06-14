@@ -3,6 +3,9 @@ import CustomModal from '../CustomModal/CustomModal';
 import styles from './LogOutModal.module.scss';
 
 const LogOutModal = ({ isOpen, onRequestClose }) => {
+  const handleClick = () => {
+    onRequestClose();
+  };
   return (
     <CustomModal isOpen={isOpen} onRequestClose={onRequestClose}>
       <div className={styles.signUpWrapper}>
@@ -12,7 +15,7 @@ const LogOutModal = ({ isOpen, onRequestClose }) => {
           You can always log back in at my time.
         </h2>
         <div className={styles.btnWraper}>
-          <Button className={styles.button} onClick={onRequestClose}>
+          <Button className={styles.button} onClick={handleClick}>
             log out
           </Button>
           <Button
