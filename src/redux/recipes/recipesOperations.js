@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { BASE_URL } from '../../services/BaseUrl.js';
 import { recipesApi } from '../../services/Api.js';
@@ -11,8 +12,13 @@ export const getRecipesInCategory = createAsyncThunk(
     try {
       console.log('argument passed to action creator:', category, { params });
       const res = await recipesApi.getRecipes(category, { params });
+      console.log('Request');
       return res.data;
     } catch (error) {
+      Notify.failure(error.message, {
+        borderRadius: '30px',
+        timeout: 4000,
+      });
       thunkAPI.rejectWithValue(error);
     }
   }
