@@ -26,6 +26,12 @@
   color: $--color-white;
   transition: transform 0.3s ease;
   z-index: 1000; 
+  transform: translateX(100%);
+
+  &.open {
+    transform: translateX(0);
+  }
+
 
   @include min-tablet {
     display: none;
