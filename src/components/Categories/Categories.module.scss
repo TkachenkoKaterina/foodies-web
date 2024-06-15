@@ -1,23 +1,5 @@
 @import '../../styles/main.scss';
 
-.categories {
-
-    &-title {
-        text-transform: uppercase;
-        font-weight: 800;
-        line-height: 1.1em;
-        letter-spacing: -0.02em;
-        color: $--color-main;
-    }
-
-    &-description {
-        font-weight: 500;
-        line-height: 1.5em;
-        letter-spacing: -0.02em;
-        color: $--color-main-opacity80;
-    }
-}
-
 @include min-mobile {
     .categories {
 
@@ -32,7 +14,6 @@
         &-description {
             width: 342px;
             margin-top: 16px;
-            font-size: 14px;
         }
     }
 }
@@ -43,15 +24,10 @@
         &-section {
             padding-top: 100px;
         }
-    
-        &-title {
-            font-size: 40px;
-        }
-    
+
         &-description {
             width: 530px;
             margin-top: 20px;
-            font-size: 16px;
         }
     }
 }
@@ -62,15 +38,9 @@
         &-section {
             padding-top: 120px;
         }
-    
-        &-title {
-            font-size: 40px;
-        }
-    
+
         &-description {
             width: 530px;
-            margin-top: 20px;
-            font-size: 16px;
         }
     }
 }
