@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import styles from './RecipePreview.module.scss';
-import { IconButton } from '../../ui-kit';
+import { Back } from '../../ui-kit';
 import { routes } from '../../constants/routes';
 import { getPathWithId } from '../../helpers/getPathWithId';
 import { getImagePath, TYPE_IMG } from '../../helpers/getImagePath';
@@ -26,13 +26,10 @@ const RecipePreview = ({ isOwner, recipe, onDeleteRecipe }) => {
         <p className={styles.descr}>{recipe?.description}</p>
       </div>
       <div className={styles.buttons}>
-        <IconButton icon="icon-arrow-up-right" onClick={goToRecipe} />
+        <Back icon="icon-arrow-up-right" onClick={goToRecipe} />
 
         {isOwner && (
-          <IconButton
-            icon="icon-trash"
-            onClick={() => onDeleteRecipe(recipe?._id)}
-          />
+          <Back icon="icon-trash" onClick={() => onDeleteRecipe(recipe?._id)} />
         )}
       </div>
     </div>
