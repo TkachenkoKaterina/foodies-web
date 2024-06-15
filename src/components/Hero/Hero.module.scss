@@ -36,7 +36,7 @@
         line-height: 1.4em;
     }
 
-    &-link {
+    &-btn {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -77,6 +77,7 @@
             width: 360px;
             height: 796px;
     
+            padding-top: 194px;
             margin: auto;
             margin-top: 8px;
     
@@ -85,8 +86,6 @@
 
         &-title {
             width: 328px;
-    
-            margin-top: 194px;
     
             font-size: 40px;
         }
@@ -113,15 +112,13 @@
             width: 736px;
             height: 992px;
     
+            padding-top: 218px;
             margin: auto;
             margin-top: 16px;
         }
 
         &-title {
             width: 678px;
-    
-            margin-top: 218px;
-    
             font-size: 70px;
         }
 
@@ -135,7 +132,7 @@
             line-height: 1.5em;
         }
 
-        &-link {
+        &-btn {
             width: 160px;
             height: 56px;
     
@@ -163,15 +160,13 @@
             width: 1400px;
             height: 970px;
     
+            padding-top: 154px;
             margin: auto;
             margin-top: 20px;
         }
 
         &-title {
             width: 874px;
-    
-            margin-top: 154px;
-    
             font-size: 90px;
         }
 
