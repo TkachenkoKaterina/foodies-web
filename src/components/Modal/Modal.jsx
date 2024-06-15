@@ -25,7 +25,9 @@ const Modal = ({ isOpen, children, onRequestClose }) => {
     dispatch(closeModal());
     document.body.classList.remove('modal-open');
     document.body.style.paddingRight = '';
-    onRequestClose();
+    if (onRequestClose) {
+      onRequestClose();
+    }
   };
 
   if (!isOpen) return null;
