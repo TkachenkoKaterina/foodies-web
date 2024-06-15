@@ -57,8 +57,7 @@ const SignUpForm = ({ onRequestClose }) => {
       }
 
       if (errormMsg) {
-        Notify.failure('Something went wrong. Try again later.');
-        console.log(errormMsg);
+        Notify.failure(errormMsg);
       }
     });
   };
