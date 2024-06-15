@@ -6,6 +6,7 @@ import { getIsLoggedIn } from '../../redux/auth/authSelectors';
 import { getImagePath } from '../../helpers/getImagePath';
 import { getPathWithId } from '../../helpers/getPathWithId';
 import styles from './RecipeCard.module.scss';
+import SignInModal from '../../components/SignInModal/SignInModal';
 
 const RecipeCard = ({
   title,
@@ -45,6 +46,13 @@ const RecipeCard = ({
         <button
           className={styles.ownerInfo}
           type="button"
+          // onClick={
+          //   isLoggedIn
+          //     ? goUserProfile
+          //     : () => {
+          //         return <SignInModal />;
+          //       }
+          // }
           onClick={goUserProfile}
         >
           <img
