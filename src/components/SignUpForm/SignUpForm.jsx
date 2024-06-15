@@ -13,14 +13,36 @@ import {
   getIsLoggedIn,
   getLoading,
 } from '../../redux/auth/authSelectors';
-import { Notify } from 'notiflix';
+import Notiflix from 'notiflix';
 import { closeModal } from '../../redux/modal/modalSlice';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 const SignUpForm = () => {
   const dispatch = useDispatch();
-  const store = useStore();
-
   const [passHiddenState, setpassHiddenState] = useState(true);
+  const loading = useSelector(getLoading);
+  const isLoggedIn = useSelector(getIsLoggedIn);
+  const errorMsg = useSelector(getError);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      dispatch(closeModal());
+      Notiflix.Notify.success('You have successfully registered!');
+    }
+
+    if (errorMsg) {
+      Notiflix.Notify.failure(errorMsg);
+    }
+  }, [isLoggedIn, errorMsg, dispatch]);
+
+  useEffect(() => {
+    if (loading) {
+      Notiflix.Loading.dots();
+    } else {
+      Notiflix.Loading.remove();
+    }
+  }, [loading]);
 
   const schema = yup.object().shape({
     name: yup
@@ -46,21 +68,7 @@ const SignUpForm = () => {
   });
 
   const onSubmit = async data => {
-    dispatch(signUP(data)).then(() => {
-      const state = store.getState();
-      const isLoading = getLoading(state);
-      const isLoggedIn = getIsLoggedIn(state);
-      const errormMsg = getError(state);
-
-      if (isLoggedIn) {
-        dispatch(closeModal());
-        Notify.success('You have successfully registered!');
-      }
-
-      if (errormMsg) {
-        Notify.failure(errormMsg);
-      }
-    });
+    dispatch(signUP(data));
   };
 
   return (
@@ -121,7 +129,7 @@ const SignUpForm = () => {
           <p className={styles.error}>{errors.password?.message}</p>
         </div>
         <div className={styles.btnWraper}>
-          <Button type={'submit'} variant={'auth'}>
+          <Button type={'submit'} disabled={errors.email || errors.password}>
             Create
           </Button>
         </div>
