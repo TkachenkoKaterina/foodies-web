@@ -41,7 +41,7 @@ const CategoryList = ({ handlerCategoryChoose }) => {
           </li>
         );
       })}
-      {categories.length !== categoriesInfo.total &&
+      {categories.length !== categoriesInfo.total && (
         <li className={styles['category-item-11']}>
           <button
             type="button"
