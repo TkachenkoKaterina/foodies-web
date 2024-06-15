@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import Hero from '../../components/Hero';
 import Recipes from '../../components/Recipes';
 import Categories from '../../components/Categories';
