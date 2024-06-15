@@ -1,9 +1,9 @@
-import Modal from 'react-modal';
+import RModal from 'react-modal';
 import icons from '../../assets/icons/icons.svg';
 import { useEffect } from 'react';
-import styles from './CustomModal.module.scss';
+import styles from './Modal.module.scss';
 
-const CustomModal = ({ isOpen, children, onRequestClose }) => {
+const Modal = ({ isOpen, children, onRequestClose }) => {
   useEffect(() => {
     if (!isOpen) return;
     const scrollbarWidth =
@@ -23,10 +23,9 @@ const CustomModal = ({ isOpen, children, onRequestClose }) => {
     document.body.style.paddingRight = '';
   };
 
-  Modal.setAppElement('#root');
   if (!isOpen) return null;
   return (
-    <Modal
+    <RModal
       isOpen={isOpen}
       onRequestClose={onClose}
       className={styles.content}
@@ -40,8 +39,8 @@ const CustomModal = ({ isOpen, children, onRequestClose }) => {
           <use href={`${icons}#icon-cross`} />
         </svg>
       </button>
-    </Modal>
+    </RModal>
   );
 };
 
-export default CustomModal;
+export default Modal;
