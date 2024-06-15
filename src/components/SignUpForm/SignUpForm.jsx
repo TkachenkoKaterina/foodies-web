@@ -108,17 +108,16 @@ const SignUpForm = () => {
             {...register('password', { required: 'Password is required' })}
           />
 
-          <svg
-            className={styles.icon}
-            onClick={() => setpassHiddenState(!passHiddenState)}
-          >
-            <use
-              href={
-                `${icons}#` + `${passHiddenState ? 'icon-eye-off' : 'icon-eye'}`
-              }
-            ></use>
-            o
-          </svg>
+          <button onClick={() => setpassHiddenState(!passHiddenState)}>
+            <svg className={styles.icon}>
+              <use
+                href={
+                  `${icons}#` +
+                  `${passHiddenState ? 'icon-eye-off' : 'icon-eye'}`
+                }
+              ></use>
+            </svg>
+          </button>
           <p className={styles.error}>{errors.password?.message}</p>
         </div>
         <div className={styles.btnWraper}>
