@@ -1,7 +1,7 @@
-import styles from './IconButton.module.scss';
+import styles from './Back.module.scss';
 import icons from '../../assets/icons/icons.svg';
 
-const IconButton = ({ icon, onClick, disabled, type = 'button' }) => {
+const Back = ({ icon, onClick, disabled, type = 'button' }) => {
   return (
     <button
       className={styles.button}
@@ -15,4 +15,4 @@ const IconButton = ({ icon, onClick, disabled, type = 'button' }) => {
     </button>
   );
 };
-export default IconButton;
+export default Back;
