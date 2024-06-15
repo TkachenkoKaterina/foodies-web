@@ -5,7 +5,7 @@ import MainTitle from './MainTitle';
 import Subtitle from './Subtitle';
 import UploadButton from './UploadButton';
 import Button from './Button';
-import IconButton from './IconButton';
+import Back from './Back';
 import UserBar from './UserBar';
 import AuthBar from './AuthBar';
 import RecipeCard from './RecipeCard';
@@ -21,7 +21,7 @@ export {
   Subtitle,
   UploadButton,
   Button,
-  IconButton,
+  Back,
   UserBar,
   AuthBar,
   RecipeCard,
