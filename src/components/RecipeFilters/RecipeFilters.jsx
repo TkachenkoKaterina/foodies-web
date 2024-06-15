@@ -8,25 +8,15 @@ import { fetchIngredients } from '../../redux/ingredients/ingredientsOperatins';
 import { selectIngredients } from '../../redux/ingredients/ingredientsSelectors';
 // import { getRecipes } from '../../redux/recipes/recipesSelectors';
 
-const RecipeFilters = ({ selectHendler, handleChange }) => {
-  const dispatch = useDispatch();
+const RecipeFilters = ({
+  selectHendler,
+  handleChange,
+  ingredientIdHendler,
+  areaHandler,
+}) => {
   const area = useSelector(selectAreas);
   const ingredients = useSelector(selectIngredients);
-  // const selectArrays = [area, ingredients];
-  // console.log(areas);
-  useEffect(() => {
-    dispatch(fetchIngredients());
-  }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(fetchAreas());
-  }, [dispatch]);
-
-  // const handleChange = event => {
-  //   if (!event.nativeEvent.inputType) {
-  //     event.target.blur();
-  //   }
-  // };
   // return (
   //   <>
   //     {selectArrays?.map((arrayItem, index) => {
@@ -41,7 +31,10 @@ const RecipeFilters = ({ selectHendler, handleChange }) => {
   //           key={index}
   //           arrayOfObjects={arrayItem}
   //           placeholder={name}
-  //           selectHendler={selectHendler}
+  //           // selectHendler={selectHendler}
+  //           // handleChange= {handleChange}
+  //           ingredientIdHendler={ingredientIdHendler}
+  //           areaHandler={areaHandler}
   //         />
   //       );
   //     })}
@@ -55,12 +48,10 @@ const RecipeFilters = ({ selectHendler, handleChange }) => {
           className={styles.input}
           type="input"
           list="area"
-          onChange={handleChange}
-          onClick={selectHendler}
-          onFocus={selectHendler}
           placeholder="Area"
           id="Area"
           defaultValue=""
+          onChange={handleChange}
         />
         <datalist id="area" className={styles.datalist}>
           {area.map(({ _id, name }) => (
@@ -76,8 +67,6 @@ const RecipeFilters = ({ selectHendler, handleChange }) => {
           type="input"
           list="ingredients"
           onChange={handleChange}
-          onClick={selectHendler}
-          onFocus={selectHendler}
           placeholder="Ingredients"
           id="Ingredients"
           defaultValue=""

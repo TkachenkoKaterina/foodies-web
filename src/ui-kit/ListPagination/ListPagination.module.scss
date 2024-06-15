@@ -13,7 +13,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: 1px solid $--color-grey;
+  border: 1px solid $--color-main-opacity20;
   color: $--color-main;
   background-color: transparent;
   cursor: pointer;
@@ -25,16 +25,7 @@
 
   &:hover,
   &:focus {
-    color: $--color-grey;
+    color: $--color-white;
     background-color: $--color-main;
   }
 }
-
-// .page_disabled {
-//   cursor: default;
-//   opacity: 0.6;
-// }
-
-// .current_page {
-//   cursor: default;
-// }
