@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import icons from '../../assets/icons/icons.svg';
-import { LogoWhite } from '../../ui-kit';
+import { Logo } from '../../ui-kit';
 import styles from './BurgerMenu.module.scss';
 import images from '../../assets/images/hero'
 
@@ -40,10 +40,9 @@ const BurgerMenu = ({isHomePage}) => {
           <use href={`${icons}#icon-burger`} />
         </svg>
       </button>
-      {isDrawerOpen && (
-        <div className={styles.drawer}>
+      <div className={`${styles.drawer} ${isDrawerOpen ? styles.open : ''}`}>
           <div className={styles.drawerHeader}>
-            <LogoWhite />
+            <Logo />
             <button onClick={toggleDrawer} className={styles.closeButton}>
               <svg className={styles.icon}>
                 <use href={`${icons}#icon-cross`} />
@@ -81,7 +80,6 @@ const BurgerMenu = ({isHomePage}) => {
                         </div>
                     </div>
         </div>
-      )}
     </div>
   );
 };

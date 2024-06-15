@@ -1,8 +1,25 @@
-// import React, { useState } from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
+import ReactPaginate from 'react-paginate';
+import styles from './RecipePagination.module.scss';
 
-// import css from './RecipePagination.module.scss';
+function RecipePagination({ total, itemsPerPage, currentPage, onPageChange }) {
+  const pageCount = Math.ceil(total / itemsPerPage);
 
-// const RecipePagination = () => {
+  return (
+    <ReactPaginate
+      breakLabel="..."
+      nextLabel="  "
+      pageCount={pageCount}
+      initialPage={currentPage - 1}
+      onPageChange={onPageChange}
+      pageRangeDisplayed={2}
+      marginPagesDisplayed={1}
+      previousLabel="  "
+      renderOnZeroPageCount={null}
+      containerClassName={styles.pagination}
+      pageClassName={styles.page}
+      activeClassName={styles.page_active}
+    />
+  );
+}
 
-// export default RecipePagination;
+export default RecipePagination;

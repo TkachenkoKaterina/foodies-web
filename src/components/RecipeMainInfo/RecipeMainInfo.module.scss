@@ -5,11 +5,31 @@
     flex-direction: column;
     gap: 32px;
 
+    @include min-tablet {
+        gap: 40px;
+    }
+
+    @include min-desktop {
+        flex-direction: row;
+        gap: 80px;
+    }
+
     .thumb_wrap {
         width: 343px;
         height: 318px;
         border-radius: 30px;
         overflow: hidden;
+        
+        @include min-tablet {
+            width: 704px;
+            height: 400px;
+        }
+
+        @include min-desktop {
+            width: 551px;
+            height: 400px;
+            flex-shrink: 0;
+        }
 
         img {
             object-fit: cover;
@@ -23,6 +43,10 @@
         flex-direction: column;
         gap: 20px;
 
+        @include min-desktop {
+            flex: 1;
+        }
+
         .title {
             font-family: $--font-mulish;
             font-size: 18px;
@@ -32,6 +56,12 @@
             text-align: left;
             text-transform: uppercase;
             color: $--color-main;
+            
+            @include min-tablet {
+                font-size: 24px;
+                line-height: 28px;
+                gap: 40px;
+            }
         }
 
         .category_time {
@@ -62,57 +92,12 @@
             letter-spacing: -0.02em;
             text-align: left;
             color: $--color-main-opacity80;
-        }
-    }
-}
-
-.avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    opacity: 0px;
-}
-
-
-@media screen and (min-width: 768px) {
-    .recipe_main_info {
-        gap: 40px;
-
-        .thumb_wrap {
-            width: 704px;
-            height: 400px;
-        }
-
-        .recipe_details {
-            .title {
-                font-size: 24px;
-                line-height: 28px;
-                gap: 40px;
-            }
-
-            .description {
+            
+            @include min-tablet {
                 font-size: 16px;
                 line-height: 24px;
                 gap: 40px;
             }
-        }
-    }
-}
-
-
-@media screen and (min-width: 1440px) {
-    .recipe_main_info {
-        flex-direction: row;
-        gap: 80px;
-
-        .thumb_wrap {
-            width: 551px;
-            height: 400px;
-            flex-shrink: 0;
-        }
-
-        .recipe_details {
-            flex: 1;
         }
     }
 }

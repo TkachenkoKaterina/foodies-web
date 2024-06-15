@@ -10,14 +10,18 @@ const Following = () => {
   const owner = useOwner();
   const { onFollow, onUnfollow } = useFollow();
   const [page, setPage] = useState(1);
+  const itemsPerPage = 5;
 
-  const onChangePage = page => {
-    setPage(page);
+  const onChangePage = ({ selected }) => {
+    setPage(selected + 1);
   };
 
   const getUsers = async () => {
     try {
-      const { data } = await userApi.getFollowing({ page });
+      const { data } = await userApi.getFollowing({
+        page,
+        limit: itemsPerPage,
+      });
       setUsers(data);
     } catch (error) {
       console.log(error);
@@ -28,7 +32,7 @@ const Following = () => {
 
   useEffect(() => {
     getUsers();
-  }, []);
+  }, [page]);
 
   return (
     <ListItems
@@ -41,8 +45,9 @@ const Following = () => {
       onFollow={onFollow}
       onUnfollow={onUnfollow}
       owner={owner}
-      currentPage={page}
+      page={page}
       onChangePage={onChangePage}
+      itemsPerPage={itemsPerPage}
     />
   );
 };

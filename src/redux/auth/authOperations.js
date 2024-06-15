@@ -1,21 +1,26 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { authApi } from '../../services/Api';
-import { setToken } from '../../utils/cookies';
+import { authApi, token } from '../../services/Api';
+import { getToken, setToken } from '../../utils/cookies';
 
 export const logout = createAsyncThunk('auth/logout', async () => {
   await authApi.logout();
   setToken();
+  token.unset();
   return null;
 });
 
 export const getMe = createAsyncThunk(
   'auth/getMe',
   async (_, { rejectWithValue }) => {
+    const tokenValue = getToken();
+
+    if (tokenValue) {
+      token.set(tokenValue);
+    }
+
     try {
       const { data } = await authApi.getMe();
-      return {
-        ...data,
-      };
+      return data;
     } catch (error) {
       setToken();
       return rejectWithValue();
@@ -28,9 +33,9 @@ export const register = createAsyncThunk(
   async (user, { rejectWithValue }) => {
     try {
       const { data } = await authApi.register(user);
-      return {
-        ...data,
-      };
+      setToken(data.token);
+      token.set(data.token);
+      return data.user;
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
@@ -42,9 +47,9 @@ export const login = createAsyncThunk(
   async (user, { rejectWithValue }) => {
     try {
       const { data } = await authApi.login(user);
-      return {
-        ...data,
-      };
+      setToken(data.token);
+      token.set(data.token);
+      return data.user;
     } catch (error) {
       return rejectWithValue(error.response.data);
     }

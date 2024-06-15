@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import styles from './UserCard.module.scss';
-import { Button, IconButton } from '../../ui-kit';
+import { Button, Back } from '../../ui-kit';
 import { routes } from '../../constants/routes';
 import { getPathWithId } from '../../helpers/getPathWithId';
 import { getImagePath, TYPE_IMG } from '../../helpers/getImagePath';
@@ -62,7 +62,7 @@ const UserCard = ({ user, onFollow, onUnfollow, owner }) => {
           </li>
         ))}
       </ul>
-      <IconButton icon="icon-arrow-up-right" onClick={goToProfile} />
+      <Back icon="icon-arrow-up-right" onClick={goToProfile} />
     </div>
   );
 };

@@ -2,20 +2,20 @@
 import images from '../../assets/images/categories';
 import icons from '../../assets/icons/icons.svg';
 
-import css from './CategoriesItem.module.scss';
+import styles from './CategoriesCard.module.scss';
 
 const CategoriesItem = ({ name, handlerCategoryChoose }) => {
   return (
     <>
-      <img src={images[name]} alt={name} className={css['category-img']} />
-      <div className={css['category-info']} id={name}>
-        <h3 className={css['category-title']}>{name}</h3>
+      <img src={images[name]} alt={name} className={styles['category-img']} />
+      <div className={styles['category-info']} id={name}>
+        <h3 className={styles['category-title']}>{name}</h3>
         <button
           type="button"
           onClick={handlerCategoryChoose}
-          className={css['category-btn']}
+          className={styles['category-btn']}
         >
-          <svg width="18" height="18" className={css['category-icon']}>
+          <svg width="18" height="18" className={styles['category-icon']}>
             <use href={`${icons}#icon-arrow-up-right`}></use>
           </svg>
         </button>
