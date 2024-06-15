@@ -9,7 +9,7 @@ import LogOutModal from '../LogOutModal/LogOutModal';
 
 const HeaderDropdownMenu = ({isOpen}) => {
   const user = useSelector(getUser); 
-  const userId = user?.id; 
+  const userId = user?._id; 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleLogoutClick = () => {
@@ -29,7 +29,7 @@ const HeaderDropdownMenu = ({isOpen}) => {
       {isOpen && (
         <div className={styles.menu}>
           <NavLink to={`${routes.user}/${userId}`} className={styles.menuItem}>Profile</NavLink>
-          <button type="button" className={styles.menuItem}>
+          <button type="button" onClick={handleLogoutClick} className={styles.menuItem}>
             Log out
             <svg className={styles.iconArrow}>
               <use href={`${icons}#icon-arrow-up-right`} />
