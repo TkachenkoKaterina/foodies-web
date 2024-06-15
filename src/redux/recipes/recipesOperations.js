@@ -32,8 +32,8 @@ export const getPopularRecipes = createAsyncThunk(
   'recipes/popular',
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await getPopularRecipes();
-      return data;
+      const res = await recipesApi.getPopular();
+      return res.data;
     } catch (error) {
       rejectWithValue(error);
     }

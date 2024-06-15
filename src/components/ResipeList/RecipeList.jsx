@@ -7,6 +7,7 @@ import { getRecipesInCategory } from '../../redux/recipes/recipesOperations';
 import { getRecipes } from '../../redux/recipes/recipesSelectors';
 const RecipeList = ({ recipes }) => {
   // const recipes = useSelector(getRecipes);
+
   return (
     <>
       {recipes && (

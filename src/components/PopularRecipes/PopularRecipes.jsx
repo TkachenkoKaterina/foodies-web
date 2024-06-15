@@ -1,12 +1,24 @@
-import { RecipeCard } from '../../ui-kit';
-import recipes from '../ResipeList/recipes.json';
+import { useDispatch, useSelector } from 'react-redux';
+import { RecipeCard, Subtitle } from '../../ui-kit';
+
+import { getPopularRecipes } from '../../redux/recipes/recipesOperations';
+import { getPopular } from '../../redux/recipes/recipesSelectors';
+import { useEffect } from 'react';
+import styles from './PopularRecipes.module.scss';
 const PopularRecipes = () => {
-  const mostPopular = recipes.slice(0, 4);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getPopularRecipes());
+  }, [dispatch]);
+
+  const recipesPopular = useSelector(getPopular);
+
   return (
     <>
-      <h1>Popular Recipes</h1>
-      <ul>
-        {mostPopular.map((item, index) => {
+      <h1 className={styles.header}>Popular Recipes</h1>
+      <ul className={styles.popular}>
+        {recipesPopular?.map((item, index) => {
           return (
             <RecipeCard
               key={item._id + index}
