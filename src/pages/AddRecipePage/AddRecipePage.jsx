@@ -10,7 +10,6 @@ const AddRecipePage = () => {
       <Container>
         <PathInfo path={routes.addRecipe} />
         <AddRecipeForm />
-        <PopularRecipes />
       </Container>
     </div>
   );

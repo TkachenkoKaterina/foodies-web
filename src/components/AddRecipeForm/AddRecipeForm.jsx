@@ -9,6 +9,8 @@ import { selectAreas } from '../../redux/areas/areasSelectors';
 import { fetchAreas } from '../../redux/areas/areasOperations';
 import { fetchIngredients } from '../../redux/ingredients/ingredientsOperatins';
 import { selectIngredients } from '../../redux/ingredients/ingredientsSelectors';
+import { recipeApi } from '../../services/Api';
+import TextareaAutosize from 'react-textarea-autosize';
 
 const AddRecipeForm = () => {
   const dispatch = useDispatch();
@@ -92,9 +94,7 @@ const AddRecipeForm = () => {
     }
   };
 
-  console.log('ingredients', ingredients);
-
-  const onSubmit = data => {
+  const onSubmit = async data => {
     const formData = new FormData();
     formData.append('title', data.name);
     formData.append('category', data.category);
@@ -111,20 +111,12 @@ const AddRecipeForm = () => {
 
     formData.append('ingredients', JSON.stringify(ingredientsArray));
 
-    const formDataObject = {
-      title: data.name,
-      category: data.category,
-      area: data.area,
-      instructions: data.preparation,
-      description: data.description,
-      time: data.time,
-      thumbRecipeImages: file,
-      ingredients: ingredientsArray,
-    };
-
-    console.log('Form Data Object:', formDataObject);
-    console.log('ingredients', ingredients);
-    // recipeApi.createRecipe();
+    try {
+      const response = await recipeApi.createRecipe(formData);
+      console.log('Recipe created successfully', response.data);
+    } catch (error) {
+      console.error('Error creating recipe', error.response || error.message);
+    }
   };
 
   return (
@@ -144,7 +136,6 @@ const AddRecipeForm = () => {
                 <input
                   type="file"
                   id="file"
-                  megre
                   accept="image/*"
                   {...register('file')}
                   onChange={handleImageChange}
@@ -154,7 +145,7 @@ const AddRecipeForm = () => {
               </div>
             )}
             {imagePreview && (
-              <div className={styles[' ']}>
+              <div className={styles['image-preview-container']}>
                 <img
                   src={imagePreview}
                   alt="Recipe Preview"
@@ -187,7 +178,7 @@ const AddRecipeForm = () => {
             <div className={styles['container-form']}>
               <label htmlFor="description" className={styles.label}></label>
               <div className={styles['input-counter-wrapper']}>
-                <input
+                <TextareaAutosize
                   placeholder="Enter a description of the dish"
                   id="description"
                   {...register('description', {
@@ -215,11 +206,14 @@ const AddRecipeForm = () => {
                     className={`${styles.select} ${styles['select-category']}`}
                   >
                     <option value="">Select a category</option>
-                    {categories.result.map(category => (
-                      <option key={category._id} value={category.name}>
-                        {category.name}
-                      </option>
-                    ))}
+                    {categories.result
+                      .slice()
+                      .sort((a, b) => a.name.localeCompare(b.name))
+                      .map(category => (
+                        <option key={category._id} value={category.name}>
+                          {category.name}
+                        </option>
+                      ))}
                   </select>
                   <svg className={`${styles['icon-select']}`}>
                     <use href={`${icons}#icon-chevron-down`} />
@@ -233,11 +227,14 @@ const AddRecipeForm = () => {
                 <div className={`${styles['custom-select']}`}>
                   <select id="area" {...register('area')} defaultValue="">
                     <option value="">Select an area</option>
-                    {areas.map(area => (
-                      <option key={area._id} value={area.name}>
-                        {area.name}
-                      </option>
-                    ))}
+                    {areas
+                      .slice()
+                      .sort((a, b) => a.name.localeCompare(b.name))
+                      .map(area => (
+                        <option key={area._id} value={area.name}>
+                          {area.name}
+                        </option>
+                      ))}
                   </select>
                   <svg className={`${styles['icon-select']}`}>
                     <use href={`${icons}#icon-chevron-down`} />
@@ -276,7 +273,7 @@ const AddRecipeForm = () => {
                   }}
                   className={styles['time-button']}
                 >
-                  <svg className={`${styles['icon-trash']}`}>
+                  <svg className={`${styles['icons-time']}`}>
                     <use href={`${icons}#icon-plus`} />
                   </svg>
                 </button>
@@ -295,14 +292,17 @@ const AddRecipeForm = () => {
                   <option value="" disabled>
                     Add the ingredient
                   </option>
-                  {ingredientsAll.map(ingredient => (
-                    <option
-                      key={ingredient._id}
-                      value={JSON.stringify(ingredient)}
-                    >
-                      {ingredient.name}
-                    </option>
-                  ))}
+                  {ingredientsAll
+                    .slice()
+                    .sort((a, b) => a.name.localeCompare(b.name))
+                    .map(ingredient => (
+                      <option
+                        key={ingredient._id}
+                        value={JSON.stringify(ingredient)}
+                      >
+                        {ingredient.name}
+                      </option>
+                    ))}
                 </select>
                 <svg className={`${styles['icon-select']}`}>
                   <use href={`${icons}#icon-chevron-down`} />
@@ -332,6 +332,27 @@ const AddRecipeForm = () => {
               </svg>
             </button>
 
+            <div className={styles.ingredients_list_wrap}>
+              <ul className={styles.ingredients_list}>
+                {ingredients.length > 0 &&
+                  ingredients.map((ingredient, index) => (
+                    <li key={index} className={styles.ingredient_item}>
+                      <div className={styles.ingredient_image}>
+                        <img src={ingredient.img} alt={ingredient.name} />
+                      </div>
+                      <div className={styles.ingredient_info}>
+                        <span className={styles.ingredient_name}>
+                          {ingredient.name}
+                        </span>
+                        <span className={styles.ingredient_measure}>
+                          {ingredient.quantity}
+                        </span>
+                      </div>
+                    </li>
+                  ))}
+              </ul>
+            </div>
+
             <div className={styles['container-form']}>
               <label
                 htmlFor="preparation"
@@ -340,7 +361,7 @@ const AddRecipeForm = () => {
                 Recipe Preparation
               </label>
               <div className={styles['input-counter-wrapper']}>
-                <textarea
+                <TextareaAutosize
                   rows={1}
                   id="preparation"
                   placeholder="Enter recipe"
