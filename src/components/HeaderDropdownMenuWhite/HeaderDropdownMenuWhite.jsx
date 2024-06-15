@@ -2,22 +2,33 @@ import styles from './HeaderDropdownMenuWhite.module.scss';
 import { NavLink } from 'react-router-dom';
 import icons from '../../assets/icons/icons.svg';
 import { routes } from '../../constants/routes';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../../redux/auth/authSelectors';
 import { useState } from 'react';
 import LogOutModal from '../LogOutModal/LogOutModal';
+import { logout } from '../../redux/auth/authOperations';
 
 const HeaderDropdownMenuWhite = ({isOpen}) => {
   const user = useSelector(getUser); 
   const userId = user?._id; 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const dispatch = useDispatch();
 
-  const handleLogoutClick = () => {
-    setIsModalOpen(true);
+  const handleOpenLogoutModal = () => {
+    setIsLogoutModalOpen(true);
   };
 
-  const handleModalClose = () => {
-    setIsModalOpen(false);
+  const handleCloseLogoutModal = () => {
+    setIsLogoutModalOpen(false);
+  };
+
+  const handleLogoutSuccess = async () => {
+    try {
+      await dispatch(logout()).unwrap(); 
+      handleCloseLogoutModal(); 
+    } catch (error) {
+      console.error('Logout failed', error); 
+    }
   };
 
   return (
@@ -29,7 +40,7 @@ const HeaderDropdownMenuWhite = ({isOpen}) => {
       {isOpen && (
         <div className={styles.menu}>
           <NavLink to={`${routes.user}/${userId}`} className={styles.menuItem}>Profile</NavLink>
-          <button type="button"  onClick={handleLogoutClick}  className={styles.menuItem}>
+          <button type="button"  onClick={handleOpenLogoutModal}  className={styles.menuItem}>
             Log out
             <svg className={styles.icon}>
               <use href={`${icons}#icon-arrow-up-right`} />
@@ -38,7 +49,9 @@ const HeaderDropdownMenuWhite = ({isOpen}) => {
         </div>
       )}
     </div>
-     <LogOutModal isOpen={isModalOpen} onRequestClose={handleModalClose} />
+     <LogOutModal isOpen={isLogoutModalOpen} 
+        onCancel={handleCloseLogoutModal} 
+        onSuccess={handleLogoutSuccess} />
      </>
   );
 };
