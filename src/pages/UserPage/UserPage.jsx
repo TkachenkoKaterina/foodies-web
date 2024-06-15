@@ -14,6 +14,15 @@ const UserPage = () => {
   const { onFollow, onUnfollow } = useFollow();
   const { onLogout } = useLogout();
   const { onUpdateAvatar } = useUpdateAvatar();
+  const [isLogoutModal, setIsLogoutModal] = useState(false);
+
+  const onOpenLogoutModal = () => {
+    setIsLogoutModal(true);
+  };
+
+  const onCloseLogoutModal = () => {
+    setIsLogoutModal(false);
+  };
 
   const getUser = async () => {
     try {
@@ -42,8 +51,11 @@ const UserPage = () => {
       onFollowClick={
         owner?.following.includes(user?._id) ? onUnfollow : onFollow
       }
-      onLogout={onLogout}
       onUpdateAvatar={onUpdateAvatar}
+      onLogout={onLogout}
+      isLogoutModal={isLogoutModal}
+      onOpenLogoutModal={onOpenLogoutModal}
+      onCloseLogoutModal={onCloseLogoutModal}
     />
   );
 };

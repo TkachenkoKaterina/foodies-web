@@ -8,14 +8,18 @@ const Favorites = () => {
   const [recipes, setRecipes] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
+  const itemsPerPage = 9;
 
-  const onChangePage = page => {
-    setPage(page);
+  const onChangePage = ({ selected }) => {
+    setPage(selected + 1);
   };
 
   const getRecipes = async () => {
     try {
-      const { data } = await recipeApi.getFavoriteRecipes({ page, limit: 9 });
+      const { data } = await recipeApi.getFavoriteRecipes({
+        page,
+        limit: itemsPerPage,
+      });
       setRecipes(data);
     } catch (error) {
       console.log(error);
@@ -26,7 +30,7 @@ const Favorites = () => {
 
   useEffect(() => {
     getRecipes();
-  }, []);
+  }, [page]);
 
   const onDeleteRecipe = async id => {
     try {
@@ -49,6 +53,7 @@ const Favorites = () => {
       onDeleteRecipe={onDeleteRecipe}
       page={page}
       onChangePage={onChangePage}
+      itemsPerPage={itemsPerPage}
     />
   );
 };

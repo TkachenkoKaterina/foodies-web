@@ -1,12 +1,15 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import CategoriesItem from '../CategoriesItem';
+import CategoriesItem from '../CategoriesCard/index.js';
 
 import { selectCategories } from '../../redux/categories/categoriesSelectors.js';
-import { fetchCategories, fetchMoreCategories } from '../../redux/categories/categoriesOperations.js';
+import {
+  fetchCategories,
+  fetchMoreCategories,
+} from '../../redux/categories/categoriesOperations.js';
 
-import css from './CategoryList.module.scss';
+import styles from './CategoryList.module.scss';
 
 const CategoryList = ({ handlerCategoryChoose }) => {
   const dispatch = useDispatch();
@@ -24,31 +27,31 @@ const CategoryList = ({ handlerCategoryChoose }) => {
   const categories = categoriesInfo.result;
 
   return (
-    <ul className={css['category-list']}>
+    <ul className={styles['category-list']}>
       {categories.map((category, index) => {
         return (
           <li
             key={`${category}+${index}`}
-            className={css[`category-item-${index}`]}
+            className={styles[`category-item-${index}`]}
           >
             <CategoriesItem
               name={category.name}
-              handlerCategoryChoose={handlerCategoryChoose}
+              handlerCategoryChoose={() => handlerCategoryChoose(category.name)}
             />
           </li>
         );
       })}
-      {categories.length !== categoriesInfo.total &&
-        <li className={css['category-item-11']}>
+      {categories.length !== categoriesInfo.total && (
+        <li className={styles['category-item-11']}>
           <button
-            type='button'
+            type="button"
             onClick={getMoreCategories}
-            className={css['category-btn']}
+            className={styles['category-btn']}
           >
             All categories
           </button>
         </li>
-      }
+      )}
     </ul>
   );
 };

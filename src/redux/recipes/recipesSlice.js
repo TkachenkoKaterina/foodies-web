@@ -8,13 +8,7 @@ import {
 
 const recipesSlice = createSlice({
   name: 'recipes',
-  initialState: {
-    recipesList: [],
-    recipe: {},
-    popular: [],
-    isLoading: false,
-    error: null,
-  },
+  initialState: recipesInitialState,
   extraReducers: builder => {
     builder
       .addCase(getRecipesInCategory.pending, state => {
@@ -46,7 +40,7 @@ const recipesSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(getPopularRecipes.fulfilled, state => {
+      .addCase(getPopularRecipes.fulfilled, (state, action) => {
         state.popular = action.payload;
         state.isLoading = false;
         state.error = null;

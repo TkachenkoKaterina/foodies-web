@@ -1,0 +1,17 @@
+@import '../../styles/main.scss';
+.popular {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  & .header {
+    color: red;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 28px;
+    letter-spacing: -0.02em;
+    text-align: left;
+  }
+  @include min-tablet {
+    gap: 40px 20px;
+  }
+}

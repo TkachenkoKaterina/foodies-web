@@ -12,14 +12,18 @@ const Recipes = () => {
   const [isLoading, setIsLoading] = useState(true);
   const owner = useOwner();
   const [page, setPage] = useState(1);
+  const itemsPerPage = 9;
 
-  const onChangePage = page => {
-    setPage(page);
+  const onChangePage = ({ selected }) => {
+    setPage(selected + 1);
   };
 
   const getRecipes = async () => {
     try {
-      const { data } = await recipeApi.getRecipes(id, { page, limit: 9 });
+      const { data } = await recipeApi.getRecipes(id, {
+        page,
+        limit: itemsPerPage,
+      });
       setRecipes(data);
     } catch (error) {
       console.log(error);
@@ -32,7 +36,7 @@ const Recipes = () => {
     if (!id) return;
 
     getRecipes();
-  }, [id]);
+  }, [id, page]);
 
   const onDeleteRecipe = async id => {
     try {
@@ -58,6 +62,7 @@ const Recipes = () => {
       isLoading={isLoading}
       page={page}
       onChangePage={onChangePage}
+      itemsPerPage={itemsPerPage}
     />
   );
 };

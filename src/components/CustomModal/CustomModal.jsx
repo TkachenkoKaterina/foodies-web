@@ -5,12 +5,14 @@ import styles from './CustomModal.module.scss';
 
 const CustomModal = ({ isOpen, children, onRequestClose }) => {
   useEffect(() => {
+    if (!isOpen) return;
+
     document.body.classList.add('modal-open');
 
     return () => {
       document.body.classList.remove('modal-open');
     };
-  }, []);
+  }, [isOpen]);
 
   const onClose = () => {
     onRequestClose(() => false);

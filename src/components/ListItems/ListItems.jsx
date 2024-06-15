@@ -2,7 +2,7 @@ import styles from './ListItems.module.scss';
 import { TYPE_TABS } from '../../constants/common';
 import RecipePreview from '../RecipePreview';
 import UserCard from '../UserCard';
-import { Loader } from '../../ui-kit';
+import { Loader, ListPagination } from '../../ui-kit';
 
 const ListItems = ({
   emptyText,
@@ -14,8 +14,9 @@ const ListItems = ({
   onFollow,
   onUnfollow,
   isLoading,
-  // currentPage,
-  // onCurrentPageChange,
+  page,
+  onChangePage,
+  itemsPerPage,
 }) => {
   if (isLoading) {
     return (
@@ -66,7 +67,12 @@ const ListItems = ({
         })}
       </ul>
 
-      <div>pagination</div>
+      <ListPagination
+        total={data?.total}
+        itemsPerPage={itemsPerPage}
+        currentPage={page}
+        onPageChange={onChangePage}
+      />
     </div>
   );
 };

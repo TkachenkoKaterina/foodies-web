@@ -10,6 +10,7 @@ import UserBar from './UserBar';
 import AuthBar from './AuthBar';
 import RecipeCard from './RecipeCard';
 import { Loader, PageLoader } from './Loader';
+import ListPagination from './ListPagination';
 
 export {
   Container,
@@ -25,4 +26,5 @@ export {
   RecipeCard,
   Loader,
   PageLoader,
+  ListPagination,
 };

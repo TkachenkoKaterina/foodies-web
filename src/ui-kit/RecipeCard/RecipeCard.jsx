@@ -20,11 +20,16 @@ const RecipeCard = ({
   const navigate = useNavigate();
   const isLoggedIn = useSelector(getIsLoggedIn);
   const goToRecipe = () => {
+    // console.log(id);
     navigate(getPathWithId(routes.recipe, id));
   };
 
   const goUserProfile = () => {
-    navigate(getPathWithId(routes.user, owner));
+    if (isLoggedIn) {
+      navigate(getPathWithId(routes.user, owner._id));
+    } else {
+      console.log('sorry go to modal');
+    }
 
     // if (!isLoggedIn) {
     //   navigate(getPathWithId(routes.user, owner));
@@ -35,12 +40,12 @@ const RecipeCard = ({
     <li key={id} className={styles.card}>
       <img src={getImagePath(img)} alt={title} className={styles.img} />
       <h1 className={styles.title}>{title}</h1>
-      <p className={styles.description}>{description.slice(0, 80)}...</p>
+      <p className={styles.description}>{description.slice(0, 70)}...</p>
       <div className={styles.cardFooter}>
         <button
           className={styles.ownerInfo}
           type="button"
-          onClick={isLoggedIn ? goUserProfile : navigateToSignIN}
+          onClick={goUserProfile}
         >
           <img
             className={styles.avatar}

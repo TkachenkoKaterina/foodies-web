@@ -9,6 +9,7 @@ import {
 } from '../../ui-kit';
 import UserInfo from '../UserInfo';
 import TabsList from '../TabsList';
+import LogOutModal from '../LogOutModal';
 
 const User = ({
   isOwner,
@@ -17,14 +18,17 @@ const User = ({
   isFollow,
   isLoading,
   onFollowClick,
-  onLogout,
   onUpdateAvatar,
+  onLogout,
+  isLogoutModal,
+  onOpenLogoutModal,
+  onCloseLogoutModal,
 }) => {
   const textButton = isOwner ? 'log out' : isFollow ? 'following' : 'follow';
 
   const onButtonClick = () => {
     if (isOwner) {
-      onLogout();
+      onOpenLogoutModal();
     } else {
       onFollowClick(user?._id);
     }
@@ -55,6 +59,14 @@ const User = ({
           <TabsList isOwner={isOwner} />
         </div>
       </Container>
+      <LogOutModal
+        isOpen={isLogoutModal}
+        onCancel={onCloseLogoutModal}
+        onSuccess={() => {
+          onLogout();
+          onCloseLogoutModal();
+        }}
+      />
     </section>
   );
 };

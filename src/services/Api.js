@@ -42,7 +42,7 @@ export const recipeApi = {
   getRecipes: (id, params) => apiInstance.get(`/api/recipes/${id}`, { params }),
   deleteRecipe: id => apiInstance.delete(`/api/recipes/${id}`),
   getFavoriteRecipes: params =>
-    apiInstance.get('/api/recipes/favorites', { params }),
+    apiInstance.get('/api/recipes/favorites/all', { params }),
   addToFavorites: id => apiInstance.post(`/api/recipes/favorites/${id}`),
   removeFromFavorites: id => apiInstance.delete(`/api/recipes/favorites/${id}`),
   createRecipe: formData => apiInstanceImages.post('/api/recipes/', formData),
@@ -57,7 +57,7 @@ export const recipesApi = {
   getRecipes: (category, params) =>
     apiInstance.get(`/api/recipes/filter/${category}?`, { params }),
   getRecipe: id => apiInstance.get(`/api/recipes/public/${id}`),
-  getPopularRecipes: () => apiInstance.get(`/api/recipes/popular`),
+  getPopular: () => apiInstance.get(`/api/recipes/popular`),
 };
 
 export const testimonialsApi = {
