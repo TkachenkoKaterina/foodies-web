@@ -1,18 +1,21 @@
 import Container from '../../ui-kit/Container';
+import { MainTitle, Subtitle } from '../../ui-kit';
 import CategoryList from '../CategoryList';
 
-import css from './Categories.module.scss';
+import styles from './Categories.module.scss';
 
 const Categories = ({ handlerCategoryChoose }) => {
   return (
-    <section className={css['categories-section']}>
+    <section className={styles['categories-section']}>
       <Container>
-        <h2 className={css['categories-title']}>Categories</h2>
-        <p className={css['categories-description']}>
-          Discover a limitless world of culinary possibilities and enjoy
-          exquisite recipes that combine taste, style and the warm atmosphere of
-          the kitchen.
-        </p>
+        <MainTitle text={'Categories'} />
+        <div className={styles['categories-description']}>
+          <Subtitle
+            text={
+              'Discover a limitless world of culinary possibilities and enjoy exquisite recipes that combine taste, style and the warm atmosphere of the kitchen.'
+            }
+          />
+        </div>
         <CategoryList handlerCategoryChoose={handlerCategoryChoose} />
       </Container>
     </section>

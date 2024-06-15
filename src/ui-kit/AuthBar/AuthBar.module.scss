@@ -7,8 +7,13 @@
     background: $--color-white;
     position: relative;
     overflow: hidden;
+    width: 156px;
+    height: 38px;
+
+    @include min-tablet {
     width: 208px;
     height: 46px;
+    }
   }
   
   .authButton {
@@ -30,6 +35,10 @@
     background: $--color-main;
     color: $--color-white;
   }
+
+    @include min-tablet {
+      padding: 14px;
+    }
   }
   
   
