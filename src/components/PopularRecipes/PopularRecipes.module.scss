@@ -1,0 +1,9 @@
+@import '../../styles/main.scss';
+.popular {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  @include min-tablet {
+    gap: 40px 20px;
+  }
+}

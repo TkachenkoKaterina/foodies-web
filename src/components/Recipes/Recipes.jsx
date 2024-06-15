@@ -40,10 +40,9 @@ const Recipes = ({ category, onClick }) => {
         limit: 12,
       })
     );
-  }, [dispatch, category, area, ingredientId]);
+  }, [category, area, ingredientId]);
 
   const handleChange = event => {
-    console.log(event.nativeEvent.target.id);
     if (!event.nativeEvent.inputType) {
       event.target.blur();
     }
@@ -65,8 +64,16 @@ const Recipes = ({ category, onClick }) => {
           <IconButton icon="icon-arrow-left" onClick={onClick} />
           <MainTitle text={category} />
           <Subtitle text="Go on a taste journey, where every sip is a sophisticated creative chord, and every dessert is an expression of the most refined gastronomic desires." />
-          <RecipeFilters handleChange={handleChange} />
-          <RecipeList recipes={recipes} />
+          <RecipeFilters
+            handleChange={handleChange}
+            // area={area}
+            // ingredientId={ingredientId}
+          />
+          <RecipeList
+            recipes={recipes}
+            // area={area}
+            // ingredientId={ingredientId}
+          />
           {/* <RecipePagination onClick={onChangePage}/> */}
         </Container>
       )}

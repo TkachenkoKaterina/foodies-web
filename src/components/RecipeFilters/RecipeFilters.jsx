@@ -8,7 +8,12 @@ import { fetchIngredients } from '../../redux/ingredients/ingredientsOperatins';
 import { selectIngredients } from '../../redux/ingredients/ingredientsSelectors';
 // import { getRecipes } from '../../redux/recipes/recipesSelectors';
 
-const RecipeFilters = ({ handleChange }) => {
+const RecipeFilters = ({
+  selectHendler,
+  handleChange,
+  ingredientIdHendler,
+  areaHandler,
+}) => {
   const area = useSelector(selectAreas);
   const ingredients = useSelector(selectIngredients);
 

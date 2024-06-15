@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { RecipeCard } from '../../ui-kit';
+import { RecipeCard, Subtitle } from '../../ui-kit';
 
 import { getPopularRecipes } from '../../redux/recipes/recipesOperations';
 import { getPopular } from '../../redux/recipes/recipesSelectors';
 import { useEffect } from 'react';
+import styles from './PopularRecipes.module.scss';
 const PopularRecipes = () => {
   const dispatch = useDispatch();
 
@@ -15,8 +16,9 @@ const PopularRecipes = () => {
 
   return (
     <>
-      <h1>Popular Recipes</h1>
-      <ul>
+      <Subtitle text="Popular Recipes" />
+      {/* <h1>Popular Recipes</h1> */}
+      <ul className={styles.popular}>
         {recipesPopular?.map((item, index) => {
           return (
             <RecipeCard
