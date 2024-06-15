@@ -1,42 +1,46 @@
-import { useState } from 'react';
 import styles from './Layout.module.scss';
 import Header from '../Header';
 import Footer from '../Footer';
-// import { Sign } from 'crypto';
 import FormSwitcher from '../FormSwitcher/FormSwitcher';
-import LogOutModal from '../LogOutModal/LogOutModal';
 import { getUser } from '../../redux/auth/authSelectors';
-import { login, register } from '../../redux/auth/authOperations';
 import { useDispatch, useSelector } from 'react-redux';
+import { openModal } from '../../redux/modal/modalSlice';
+import { MODAL_TYPES } from '../../constants/common';
 
 const Layout = ({ children }) => {
   const user = useSelector(getUser);
   const dispatch = useDispatch();
 
-  const [modal, setModal] = useState(false);
-  const [logOutModal, setLogOutModal] = useState(false);
-  const [isSignedIn, setIsSignedIn] = useState(false);
- 
+  const modalType = useSelector(state => state.modal.modalType);
+  // const modalProps = useSelector(state => state.modal.modalProps);
+  const modalIsOpen = useSelector(state => state.modal.isOpen);
+
+  // const [modal, setModal] = useState(false);
+  // const [logOutModal, setLogOutModal] = useState(false);
+  // const [isSignedIn, setIsSignedIn] = useState(false);
 
   const handleSignInClick = () => {
-    setIsSignedIn(true);
-    setModal(true);
+    dispatch(openModal({ modalType: MODAL_TYPES.LOGIN, modalProps: {} }));
+    // console.log('handleSignInClick');
+    // setIsSignedIn(true);
+    // setModal(true);
   };
 
   const handleSignUpClick = () => {
-    setIsSignedIn(false);
-    setModal(true);
+    dispatch(openModal({ modalType: MODAL_TYPES.REGISTER, modalProps: {} }));
+    // setIsSignedIn(false);
+    // setModal(true);
   };
 
-  const handleLogin = async (userData) => {
-    await dispatch(login(userData));
-    setModal(false);
-  };
+  // const handleLogin = async userData => {
+  //   await dispatch(login(userData));
+  //   setModal(false);
+  // };
 
-  const handleRegister = async (userData) => {
-    await dispatch(register(userData));
-    setModal(false);
-  };
+  // const handleRegister = async userData => {
+  //   await dispatch(register(userData));
+  //   setModal(false);
+  // };
 
   return (
     <div className={styles.wrapper}>
@@ -47,7 +51,10 @@ const Layout = ({ children }) => {
       />
       <main className={styles.main}>{children}</main>
       <Footer />
-      {modal && (
+
+      {modalIsOpen && <FormSwitcher type={modalType} />}
+
+      {/* {modal && (
         <FormSwitcher
           state={isSignedIn}
           togle={setIsSignedIn}
@@ -57,7 +64,7 @@ const Layout = ({ children }) => {
       )}
       {logOutModal && (
         <LogOutModal isOpen={logOutModal} onRequestClose={setLogOutModal} />
-      )}
+      )} */}
     </div>
   );
 };

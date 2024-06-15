@@ -14,8 +14,9 @@ import {
   getLoading,
 } from '../../redux/auth/authSelectors';
 import { Notify } from 'notiflix';
+import { closeModal } from '../../redux/modal/modalSlice';
 
-const SignUpForm = ({ onRequestClose }) => {
+const SignUpForm = () => {
   const dispatch = useDispatch();
   const store = useStore();
 
@@ -52,7 +53,7 @@ const SignUpForm = ({ onRequestClose }) => {
       const errormMsg = getError(state);
 
       if (isLoggedIn) {
-        onRequestClose(() => false);
+        dispatch(closeModal());
         Notify.success('You have successfully registered!');
       }
 
