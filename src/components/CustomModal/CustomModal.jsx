@@ -5,18 +5,21 @@ import styles from './CustomModal.module.scss';
 
 const CustomModal = ({ isOpen, children, onRequestClose }) => {
   useEffect(() => {
-    if (!isOpen) return;
-
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
     document.body.classList.add('modal-open');
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
 
     return () => {
       document.body.classList.remove('modal-open');
+      document.body.style.paddingRight = '';
     };
   }, [isOpen]);
 
   const onClose = () => {
     onRequestClose(() => false);
     document.body.classList.remove('modal-open');
+    document.body.style.paddingRight = '';
   };
 
   Modal.setAppElement('#root');

@@ -13,6 +13,7 @@ import {
   getIsLoggedIn,
   getLoading,
 } from '../../redux/auth/authSelectors';
+import { Notify } from 'notiflix';
 
 const SignUpForm = ({ onRequestClose }) => {
   const dispatch = useDispatch();
@@ -52,11 +53,12 @@ const SignUpForm = ({ onRequestClose }) => {
 
       if (isLoggedIn) {
         onRequestClose(() => false);
-        alert('SignUp and Login OK');
+        Notify.success('You have successfully registered!');
       }
 
       if (errormMsg) {
-        alert(errormMsg);
+        Notify.failure('Something went wrong. Try again later.');
+        console.log(errormMsg);
       }
     });
   };
