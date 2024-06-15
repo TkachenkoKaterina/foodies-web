@@ -264,15 +264,19 @@
   font-size: 14px;
   line-height: 1.43;
   letter-spacing: -0.02em;
+  -moz-appearance: textfield;
+
+  .no-spinner::-webkit-outer-spin-button,
+  .no-spinner::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 
   @include min-tablet {
     font-size: 16px;
     line-height: 1.5;
   }
 }
-
-// .error {
-// }
 
 .character-count {
   position: absolute;
@@ -313,48 +317,64 @@
   margin: 0;
   width: auto;
   height: auto;
-}
 
-.custom-select select {
-  border: 1px solid $--color-main-opacity12;
-  border-radius: 30px;
-  padding: 14px;
-  width: 343px;
-  height: 48px;
-  margin-bottom: 20px;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 1.43;
-  letter-spacing: -0.02em;
-  color: $--color-main-opacity60;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  @include min-tablet {
-    width: 315px;
-    height: 56px;
-    font-size: 16px;
-    line-height: 1.5;
+  select {
+    border: 1px solid $--color-main-opacity12;
+    border-radius: 30px;
+    padding: 14px;
+    width: 343px;
+    height: 48px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.43;
+    letter-spacing: -0.02em;
+    color: $--color-main-opacity60;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    @include min-tablet {
+      width: 315px;
+      height: 56px;
+      font-size: 16px;
+      line-height: 1.5;
+    }
   }
-}
 
-.custom-select select option {
-  color: $--color-main;
-}
+  select::-ms-expand {
+    display: none;
+  }
 
-.custom-select select::-ms-expand {
-  display: none;
-}
+  select option {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.43;
+    letter-spacing: -0.02em;
+    color: $--color-main;
+    padding: 10px;
 
-.icon-select {
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  right: 15px;
-  top: 40%;
-  transform: translateY(-50%);
-  fill: $--color-white;
-  stroke: $--color-main;
+    @include min-tablet {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+  }
+
+  .icon-select {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    right: 15px;
+    top: 40%;
+    transform: translateY(-50%);
+    fill: $--color-white;
+    stroke: $--color-main;
+    transition: transform 0.1s linear;
+  }
+
+  select:focus + .icon-select,
+  select:active + .icon-select {
+    transform: translateY(-50%) rotate(180deg);
+  }
 }
 
 .time-container {
@@ -382,14 +402,22 @@
     width: 56px;
     height: 56px;
   }
-}
+  .icons-time {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    fill: $--color-white;
+    stroke: $--color-main;
+  }
 
-.icons-time {
-  flex-shrink: 0;
-  width: 16px;
-  height: 16px;
-  fill: $--color-white;
-  stroke: $--color-main;
+  &:hover,
+  &:focus {
+    background-color: $--color-main;
+    color: $--color-white;
+    .icons-time {
+      stroke: $--color-white;
+    }
+  }
 }
 
 .add-button {
@@ -408,6 +436,12 @@
   line-height: 1.43;
   letter-spacing: -0.02em;
   text-transform: uppercase;
+  .icon-ingredient-plus {
+    width: 20px;
+    height: 20px;
+    fill: $--color-white;
+    stroke: $--color-main;
+  }
 
   @include min-tablet {
     padding: 16px 32px;
@@ -415,6 +449,14 @@
     height: 56px;
     font-size: 16px;
     line-height: 1.5;
+  }
+  &:hover,
+  &:focus {
+    background-color: $--color-main;
+    color: $--color-white;
+    .icon-ingredient-plus {
+      stroke: $--color-white;
+    }
   }
 }
 
@@ -427,7 +469,7 @@
 .ingredients_list_wrap {
   margin-bottom: 64px;
   @include min-tablet {
-    margin-bottom: 40 px;
+    margin-bottom: 40px;
   }
   ul.ingredients_list {
     display: flex;
@@ -437,9 +479,13 @@
 }
 
 .ingredient_item {
+  position: relative;
   display: flex;
   gap: 10px;
-  width: 152px;
+  width: 155px;
+  @include min-tablet {
+    width: 155px;
+  }
 
   .ingredient_image {
     width: 75px;
@@ -464,6 +510,10 @@
     flex-direction: column;
     justify-content: center;
     gap: 2px;
+    width: 48px;
+    @include min-tablet {
+      width: 55px;
+    }
 
     .ingredient_name {
       font-size: 14px;
@@ -524,46 +574,20 @@
   }
 }
 
-.icon-ingredient-plus {
-  width: 20px;
-  height: 20px;
-  fill: $--color-white;
-  stroke: $--color-main;
+.ingredient-delete-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
-
-.textarea {
+.ingredient-delete-btn-icon {
+  width: 16px;
+  height: 16px;
+  fill: $--color-main;
+  stroke: $--color-main;
 }
 
 .label-preparation {
   margin-bottom: 32px;
-}
-
-.textarea-preparation {
-  width: 343px;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 1.43;
-  letter-spacing: -0.02em;
-  color: $--color-main-opacity80;
-  overflow: hidden;
-
-  @include min-tablet {
-    width: 649px;
-    font-size: 16px;
-    line-height: 1.5;
-  }
-  &::placeholder {
-    width: 649px;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 1.43;
-    letter-spacing: -0.02em;
-    color: $--color-main-opacity60;
-    @include min-tablet {
-      font-size: 16px;
-      line-height: 1.5;
-    }
-  }
 }
 
 .textarea-wrapper {
@@ -602,13 +626,23 @@
   padding: 14px;
   width: 48px;
   height: 48px;
-}
 
-.icon-trash {
-  width: 20px;
-  height: 20px;
-  fill: $--color-white;
-  stroke: $--color-main;
+  .icon-trash {
+    width: 20px;
+    height: 20px;
+    fill: $--color-white;
+    stroke: $--color-main;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: $--color-main;
+
+    .icon-trash {
+      stroke: $--color-white;
+      fill: $--color-main;
+    }
+  }
 }
 
 .submit-button {
