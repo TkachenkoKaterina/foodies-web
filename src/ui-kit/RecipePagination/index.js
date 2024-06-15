@@ -1,1 +1,1 @@
-// export { default } from './RecipePagination.jsx'
+export { default } from './RecipePagination.jsx'

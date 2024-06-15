@@ -1,32 +1,25 @@
-// import styles from './RecipePagination.module.scss';
+import ReactPaginate from 'react-paginate';
+import styles from './RecipePagination.module.scss';
 
-// export const RecipePagination = ({ currentPage, totalPages, onPageChange }) => {
-//   const maxPageButtons = 3;
-//   let startPage = Math.max(currentPage - 1, 1);
-//   let endPage = Math.min(startPage + maxPageButtons - 1, totalPages);
+function RecipePagination({ total, itemsPerPage, currentPage, onPageChange }) {
+  const pageCount = Math.ceil(total / itemsPerPage);
 
-//   if (endPage - startPage < maxPageButtons - 1) {
-//     startPage = Math.max(endPage - maxPageButtons + 1, 1);
-//   }
+  return (
+    <ReactPaginate
+      breakLabel="..."
+      nextLabel="  "
+      pageCount={pageCount}
+      initialPage={currentPage - 1}
+      onPageChange={onPageChange}
+      pageRangeDisplayed={2}
+      marginPagesDisplayed={1}
+      previousLabel="  "
+      renderOnZeroPageCount={null}
+      containerClassName={styles.pagination}
+      pageClassName={styles.page}
+      activeClassName={styles.page_active}
+    />
+  );
+}
 
-//   const pageNumbers = Array.from(
-//     { length: endPage - startPage + 1 },
-//     (_, index) => startPage + index
-//   );
-
-//   return (
-//     <nav className={styles.pagination}>
-//       {pageNumbers.map(page => (
-//         <button
-//           key={page}
-//           className={`${styles.paginationButton} ${
-//             currentPage === page ? styles.active : ''
-//           }`}
-//           onClick={() => onPageChange(page)}
-//         >
-//           {page}
-//         </button>
-//       ))}
-//     </nav>
-//   );
-// };
+export default RecipePagination;
