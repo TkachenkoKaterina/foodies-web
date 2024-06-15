@@ -12,17 +12,17 @@ import { fetchAreas } from '../../redux/areas/areasOperations';
 
 const HomePage = () => {
   const [category, setCategory] = useState('');
-  const [ingredientId, setIngredientId] = useState(null);
-  const [area, setArea] = useState(null);
-  const ingredientsList = useSelector(selectIngredients);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchIngredients());
-  }, [dispatch]);
+  // const [ingredientId, setIngredientId] = useState(null);
+  // const [area, setArea] = useState(null);
+  // const ingredientsList = useSelector(selectIngredients);
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(fetchIngredients());
+  // }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(fetchAreas());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchAreas());
+  // }, [dispatch]);
 
   const handlerCategoryChoose = name => {
     setCategory(name);
@@ -32,17 +32,17 @@ const HomePage = () => {
     setCategory(false);
   };
 
-  const areaHandler = name => {
-    console.log(name);
-    console.log('areaHandler');
-    setArea(area);
-  };
-  const ingredientIdHendler = name => {
-    const ing = ingredientsList.find(
-      item => item.name === event.currentTarget.value
-    );
-    setIngredientId(ing._id);
-  };
+  // const areaHandler = name => {
+  //   console.log(name);
+  //   console.log('areaHandler');
+  //   setArea(area);
+  // };
+  // const ingredientIdHendler = name => {
+  //   const ing = ingredientsList?.find(
+  //     item => item.name === event.currentTarget.value
+  //   );
+  //   setIngredientId(ing?._id);
+  // };
 
   return (
     <>
@@ -54,10 +54,10 @@ const HomePage = () => {
         <Recipes
           category={category}
           onClick={goToCategory}
-          area={area}
-          ingredient={ingredientId}
-          areaHandler={areaHandler}
-          ingredientIdHendler={ingredientIdHendler}
+          // area={area}
+          // ingredient={ingredientId}
+          // areaHandler={areaHandler}
+          // ingredientIdHendler={ingredientIdHendler}
         />
       )}
 

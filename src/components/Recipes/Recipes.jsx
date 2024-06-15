@@ -9,68 +9,55 @@ import { fetchIngredients } from '../../redux/ingredients/ingredientsOperatins';
 import { fetchAreas } from '../../redux/areas/areasOperations';
 import { selectIngredients } from '../../redux/ingredients/ingredientsSelectors';
 
-const Recipes = ({
-  category,
-  ingredient,
-  area,
-  onClick,
-  ingredientIdHendler,
-  areaHandler,
-}) => {
-  const areasSelected = document.getElementById('Area');
-  console.log(areasSelected);
-  const [isLoading, setIsLoading] = useState(true);
+const Recipes = ({ category, onClick }) => {
   const [page, setPage] = useState(1);
   const ingredientsList = useSelector(selectIngredients);
 
+  const dispatch = useDispatch();
+  const [ingredientId, setIngredientId] = useState(null);
+
+  const [area, setArea] = useState(null);
+
+  const recipes = useSelector(getRecipes);
   const onChangePage = page => {
     setPage(page);
   };
 
-  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchIngredients());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchAreas());
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(
       getRecipesInCategory(category, {
-        ingredient: ingredient,
+        ingredient: ingredientId,
         area: area,
         page: page,
         limit: 12,
       })
     );
-  }, [dispatch, category, area, ingredient]);
-
-  const recipes = useSelector(getRecipes);
-  const hendleAreaChoose = e => {
-    e.preventDefault();
-    console.log(e.curentTarget);
-    const selection = e.target.value.substring(
-      e.target.selectionStart,
-      e.target.selectionEnd
-    );
-    console.log(selection);
-
-    if (e.target.id === 'Area') {
-      console.log(e.targer);
-      // setCategory(e.target.);
-    }
-  };
-  // const areaName = areasSelected?.options[areasSelected.selectedIndex].value;
-  // console.group(areaName);
-  const selectHendler = event => {
-    console.log('selectHendler');
-    event.target.value = '';
-    if (event.target.id === 'Area') {
-      setArea(event.currentTarget.value);
-    }
-  };
+  }, [dispatch, category, area, ingredientId]);
 
   const handleChange = event => {
+    console.log(event.nativeEvent.target.id);
     if (!event.nativeEvent.inputType) {
       event.target.blur();
     }
+    if (event.nativeEvent.target.id === 'Area') {
+      setArea(event.nativeEvent.target.value);
+    } else {
+      const ing = ingredientsList?.find(
+        item => item.name === event.currentTarget.value
+      );
+      setIngredientId(ing?._id);
+    }
   };
-
+  console.log(area);
+  console.log(ingredientId);
   return (
     <>
       {category && (
@@ -78,13 +65,7 @@ const Recipes = ({
           <IconButton icon="icon-arrow-left" onClick={onClick} />
           <MainTitle text={category} />
           <Subtitle text="Go on a taste journey, where every sip is a sophisticated creative chord, and every dessert is an expression of the most refined gastronomic desires." />
-          <RecipeFilters
-            // // hendleAreaChoose={hendleAreaChoose}
-            selectHendler={selectHendler}
-            handleChange={handleChange}
-            ingredientIdHendler={ingredientIdHendler}
-            areaHandler={areaHandler}
-          />
+          <RecipeFilters handleChange={handleChange} />
           <RecipeList recipes={recipes} />
           {/* <RecipePagination onClick={onChangePage}/> */}
         </Container>
