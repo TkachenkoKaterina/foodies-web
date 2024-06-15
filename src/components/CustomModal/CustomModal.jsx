@@ -5,6 +5,7 @@ import styles from './CustomModal.module.scss';
 
 const CustomModal = ({ isOpen, children, onRequestClose }) => {
   useEffect(() => {
+    if (!isOpen) return;
     const scrollbarWidth =
       window.innerWidth - document.documentElement.clientWidth;
     document.body.classList.add('modal-open');
@@ -17,7 +18,7 @@ const CustomModal = ({ isOpen, children, onRequestClose }) => {
   }, [isOpen]);
 
   const onClose = () => {
-    onRequestClose(() => false);
+    onRequestClose(false);
     document.body.classList.remove('modal-open');
     document.body.style.paddingRight = '';
   };
@@ -34,7 +35,7 @@ const CustomModal = ({ isOpen, children, onRequestClose }) => {
       contentLabel="Modal"
     >
       {children}
-      <button type="button" className={styles.close} onClick={() => onClose()}>
+      <button type="button" className={styles.close} onClick={onClose}>
         <svg className={styles.close}>
           <use href={`${icons}#icon-cross`} />
         </svg>
