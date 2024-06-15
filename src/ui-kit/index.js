@@ -1,6 +1,5 @@
 import Container from './Container';
 import Logo from './Logo';
-import LogoWhite from './LogoWhite';
 import PathInfo from './PathInfo';
 import MainTitle from './MainTitle';
 import Subtitle from './Subtitle';
@@ -15,7 +14,6 @@ import { Loader, PageLoader } from './Loader';
 export {
   Container,
   Logo,
-  LogoWhite,
   PathInfo,
   MainTitle,
   Subtitle,

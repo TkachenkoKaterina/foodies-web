@@ -2,16 +2,18 @@ import React from 'react';
 import AuthHeader from '../AuthHeader';
 import { useLocation } from 'react-router-dom';
 import UnauthHeader from '../UnauthHeader';
+import { getIsLoggedIn } from '../../redux/auth/authSelectors';
+import { useSelector } from 'react-redux';
 
-const Header = ({ isAuthenticated, onSignInClick, onSignUpClick }) => {
+const Header = ({user, onSignUpClick , onSignInClick}) => {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+  const isAuthenticated = useSelector(getIsLoggedIn);
 
   return (
-    // <AuthHeader  isHomePage={isHomePage} />
     <>
       {isAuthenticated ? (
-        <AuthHeader isHomePage={isHomePage} />
+        <AuthHeader isHomePage={isHomePage} user={user} />
       ) : (
         <UnauthHeader
           isHomePage={isHomePage}
