@@ -39,7 +39,7 @@ const RecipeCard = ({
   return (
     <li key={id} className={styles.card}>
       <img src={getImagePath(img)} alt={title} className={styles.img} />
-      <h1 className={styles.title}>{title}</h1>
+      <h3 className={styles.title}>{title}</h3>
       <p className={styles.description}>{description.slice(0, 70)}...</p>
       <div className={styles.cardFooter}>
         <button
