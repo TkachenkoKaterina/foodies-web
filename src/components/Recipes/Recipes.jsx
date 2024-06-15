@@ -1,4 +1,4 @@
-import { Container, IconButton, MainTitle, Subtitle } from '../../ui-kit';
+import { Container, Back, MainTitle, Subtitle } from '../../ui-kit';
 import { useEffect, useState } from 'react';
 import RecipeList from '../ResipeList';
 import RecipeFilters from '../RecipeFilters';
@@ -61,7 +61,7 @@ const Recipes = ({ category, onClick }) => {
     <>
       {category && (
         <Container>
-          <IconButton icon="icon-arrow-left" onClick={onClick} />
+          <Back icon="icon-arrow-left" onClick={onClick} />
           <MainTitle text={category} />
           <Subtitle text="Go on a taste journey, where every sip is a sophisticated creative chord, and every dessert is an expression of the most refined gastronomic desires." />
           <RecipeFilters
