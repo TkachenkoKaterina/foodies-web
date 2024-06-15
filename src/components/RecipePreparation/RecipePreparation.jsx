@@ -14,7 +14,7 @@ const RecipePreparation = ({ recipe }) => {
           </p>
         ))}
 
-      <RecipeDetailsFavButton recipeId={recipe.id} />
+      <RecipeDetailsFavButton recipeId={recipe._id} />
     </div>
   );
 };

@@ -1,22 +1,14 @@
 import React from 'react';
-import styles from './RecipeMainInfo.module.scss';
 import { useSelector } from 'react-redux';
 import { getIsLoggedIn } from '../../redux/auth/authSelectors';
-import { getImagePath, TYPE_IMG } from '../../helpers/getImagePath';
 import RecipeIngredients from '../RecipeIngredients/RecipeIngredients';
 import RecipePreparation from '../RecipePreparation/RecipePreparation';
+import RecipeCreatedBy from '../RecipeCreatedBy/RecipeCreatedBy';
+import styles from './RecipeMainInfo.module.scss';
 
-const RecipeMainInfo = ({ recipe, navigatetoUserPage, navigateToSignIn }) => {
+const RecipeMainInfo = ({ recipe, navigateToUserPage, navigateToSignIn }) => {
   const isLoggedIn = useSelector(getIsLoggedIn);
   const owner = recipe.owner;
-
-  const handleClick = () => {
-    if (isLoggedIn) {
-      navigatetoUserPage();
-    } else {
-      navigateToSignIn();
-    }
-  };
 
   return (
     <div className={styles.recipe_main_info}>
@@ -30,11 +22,11 @@ const RecipeMainInfo = ({ recipe, navigatetoUserPage, navigateToSignIn }) => {
           <p className={styles.category}>{recipe.time} min</p>
         </div>
         <p className={styles.description}>{recipe.description}</p>
-        <button className={styles.author_button} type="button" onClick={handleClick}>
-          <img className={styles.avatar} src={getImagePath(owner.avatar, TYPE_IMG.AVATAR)} alt="Avatar" />
-          {/* <p className={styles.name}>{owner.name}</p> */}
-          {/* Created by: {owner.name} */}
-        </button>
+        <RecipeCreatedBy
+          ownerId={owner._id}
+          name={owner.name}
+          avatar={owner.avatar}
+        />
         <RecipeIngredients ingredients={recipe.ingredients} />
         <RecipePreparation recipe={recipe} />
       </div>

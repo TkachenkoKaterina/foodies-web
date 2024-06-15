@@ -1,0 +1,57 @@
+@import '../../styles/main.scss';
+
+.recipe_created_by_wrap {
+    display: flex;
+
+    .recipe_created_by {
+        display: flex;
+        gap: 16px;
+        width: 138px;
+        height: 50px;
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+
+        .avatar_wrap {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: #e0e0e0;
+
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .name_wrap {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 4px;
+            height: 100%;
+
+            .created_by {
+                font-family: $--font-mulish;
+                font-size: 14px;
+                font-weight: 500;
+                line-height: 20px;
+                letter-spacing: -0.02em;
+                text-align: left;
+                color: $--color-main-opacity60;
+            }
+
+            .name {
+                font-family: $--font-mulish;
+                font-size: 16px;
+                font-weight: 700;
+                line-height: 24px;
+                letter-spacing: -0.02em;
+                text-align: left;
+                color: $--color-main-opacity90;
+            }
+        }
+    }
+}
