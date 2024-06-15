@@ -24,6 +24,7 @@ const User = ({
   onOpenLogoutModal,
   onCloseLogoutModal,
 }) => {
+  console.log('isOwner', isOwner);
   const textButton = isOwner ? 'log out' : isFollow ? 'following' : 'follow';
 
   const onButtonClick = () => {
