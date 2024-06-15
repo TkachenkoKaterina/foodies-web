@@ -13,3 +13,9 @@ export const EMPTY_TEXT = {
   FOLLOWING:
     'Your account currently has no subscriptions to other users. Learn more about our users and select those whose content interests you.',
 };
+
+export const MODAL_TYPES = {
+  LOGIN: 'signin',
+  REGISTER: 'signup',
+  LOGOUT: 'logout',
+};

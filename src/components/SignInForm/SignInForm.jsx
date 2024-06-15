@@ -14,8 +14,9 @@ import {
   getLoading,
 } from '../../redux/auth/authSelectors';
 import { Notify } from 'notiflix';
+import { closeModal } from '../../redux/modal/modalSlice';
 
-const SignInForm = ({ onRequestClose }) => {
+const SignInForm = () => {
   const dispatch = useDispatch();
   const store = useStore();
   const [passHiddenState, setpassHiddenState] = useState(true);
@@ -47,7 +48,7 @@ const SignInForm = ({ onRequestClose }) => {
       const errormMsg = getError(state);
 
       if (isLoggedIn) {
-        onRequestClose(() => false);
+        dispatch(closeModal());
         Notify.success('You have successfully logged in!');
       }
 

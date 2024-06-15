@@ -2,8 +2,12 @@ import RModal from 'react-modal';
 import icons from '../../assets/icons/icons.svg';
 import { useEffect } from 'react';
 import styles from './Modal.module.scss';
+import { useDispatch } from 'react-redux';
+import { closeModal } from '../../redux/modal/modalSlice';
 
-const Modal = ({ isOpen, children, onRequestClose }) => {
+const Modal = ({ isOpen, children }) => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (!isOpen) return;
     const scrollbarWidth =
@@ -18,7 +22,7 @@ const Modal = ({ isOpen, children, onRequestClose }) => {
   }, [isOpen]);
 
   const onClose = () => {
-    onRequestClose(false);
+    dispatch(closeModal());
     document.body.classList.remove('modal-open');
     document.body.style.paddingRight = '';
   };

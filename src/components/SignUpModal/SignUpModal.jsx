@@ -1,18 +1,23 @@
 import Modal from '../Modal/Modal';
 import SignUpForm from '../SignUpForm';
 import styles from './SignUpModal.module.scss';
+import { useDispatch } from 'react-redux';
+import { openModal } from '../../redux/modal/modalSlice';
+import { MODAL_TYPES } from '../../constants/common';
 
-const SignUpModal = ({ isOpen, onRequestClose, togle }) => {
+const SignUpModal = ({ isOpen }) => {
+  const dispatch = useDispatch();
+
   const handleClick = () => {
-    togle(() => true);
+    dispatch(openModal({ modalType: MODAL_TYPES.LOGIN, modalProps: {} }));
   };
 
   return (
-    <Modal isOpen={isOpen} onRequestClose={onRequestClose}>
+    <Modal isOpen={isOpen}>
       <div className={styles.signUpWrapper}>
         <h2 className={styles.title}>Sign Up</h2>
         <div className={styles.formWrapper}>
-          <SignUpForm onRequestClose={onRequestClose} />
+          <SignUpForm />
         </div>
         <div className={styles.textContainer}>
           <span className={styles.link}>
