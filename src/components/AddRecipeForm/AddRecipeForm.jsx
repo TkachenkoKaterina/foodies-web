@@ -25,7 +25,7 @@ const AddRecipeForm = () => {
   const fileInputRef = useRef(null);
   const [file, setFile] = useState(null);
 
-  const maxInputLength = 200;
+  const maxInputLength = 2000;
 
   useEffect(() => {
     if (categories.result.length === 0) {
@@ -77,10 +77,11 @@ const AddRecipeForm = () => {
   };
 
   const handleBtnIngredientClick = () => {
-    const selectedIngredient = JSON.parse(watch('ingredient'));
+    const ingredientValue = watch('ingredient');
     const quantity = watch('quantity');
 
-    if (selectedIngredient && quantity) {
+    if (ingredientValue && quantity) {
+      const selectedIngredient = JSON.parse(watch('ingredient'));
       const newIngredients = [
         ...ingredients,
         {
@@ -93,6 +94,12 @@ const AddRecipeForm = () => {
       setValue('quantity', '');
     }
   };
+
+  const handleIngredientDelete = id => {
+    setIngredients(ingredients.filter(ingredient => ingredient._id !== id));
+  };
+
+  console.log('ingredients', ingredients);
 
   const onSubmit = async data => {
     const formData = new FormData();
@@ -348,6 +355,17 @@ const AddRecipeForm = () => {
                           {ingredient.quantity}
                         </span>
                       </div>
+                      <button
+                        type="button"
+                        className={`${styles['ingredient-delete-btn']}`}
+                        onClick={() => handleIngredientDelete(ingredient._id)}
+                      >
+                        <svg
+                          className={`${styles['ingredient-delete-btn-icon']}`}
+                        >
+                          <use href={`${icons}#icon-cross`} />
+                        </svg>
+                      </button>
                     </li>
                   ))}
               </ul>
@@ -380,10 +398,15 @@ const AddRecipeForm = () => {
             <div className={`${styles['clear-submit-wrapper']}`}>
               <button
                 type="button"
-                onClick={() => reset()}
+                onClick={() => {
+                  reset();
+                  setIngredients([]);
+                  setDescriptionLength(0);
+                  setPreparationLength(0);
+                }}
                 className={styles['clear-button']}
               >
-                <svg className={`${styles['icon-trash']}`}>
+                <svg className={styles['icon-trash']}>
                   <use href={`${icons}#icon-trash`} />
                 </svg>
               </button>
