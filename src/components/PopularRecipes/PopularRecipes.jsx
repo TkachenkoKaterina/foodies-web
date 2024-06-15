@@ -16,8 +16,7 @@ const PopularRecipes = () => {
 
   return (
     <>
-      <Subtitle text="Popular Recipes" />
-      {/* <h1>Popular Recipes</h1> */}
+      <h1 className={styles.header}>Popular Recipes</h1>
       <ul className={styles.popular}>
         {recipesPopular?.map((item, index) => {
           return (
