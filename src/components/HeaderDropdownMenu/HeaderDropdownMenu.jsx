@@ -4,12 +4,24 @@ import icons from '../../assets/icons/icons.svg';
 import { routes } from '../../constants/routes';
 import { useSelector } from 'react-redux';
 import { getUser } from '../../redux/auth/authSelectors';
+import { useState } from 'react';
+import LogOutModal from '../LogOutModal/LogOutModal';
 
 const HeaderDropdownMenu = ({isOpen}) => {
   const user = useSelector(getUser); 
   const userId = user?.id; 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleLogoutClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
 
   return (
+    <>
     <div className={styles.dropdown}>
         <svg className={styles.icon}>
           <use href={`${icons}#${isOpen ? 'icon-chevron-up' : 'icon-chevron-down'}`} />
@@ -26,6 +38,8 @@ const HeaderDropdownMenu = ({isOpen}) => {
         </div>
       )}
     </div>
+    <LogOutModal isOpen={isModalOpen} onRequestClose={handleModalClose} />
+     </>
   );
 };
 

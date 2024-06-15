@@ -40,8 +40,7 @@ const BurgerMenu = ({isHomePage}) => {
           <use href={`${icons}#icon-burger`} />
         </svg>
       </button>
-      {isDrawerOpen && (
-        <div className={styles.drawer}>
+      <div className={`${styles.drawer} ${isDrawerOpen ? styles.open : ''}`}>
           <div className={styles.drawerHeader}>
             <Logo />
             <button onClick={toggleDrawer} className={styles.closeButton}>
@@ -81,7 +80,6 @@ const BurgerMenu = ({isHomePage}) => {
                         </div>
                     </div>
         </div>
-      )}
     </div>
   );
 };

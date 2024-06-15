@@ -1,11 +1,22 @@
 import { Button } from '../../ui-kit';
 import CustomModal from '../CustomModal/CustomModal';
 import styles from './LogOutModal.module.scss';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../redux/auth/authOperations';
+
 
 const LogOutModal = ({ isOpen, onRequestClose }) => {
-  const handleClick = () => {
-    onRequestClose();
+  const dispatch = useDispatch();
+
+  const handleLogOut = async () => {
+    try {
+      await dispatch(logout()).unwrap();
+      onRequestClose();
+    } catch (error) {
+      console.error('Failed to log out:', error);
+    }
   };
+
   return (
     <CustomModal isOpen={isOpen} onRequestClose={onRequestClose}>
       <div className={styles.signUpWrapper}>
@@ -15,7 +26,7 @@ const LogOutModal = ({ isOpen, onRequestClose }) => {
           You can always log back in at my time.
         </h2>
         <div className={styles.btnWraper}>
-          <Button className={styles.button} onClick={handleClick}>
+          <Button className={styles.button} onClick={handleLogOut}>
             log out
           </Button>
           <Button
