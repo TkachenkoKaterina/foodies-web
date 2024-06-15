@@ -6,11 +6,13 @@ import { getIsLoggedIn } from '../../redux/auth/authSelectors';
 import { getImagePath, TYPE_IMG } from '../../helpers/getImagePath';
 import styles from './RecipeCreatedBy.module.scss';
 import SignInModal from '../SignInModal/SignInModal';
+import FormSwitcher from '../FormSwitcher/FormSwitcher';
 
 const RecipeCreatedBy = ({ ownerId, name, avatar}) => {
   const navigate = useNavigate();
   const isLoggedIn = useSelector(getIsLoggedIn);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   const handleBtnClick = () => {
     if (isLoggedIn) {
