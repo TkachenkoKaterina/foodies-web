@@ -8,7 +8,6 @@ import { getPathWithId } from '../../helpers/getPathWithId';
 import styles from './RecipeCard.module.scss';
 import { MODAL_TYPES } from '../../constants/common';
 import { openModal } from '../../redux/modal/modalSlice';
-import { useEffect, useState } from 'react';
 
 const RecipeCard = ({
   title,
