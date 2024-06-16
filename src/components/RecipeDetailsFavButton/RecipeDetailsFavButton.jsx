@@ -2,28 +2,30 @@ import React, { useState, useEffect } from 'react';
 import { recipeApi } from '../../services/Api.js';
 import styles from './RecipeDetailsFavButton.module.scss';
 import Notiflix from 'notiflix';
+import { useDispatch } from 'react-redux';
+import { openModal } from '../../redux/modal/modalSlice.js';
+import { MODAL_TYPES } from '../../constants/common.js';
 
 const RecipeDetailsFavButton = ({ recipeId }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchFavoriteStatus = async () => {
       if (!recipeId) {
         return;
       }
-  
+
       try {
         const response = await recipeApi.getRecipes(recipeId);
         setIsFavorite(response.data.isFavorite);
-      } catch (error) {
-      }
+      } catch (error) {}
     };
-  
+
     fetchFavoriteStatus();
   }, [recipeId]);
-  
 
   const handleAddToFavorites = async () => {
     if (!recipeId) {
@@ -36,11 +38,14 @@ const RecipeDetailsFavButton = ({ recipeId }) => {
       setIsFavorite(true);
       Notiflix.Notify.success('Recipe added to favorites successfully!');
     } catch (error) {
-      if (error.response && error.response.data.message === 'Recipe already in favorites') {
-        setIsFavorite(true); 
+      if (
+        error.response &&
+        error.response.data.message === 'Recipe already in favorites'
+      ) {
+        setIsFavorite(true);
       } else if (error.response && error.response.status === 401) {
-          Notiflix.Notify.failure('Please sign in or create an account.');
-        } else {
+        dispatch(openModal({ modalType: MODAL_TYPES.LOGIN, modalProps: {} }));
+      } else {
         Notiflix.Notify.failure('Error adding to favorites.');
       }
     } finally {
@@ -66,16 +71,28 @@ const RecipeDetailsFavButton = ({ recipeId }) => {
       }
     } finally {
       setLoading(false);
-    }    
+    }
   };
 
   return (
     <div>
       {error && <p className={styles.error}>{error}</p>}
       {isFavorite ? (
-        <button type="button" className={styles.favButton} onClick={handleRemoveFromFavorites}>Remove from favorites</button>
+        <button
+          type="button"
+          className={styles.favButton}
+          onClick={handleRemoveFromFavorites}
+        >
+          Remove from favorites
+        </button>
       ) : (
-        <button className={styles.favButton} type="button" onClick={handleAddToFavorites}>Add to favorites</button>
+        <button
+          className={styles.favButton}
+          type="button"
+          onClick={handleAddToFavorites}
+        >
+          Add to favorites
+        </button>
       )}
     </div>
   );
