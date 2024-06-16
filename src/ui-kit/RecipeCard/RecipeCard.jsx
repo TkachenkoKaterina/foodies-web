@@ -8,6 +8,8 @@ import { getPathWithId } from '../../helpers/getPathWithId';
 import styles from './RecipeCard.module.scss';
 import { MODAL_TYPES } from '../../constants/common';
 import { openModal } from '../../redux/modal/modalSlice';
+import { useEffect, useState } from 'react';
+import { recipeApi } from '../../services/Api';
 
 const RecipeCard = ({
   title,
@@ -15,7 +17,9 @@ const RecipeCard = ({
   owner,
   img,
   id,
-  favoritesHendler,
+  status,
+  handleAddToFavorites,
+  handleRemoveFromFavorites,
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,6 +36,21 @@ const RecipeCard = ({
       dispatch(openModal({ modalType: MODAL_TYPES.LOGIN, modalProps: {} }));
     }
   };
+
+  const [isFavorite, setIsFavorite] = useState(status);
+
+  useEffect(() => {
+    const fetchFavoriteStatus = async () => {
+      try {
+        const response = await recipeApi.getRecipes(id);
+        setIsFavorite(response.data.isFavorite);
+      } catch (error) {
+        console.error('Error fetching favorite status:', error);
+      }
+    };
+
+    fetchFavoriteStatus();
+  }, [id]);
 
   return (
     <li key={id} className={styles.card}>
@@ -52,7 +71,16 @@ const RecipeCard = ({
           <p className={styles.name}>{owner.name}</p>
         </button>
         <div className={styles.actionsBlock}>
-          <Back icon="icon-heart" onClick={favoritesHendler} />
+          {isLoggedIn && isFavorite ? (
+            <Back
+              icon="icon-heart"
+              fill="red"
+              onClick={() => handleRemoveFromFavorites(id)}
+            />
+          ) : (
+            <Back icon="icon-heart" onClick={() => handleAddToFavorites(id)} />
+          )}
+
           <Back
             className={styles.heardBtn}
             icon="icon-arrow-up-right"
@@ -80,18 +108,18 @@ export default RecipeCard;
 //     fetchFavoriteStatus();
 //   }, [recipeId]);
 
-//   const handleAddToFavorites = async () => {
+//   const handleAddToFavorites = async (id) => {
 //     try {
-//       await recipeApi.addToFavorites(recipeId);
+//       await recipeApi.addToFavorites(id);
 //       setIsFavorite(true);
 //     } catch (error) {
 //       console.error('Error adding to favorites:', error);
 //     }
 //   };
 
-//   const handleRemoveFromFavorites = async () => {
+//   const handleRemoveFromFavorites = async (id) => {
 //     try {
-//       await recipeApi.removeFromFavorites(recipeId);
+//       await recipeApi.removeFromFavorites(id);
 //       setIsFavorite(false);
 //     } catch (error) {
 //       console.error('Error removing from favorites:', error);
