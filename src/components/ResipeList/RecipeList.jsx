@@ -4,6 +4,8 @@ import styles from './RecipeList.module.scss';
 
 import { useEffect, useState } from 'react';
 import { recipeApi } from '../../services/Api';
+import { useSelector } from 'react-redux';
+import { getIsLoggedIn } from '../../redux/auth/authSelectors';
 const RecipeList = ({
   recipes,
   itemsPerPage,
@@ -12,7 +14,7 @@ const RecipeList = ({
   total,
 }) => {
   const [recipesFavList, setRecipesFavList] = useState([]);
-
+  const isLoggedIn = useSelector(getIsLoggedIn);
   const [loading, setIsLoading] = useState('true');
 
   const getFavRecipesList = async () => {
@@ -26,8 +28,12 @@ const RecipeList = ({
     }
   };
   useEffect(() => {
-    getFavRecipesList();
-  }, []);
+    if (isLoggedIn) {
+      getFavRecipesList();
+    } else {
+      return;
+    }
+  }, [isLoggedIn]);
 
   const handleAddToFavorites = async id => {
     try {
