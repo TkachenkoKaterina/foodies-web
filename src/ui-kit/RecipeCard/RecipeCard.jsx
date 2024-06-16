@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Back } from '..';
 import { routes } from '../../constants/routes';
 import { useNavigate } from 'react-router-dom';
@@ -6,8 +6,8 @@ import { getIsLoggedIn } from '../../redux/auth/authSelectors';
 import { getImagePath } from '../../helpers/getImagePath';
 import { getPathWithId } from '../../helpers/getPathWithId';
 import styles from './RecipeCard.module.scss';
-import SignInModal from '../../components/SignInModal/SignInModal';
-import { useState } from 'react';
+import { MODAL_TYPES } from '../../constants/common';
+import { openModal } from '../../redux/modal/modalSlice';
 
 const RecipeCard = ({
   title,
@@ -15,27 +15,24 @@ const RecipeCard = ({
   owner,
   img,
   id,
-  navigatetoUserPage,
-  navigateToSignIN,
   favoritesHendler,
 }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useSelector(getIsLoggedIn);
-  const [modalState, setModalState] = useState(false);
+
   const goToRecipe = () => {
     navigate(getPathWithId(routes.recipe, id));
   };
 
   const userOpenHendler = () => {
     if (isLoggedIn) {
-      navigate(getPathWithId(routes.user, owner._id));
+      navigate(`/user/${owner._id}`);
     } else {
-      setModalState(true);
+      dispatch(openModal({ modalType: MODAL_TYPES.LOGIN, modalProps: {} }));
     }
   };
-  const closeModal = () => {
-    modalState(false);
-  };
+
   return (
     <li key={id} className={styles.card}>
       <img src={getImagePath(img)} alt={title} className={styles.img} />
@@ -62,9 +59,6 @@ const RecipeCard = ({
             onClick={goToRecipe}
           />
         </div>
-        {modalState && (
-          <SignInModal isOpen={modalState} onRequestClose={closeModal} />
-        )}
       </div>
     </li>
   );
