@@ -9,6 +9,16 @@ const initialState = {
     avatar: null,
     following: [],
   },
+  userProfile: {
+    _id: null,
+    name: null,
+    email: null,
+    avatar: null,
+    recipes: null,
+    favorites: null,
+    followers: null,
+    following: null,
+  },
   isLoggedIn: false,
   isRefreshing: true,
   isLoading: false,
@@ -36,6 +46,13 @@ const authSlice = createSlice({
     },
     clearError: state => {
       state.error = null;
+    },
+    updateUserProfile: (state, action) => {
+      const { key, value } = action.payload;
+      state.userProfile = {
+        ...state.userProfile,
+        [key]: (state.userProfile[key] || 0) + value,
+      };
     },
   },
   extraReducers: builder => {
@@ -94,11 +111,28 @@ const authSlice = createSlice({
         state.user = initialState.user;
         state.isLoggedIn = false;
         state.isRefreshing = false;
+      })
+      .addCase(authOperations.getUserProfile.pending, state => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(authOperations.getUserProfile.fulfilled, (state, action) => {
+        state.userProfile = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(authOperations.getUserProfile.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isLoading = false;
       });
   },
 });
 
 export const auth = authSlice.reducer;
 
-export const { setRefreshing, updateFollowing, updateAvatar, clearError } =
-  authSlice.actions;
+export const {
+  setRefreshing,
+  updateFollowing,
+  updateAvatar,
+  clearError,
+  updateUserProfile,
+} = authSlice.actions;
