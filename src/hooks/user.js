@@ -1,7 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 import { userApi } from '../services/Api';
-import { authSelectors, authReducer } from '../redux/auth';
+import { authSelectors, authOperations, authReducer } from '../redux/auth';
 
 export const useOwner = () => {
   const owner = useSelector(authSelectors.getUser);
@@ -16,6 +18,9 @@ export const useFollow = () => {
     try {
       await userApi.followUser(id);
       await dispatch(authReducer.updateFollowing(id));
+      await dispatch(
+        authReducer.updateUserProfile({ key: 'following', value: 1 })
+      );
     } catch (error) {
       console.log(error);
     }
@@ -25,6 +30,9 @@ export const useFollow = () => {
     try {
       await userApi.unfollowUser(id);
       await dispatch(authReducer.updateFollowing(id));
+      await dispatch(
+        authReducer.updateUserProfile({ key: 'following', value: -1 })
+      );
     } catch (error) {
       console.log(error);
     }
@@ -49,4 +57,22 @@ export const useUpdateAvatar = () => {
   };
 
   return { onUpdateAvatar };
+};
+
+export const useUserProfile = () => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const userProfile = useSelector(authSelectors.getUserProfile);
+  const isLoading = useSelector(authSelectors.getLoading);
+
+  useEffect(() => {
+    if (!id) return;
+
+    dispatch(authOperations.getUserProfile(id));
+  }, [dispatch, id]);
+
+  return {
+    userProfile,
+    isLoading,
+  };
 };
