@@ -57,4 +57,4 @@ const recipesSlice = createSlice({
   },
 });
 export const { filter } = recipesSlice.actions;
-export const recipes = recipesSlice.reducer;
+export const recipesReducer = recipesSlice.reducer;

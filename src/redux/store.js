@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import { authReducer } from './auth';
 import categoriesReducer from './categories/categoriesSlice.js';
-import { recipes } from './recipes/recipesSlice';
+import { recipesReducer } from './recipes/recipesSlice';
 
 import testimonialsReducer from './testimonials/testimonialsSlice.js';
 
@@ -16,7 +16,7 @@ const store = configureStore({
     auth: authReducer.auth,
     categories: categoriesReducer,
     testimonials: testimonialsReducer,
-    recipes: recipes,
+    recipes: recipesReducer,
     areas: areasReducer,
     ingredients: ingredientsReducer,
     modal: modalReducer,

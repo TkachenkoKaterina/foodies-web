@@ -27,12 +27,10 @@ const HomePage = () => {
   const [area, setArea] = useState(null);
   const recipes = useSelector(getRecipes);
   const filterFromRedux = useSelector(filterSelector);
-  console.log('filter from redux --->', filterFromRedux);
-
   const total = useSelector(totalSelector);
 
   const onPageChange = page => {
-    setPage(page);
+    setPage(page.selected + 1);
     dispatch(
       filter({
         ingredient: ingredientId,
@@ -52,15 +50,9 @@ const HomePage = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    // console.log(area);
     if (category) {
-      dispatch(getRecipesInCategory(category, filterFromRedux));
-
-      // setPginationObject(useSelector);
+      dispatch(getRecipesInCategory({ category, params: filterFromRedux }));
     }
-    // if (area) {
-    //   dispatch(getRecipesInCategory(category, { area: area }));
-    // }
   }, [dispatch, category, area, ingredientId, page]);
 
   const handleChange = event => {
@@ -69,11 +61,12 @@ const HomePage = () => {
     }
     if (event.nativeEvent.target.id === 'Area') {
       setArea(event.nativeEvent.target.value);
+      setPage(1);
       dispatch(
         filter({
           ingredient: ingredientId,
           area: event.nativeEvent.target.value,
-          page: page,
+          page: 1,
           limit: limit,
         })
       );
@@ -82,11 +75,12 @@ const HomePage = () => {
         item => item.name === event.currentTarget.value
       );
       setIngredientId(ing?._id);
+      setPage(1);
       dispatch(
         filter({
           ingredient: ing?._id,
           area: area,
-          page: page,
+          page: 1,
           limit: limit,
         })
       );

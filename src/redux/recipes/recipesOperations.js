@@ -3,16 +3,17 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { BASE_URL } from '../../services/BaseUrl.js';
 import { recipesApi } from '../../services/Api.js';
+import { useSelector } from 'react-redux';
+import { filterSelector } from './recipesSelectors.js';
 
 axios.defaults.baseURL = BASE_URL;
 
 export const getRecipesInCategory = createAsyncThunk(
   'recipes/filter',
-  async (category, params, thunkAPI) => {
-    console.log('opers----->', { params });
+  async ({ category, params }, thunkAPI) => {
 
     try {
-      const res = await recipesApi.getRecipes(category, (params = params));
+      const res = await recipesApi.getRecipes(category, params);
       return res.data;
     } catch (error) {
       Notify.failure(error.message, {

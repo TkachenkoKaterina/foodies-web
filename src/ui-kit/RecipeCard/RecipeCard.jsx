@@ -48,10 +48,10 @@ const RecipeCard = ({
         >
           <img
             className={styles.avatar}
-            src={getImagePath(owner.avatar)}
+            src={getImagePath(owner?.avatar)}
             alt="Avatar"
           />
-          <p className={styles.name}>{owner.name}</p>
+          <p className={styles.name}>{owner?.name}</p>
         </button>
         <div className={styles.actionsBlock}>
           {isLoggedIn && status && (
