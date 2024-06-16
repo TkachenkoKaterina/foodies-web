@@ -35,7 +35,10 @@ const Favorites = () => {
   const onDeleteRecipe = async id => {
     try {
       await recipeApi.removeFromFavorites(id);
-      setRecipes(prev => prev.filter(recipe => recipe._id !== id));
+      setRecipes(prev => ({
+        ...prev,
+        result: prev.result.filter(recipe => recipe._id !== id),
+      }));
     } catch (error) {
       console.log(error);
     }
