@@ -1,13 +1,26 @@
 @import '../../styles/main.scss';
 
 .favButton {
-    padding: 16px 32px;
+    padding: 14px 20px;
     border-radius: 30px;
     border: 1px solid $--color-main-opacity12;
     color: $--color-main-opacity90;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 700;
-    line-height: 1.5;
-    letter-spacing: -0.32px;
+    line-height: 1.4;
+    letter-spacing: -0.28px;
     text-transform: uppercase;
+    transition: color $--transition-primary, background-color $--transition-primary;
+
+    &:hover {
+    color: $--color-white;
+    background-color: $--color-main;
+    }
+
+    @include min-tablet {
+        padding: 16px 32px;
+        font-size: 16px;
+        line-height: 1.5;
+        letter-spacing: -0.32px;
+    }
 }
