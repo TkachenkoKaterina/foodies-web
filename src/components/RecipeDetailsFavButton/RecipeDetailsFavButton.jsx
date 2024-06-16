@@ -8,12 +8,15 @@ const RecipeDetailsFavButton = ({ recipeId }) => {
 
   useEffect(() => {
     const fetchFavoriteStatus = async () => {
+      if (!recipeId) {
+        return;
+      }
+
       try {
         const response = await recipeApi.getRecipes(recipeId);
         setIsFavorite(response.data.isFavorite);
       } catch (error) {
         setError('Error fetching favorite status');
-        console.error('Error fetching favorite status:', error);
       }
     };
 
@@ -21,22 +24,32 @@ const RecipeDetailsFavButton = ({ recipeId }) => {
   }, [recipeId]);
 
   const handleAddToFavorites = async () => {
+    if (!recipeId) {
+      return;
+    }
+
     try {
-      await recipeApi.addToFavorites(recipeId);
+      const response = await recipeApi.addToFavorites(recipeId);
       setIsFavorite(true);
     } catch (error) {
-      setError('Error adding to favorites');
-      console.error('Error adding to favorites:', error);
+      if (error.response && error.response.data.message === 'Recipe already in favorites') {
+        setIsFavorite(true); 
+      } else {
+        setError('Error adding from favorites');
+      }
     }
   };
 
   const handleRemoveFromFavorites = async () => {
-    try {
-      await recipeApi.removeFromFavorites(recipeId);
+    if (!recipeId) {
+      return;
+    }
+
+   try {
+      const response = await recipeApi.removeFromFavorites(recipeId);
       setIsFavorite(false);
     } catch (error) {
       setError('Error removing from favorites');
-      console.error('Error removing from favorites:', error);
     }
   };
 
