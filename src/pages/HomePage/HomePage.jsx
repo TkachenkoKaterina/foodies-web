@@ -40,7 +40,9 @@ const HomePage = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getRecipesInCategory(category, filterFromRedux));
+    if (category) {
+      dispatch(getRecipesInCategory(category, filterFromRedux));
+    }
   }, [dispatch, category, area, ingredientId, page]);
 
   const handleChange = event => {
