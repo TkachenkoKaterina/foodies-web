@@ -5,16 +5,16 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding: 16px;
+  padding: 14px;
+  font-size: 14px;
   border-radius: 30px;
   background-color: $--color-main;
   transition: opacity $--transition-primary;
-
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: -0.32px;
   text-transform: uppercase;
   color: $--color-white;
-
   &:hover,
   &:focus {
     opacity: 0.8;
@@ -25,12 +25,22 @@
     color: $--color-white-opacity40;
     cursor: not-allowed;
   }
+  @include min-tablet {
+    padding: 16px;
+    font-size: 16px;
+  }
 
   //variants
   &.outline {
     color: $--color-main;
     border: 1px solid $--color-main;
     background-color: transparent;
+    padding: 14px;
+    font-size: 14px;
+    @include min-tablet {
+      padding: 16px;
+      font-size: 16px;
+    }
   }
 
   &.outline_secondary {
@@ -47,7 +57,7 @@
   &.auth {
     width: 100%;
     padding: 14px;
-    border: 1px solid $--color-main-opacity12;
+    // border: 1px solid $--color-main-opacity12;
     background: $--color-main-opacity20;
     color: $--color-white-opacity40;
     font-size: 14px;

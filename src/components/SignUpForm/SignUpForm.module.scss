@@ -13,7 +13,7 @@
 }
 
 .input {
-  width: 225px;
+  width: 283px;
   height: 48px;
   padding: 14px 0px 14px 14px;
   font-size: 14px;
@@ -26,7 +26,7 @@
     border: 1px solid rgba(5, 5, 5, 1);
   }
   @include min-tablet {
-    width: 331px;
+    width: 400px;
     height: 56px;
     padding: 16px 0px 16px 18px;
     font-size: 16px;
