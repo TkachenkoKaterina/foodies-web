@@ -14,7 +14,7 @@ const UserInfo = ({ isOwner, user, userImg, onUpdateAvatar }) => {
       <p className={styles.name}>{user?.name}</p>
       <ul className={styles.list}>
         <InfoItem title="Email" value={user?.email} />
-        <InfoItem title="Added recipes:" value={user?.recipes} />
+        <InfoItem title="Added recipes" value={user?.recipes} />
         {isOwner && <InfoItem title="Favorites" value={user?.favorites} />}
         <InfoItem title="Followers" value={user?.followers} />
         {isOwner && <InfoItem title="Following" value={user?.following} />}
@@ -28,7 +28,7 @@ export default UserInfo;
 const InfoItem = ({ title, value }) => {
   return (
     <li className={styles.item}>
-      <span className={styles.title}>{title}</span>
+      <span className={styles.title}>{title}:</span>
       <span className={styles.value}>{value}</span>
     </li>
   );

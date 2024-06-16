@@ -10,7 +10,7 @@ const Following = () => {
   const owner = useOwner();
   const { onFollow, onUnfollow } = useFollow();
   const [page, setPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
 
   const onChangePage = ({ selected }) => {
     setPage(selected + 1);

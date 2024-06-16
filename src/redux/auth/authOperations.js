@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { authApi, token } from '../../services/Api';
+import { authApi, token, userApi } from '../../services/Api';
 import { getToken, setToken } from '../../utils/cookies';
 
 export const logout = createAsyncThunk('auth/logout', async () => {
@@ -50,6 +50,18 @@ export const login = createAsyncThunk(
       setToken(data.token);
       token.set(data.token);
       return data.user;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const getUserProfile = createAsyncThunk(
+  'auth/getUserProfile',
+  async (id, { rejectWithValue }) => {
+    try {
+      const { data } = await userApi.getProfile(id);
+      return data;
     } catch (error) {
       return rejectWithValue(error.response.data);
     }

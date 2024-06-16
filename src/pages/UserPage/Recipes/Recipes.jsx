@@ -1,12 +1,16 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
+import { useDispatch } from 'react-redux';
+
 import ListItems from '../../../components/ListItems';
 import { TYPE_TABS, EMPTY_TEXT } from '../../../constants/common';
 import { recipeApi } from '../../../services/Api';
 import { useOwner } from '../../../hooks/user';
+import { authReducer } from '../../../redux/auth';
 
 const Recipes = () => {
+  const dispatch = useDispatch();
   const { id } = useParams();
   const [recipes, setRecipes] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -45,6 +49,9 @@ const Recipes = () => {
         ...prev,
         result: prev.result.filter(recipe => recipe._id !== id),
       }));
+      await dispatch(
+        authReducer.updateUserProfile({ key: 'recipes', value: -1 })
+      );
     } catch (error) {
       console.log(error);
     }
