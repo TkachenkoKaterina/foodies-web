@@ -29,7 +29,9 @@ const Testimonials = () => {
   return (
     <Container>
       <div className={css['testimonials-container']}>
-        <p className={css['testimonials-description']}>What our customer say</p>
+        <p className={css['testimonials-description']}>
+          What our customers say
+        </p>
         <h2 className={css['testimonials-title']}>TESTIMONIALS</h2>
 
         <Swiper
@@ -43,11 +45,13 @@ const Testimonials = () => {
         >
           {testimonials.map(({ _id, testimonial, owner }, index) => (
             <SwiperSlide key={`${_id}-${index}`} className={css['swiperSlide']}>
-              <svg className={css['svg']}>
-                <use xlinkHref={`${quote}#icon-quote`} />
-              </svg>
-              <span className={css['text']}>{testimonial}</span>
-              <span className={css['owner']}>{owner}</span>
+              <div>
+                <svg className={css['svg']}>
+                  <use xlinkHref={`${quote}#icon-quote`} />
+                </svg>
+                <span className={css['text']}>{testimonial}</span>
+                <p className={css['owner']}>{owner?.name}</p>
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>
