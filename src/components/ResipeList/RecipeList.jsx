@@ -5,14 +5,14 @@ import styles from './RecipeList.module.scss';
 import { useEffect, useState } from 'react';
 import { recipeApi } from '../../services/Api';
 const RecipeList = ({ recipes }) => {
-  // const recipes = useSelector(getRecipes);
-  const [recipesFavList, setRecipesFavList] = useState(null);
-  const [status, setStatus] = useState(false);
+  const [recipesFavList, setRecipesFavList] = useState([]);
+
   const [loading, setIsLoading] = useState('true');
+
   const getFavRecipesList = async () => {
     try {
       const { data } = await recipeApi.getFavoriteRecipes();
-      setRecipesFavList(data);
+      setRecipesFavList(data.result);
     } catch (error) {
       console.log(error);
     } finally {
@@ -21,12 +21,12 @@ const RecipeList = ({ recipes }) => {
   };
   useEffect(() => {
     getFavRecipesList();
-  }, [status, recipes]);
+  }, []);
 
   const handleAddToFavorites = async id => {
     try {
       await recipeApi.addToFavorites(id);
-      setStatus(true);
+      getFavRecipesList();
     } catch (error) {
       console.error('Error adding to favorites:', error);
     }
@@ -35,7 +35,7 @@ const RecipeList = ({ recipes }) => {
   const handleRemoveFromFavorites = async id => {
     try {
       await recipeApi.removeFromFavorites(id);
-      setStatus(false);
+      getFavRecipesList();
     } catch (error) {
       console.error('Error removing from favorites:', error);
     }
@@ -46,10 +46,9 @@ const RecipeList = ({ recipes }) => {
       {recipes && (
         <ul className={styles.recipesList}>
           {recipes?.map((item, index) => {
-            const status = recipesFavList?.find(
-              favItem => favItem._id === item.id
+            const status = recipesFavList?.some(
+              favItem => favItem._id === item._id
             );
-
             return (
               <RecipeCard
                 key={item._id + index}
@@ -61,6 +60,7 @@ const RecipeList = ({ recipes }) => {
                 status={status}
                 handleAddToFavorites={handleAddToFavorites}
                 handleRemoveFromFavorites={handleRemoveFromFavorites}
+                recipesFavList={recipesFavList}
               />
             );
           })}

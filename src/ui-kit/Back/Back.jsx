@@ -1,7 +1,7 @@
 import styles from './Back.module.scss';
 import icons from '../../assets/icons/icons.svg';
 
-const Back = ({ icon, onClick, disabled, type = 'button' }) => {
+const Back = ({ icon, onClick, disabled, type = 'button', fill }) => {
   return (
     <button
       className={styles.button}
@@ -10,7 +10,7 @@ const Back = ({ icon, onClick, disabled, type = 'button' }) => {
       type={type}
     >
       <svg className={styles.icon}>
-        <use href={`${icons}#${icon}`} />
+        <use href={`${icons}#${icon}`} fill={fill} />
       </svg>
     </button>
   );
