@@ -6,6 +6,7 @@ import { getPopular } from '../../redux/recipes/recipesSelectors';
 import { useEffect, useState } from 'react';
 import styles from './PopularRecipes.module.scss';
 import { recipeApi } from '../../services/Api';
+import { getIsLoggedIn } from '../../redux/auth/authSelectors';
 const PopularRecipes = () => {
   const dispatch = useDispatch();
   const [recipesFavList, setRecipesFavList] = useState(null);
@@ -15,8 +16,8 @@ const PopularRecipes = () => {
 
   const recipesPopular = useSelector(getPopular);
 
-  const [status, setStatus] = useState(false);
   const [loading, setIsLoading] = useState('true');
+  const isLoggedIn = useSelector(getIsLoggedIn);
   const getFavRecipesList = async () => {
     try {
       const { data } = await recipeApi.getFavoriteRecipes();
@@ -28,8 +29,12 @@ const PopularRecipes = () => {
     }
   };
   useEffect(() => {
-    getFavRecipesList();
-  }, []);
+    if (isLoggedIn) {
+      getFavRecipesList();
+    } else {
+      return;
+    }
+  }, [isLoggedIn]);
 
   const handleAddToFavorites = async id => {
     try {
