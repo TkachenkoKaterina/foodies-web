@@ -9,10 +9,12 @@ const AuthHeader = ({isHomePage}) => {
       <Container>
         <nav className={styles.navbar}>
         <Logo isHomePage={isHomePage} />
+        <div className={styles.wrapper}>
         <Nav isHomePage={isHomePage} />
           <div className={styles.mobileWrapper}>
             <UserBar isHomePage={isHomePage} />
             <BurgerMenu  isHomePage={isHomePage} />
+          </div>
           </div>
         </nav>
     </Container>

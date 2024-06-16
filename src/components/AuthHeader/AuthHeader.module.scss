@@ -22,6 +22,16 @@
 
 }
 
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 113px;
+
+  @include min-desktop {
+    gap: 405px;
+  }
+}
+
 .mobileWrapper {
   display: flex;
   align-items: center;
