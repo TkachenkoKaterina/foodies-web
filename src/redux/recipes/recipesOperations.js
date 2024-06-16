@@ -9,10 +9,12 @@ axios.defaults.baseURL = BASE_URL;
 export const getRecipesInCategory = createAsyncThunk(
   'recipes/filter',
   async (category, params, thunkAPI) => {
+    console.log('opers----->', { params });
+
     try {
-      console.log('argument passed to action creator:', category, { params });
       const res = await recipesApi.getRecipes(category, { params });
       console.log('Request');
+
       return res.data;
     } catch (error) {
       Notify.failure(error.message, {
@@ -36,12 +38,26 @@ export const getRecipeById = createAsyncThunk(
 );
 export const getPopularRecipes = createAsyncThunk(
   'recipes/popular',
-  async (_, { rejectWithValue }) => {
+  async (limit, { rejectWithValue }) => {
     try {
-      const res = await recipesApi.getPopular();
+      const res = await recipesApi.getPopular(limit);
       return res.data;
     } catch (error) {
       rejectWithValue(error);
     }
   }
 );
+
+// export const fetchSearchValue = createAsyncThunk(
+//   'recipes/filter',
+//   async (category, filter) => {
+//     if (filter.area) {
+//       const { data } = await recipesApi.get(category, params:{searchValue}
+//         `${ADVERTS_URL}?location=${searchValue}`
+//       );
+//       return data;
+//     }
+//      const { data } = await recipesApi.getRecipes(category)
+//     return data;
+//   }
+// );
