@@ -47,7 +47,7 @@ const Testimonials = () => {
                 <use xlinkHref={`${quote}#icon-quote`} />
               </svg>
               <span className={css['text']}>{testimonial}</span>
-              <span className={css['owner']}>{owner}</span>
+              <span className={css['owner']}>{owner.name}</span>
             </SwiperSlide>
           ))}
         </Swiper>
