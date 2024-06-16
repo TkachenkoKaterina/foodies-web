@@ -59,10 +59,10 @@ export const categoriesApi = {
 };
 
 export const recipesApi = {
-  getRecipes: (category, params) =>
-    apiInstance.get(`/api/recipes/filter/${category}?`, { params }),
+  getRecipes: (category, filter) =>
+    apiInstance.get(`/api/recipes/filter/${category}?`, { filter }),
   getRecipe: id => apiInstance.get(`/api/recipes/public/${id}`),
-  getPopular: () => apiInstance.get(`/api/recipes/popular`),
+  getPopular: params => apiInstance.get(`/api/recipes/popular`, { params }),
 };
 
 export const testimonialsApi = {
@@ -76,3 +76,21 @@ export const areasApi = {
 export const ingredientsApi = {
   getIngredients: () => apiInstance.get('/api/ingredients'),
 };
+
+///// getRecipes: (category, filter) => {
+// if (filter.ingredient) {
+//   apiInstance.get(
+//     `/api/recipes/filter/${category}?ingredient=${filter.ingredient}&page=${filter.page}&limit=${filter.limit}`
+//   );
+// } else if (filter.area) {
+//   apiInstance.get(
+//     `/api/recipes/filter/${category}?area=${filter.area}&page=${filter.page}&limit=${filter.limit}`
+//   );
+// } else if (filter.ingredient && filter.area) {
+//   apiInstance.get(
+//     `/api/recipes/filter/${category}?ingredient=${filter.ingredient}&area=${filter.area}&page=${filter.page}&limit=${filter.limit}`
+//   );
+// } else {
+//   apiInstance.get(`/api/recipes/filter/${category}`);
+// }
+// },
