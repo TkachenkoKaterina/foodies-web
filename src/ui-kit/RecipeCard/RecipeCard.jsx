@@ -7,6 +7,7 @@ import { getImagePath } from '../../helpers/getImagePath';
 import { getPathWithId } from '../../helpers/getPathWithId';
 import styles from './RecipeCard.module.scss';
 import SignInModal from '../../components/SignInModal/SignInModal';
+import { useState } from 'react';
 
 const RecipeCard = ({
   title,
@@ -20,23 +21,21 @@ const RecipeCard = ({
 }) => {
   const navigate = useNavigate();
   const isLoggedIn = useSelector(getIsLoggedIn);
+  const [modalState, setModalState] = useState(false);
   const goToRecipe = () => {
-    // console.log(id);
     navigate(getPathWithId(routes.recipe, id));
   };
 
-  const goUserProfile = () => {
+  const userOpenHendler = () => {
     if (isLoggedIn) {
       navigate(getPathWithId(routes.user, owner._id));
     } else {
-      console.log('sorry go to modal');
+      setModalState(true);
     }
-
-    // if (!isLoggedIn) {
-    //   navigate(getPathWithId(routes.user, owner));
-    // }
   };
-
+  const closeModal = () => {
+    modalState(false);
+  };
   return (
     <li key={id} className={styles.card}>
       <img src={getImagePath(img)} alt={title} className={styles.img} />
@@ -46,14 +45,7 @@ const RecipeCard = ({
         <button
           className={styles.ownerInfo}
           type="button"
-          // onClick={
-          //   isLoggedIn
-          //     ? goUserProfile
-          //     : () => {
-          //         return <SignInModal />;
-          //       }
-          // }
-          onClick={goUserProfile}
+          onClick={userOpenHendler}
         >
           <img
             className={styles.avatar}
@@ -70,6 +62,9 @@ const RecipeCard = ({
             onClick={goToRecipe}
           />
         </div>
+        {modalState && (
+          <SignInModal isOpen={modalState} onRequestClose={closeModal} />
+        )}
       </div>
     </li>
   );

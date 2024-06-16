@@ -9,7 +9,7 @@ const PopularRecipes = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getPopularRecipes());
+    dispatch(getPopularRecipes({ limit: 4 }));
   }, [dispatch]);
 
   const recipesPopular = useSelector(getPopular);
