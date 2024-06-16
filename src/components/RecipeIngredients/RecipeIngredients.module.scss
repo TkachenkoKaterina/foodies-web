@@ -4,6 +4,14 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    padding-top: 12px;
+
+    @include min-tablet {
+        display: flex;
+        padding: 20px 0;
+    }
+    
+    
 
     .title {
         font-family: $--font-mulish;
@@ -22,6 +30,10 @@
             display: flex;
             flex-wrap: wrap;
             gap: 16px;
+
+            @include min-tablet {
+                gap: 20px;
+            }
         }
     }
 }
@@ -30,6 +42,10 @@ li.ingredient_item {
     display: flex;
     gap: 10px;
     width: 152px;
+
+    @include min-tablet {
+        width: 178px;
+    }
 
     .ingredient_image {
         width: 75px;
@@ -43,9 +59,19 @@ li.ingredient_item {
         overflow: hidden;
         flex-shrink: 0;
 
+        @include min-tablet {
+            width: 90px;
+            height: 90px;
+        }
+
         img {
             width: 55px;
             height: 55px;
+
+            @include min-tablet {
+                width: 60px;
+                height: 60px;
+            }
         }
     }
 
@@ -55,6 +81,10 @@ li.ingredient_item {
         justify-content: center;
         gap: 2px;
 
+        @include min-tablet {
+            gap: 4px;
+        }
+
         .ingredient_name {
             font-family: $--font-mulish;
             font-size: 14px;
@@ -63,6 +93,11 @@ li.ingredient_item {
             letter-spacing: -0.02em;
             text-align: left;
             color: $--color-main;
+
+            @include min-tablet {
+                font-size: 16px;
+                line-height: 24px;
+            }
         }
 
         .ingredient_measure {
@@ -73,42 +108,8 @@ li.ingredient_item {
             letter-spacing: -0.02em;
             text-align: left;
             color: $--color-main-opacity60;
-        }
-    }
-}
 
-@media screen and (min-width: 768px) {
-    .ingredients_wrap {
-            display: flex;
-    
-            .ingredients_list_wrap {
-                ul.ingredients_list {
-                    gap: 20px;
-                }
-            }
-        }
-    li.ingredient_item {
-        width: 178px;
-
-        .ingredient_image {
-            width: 90px;
-            height: 90px;
-
-            img {
-                width: 60px;
-                height: 60px;
-            }
-        }
-
-        .ingredient_info {
-            gap: 4px;
-
-            .ingredient_name {
-                font-size: 16px;
-                line-height: 24px;
-            }
-
-            .ingredient_measure {
+            @include min-tablet {
                 font-size: 16px;
                 line-height: 24px;
             }

@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { MODAL_TYPES } from '../../constants/common';
+import { openModal } from '../../redux/modal/modalSlice.js';
 
 import Container from '../../ui-kit/Container';
 
@@ -19,7 +20,7 @@ const Hero = () => {
   const handleClick = () => {
     isLogin
       ? navigate('/recipe/add')
-      : dispatch({ type: MODAL_TYPES.LOGIN, modalProps: { open: true } });
+      : dispatch(openModal({ modalType: MODAL_TYPES.LOGIN, modalProps: {} }));
   };
 
   return (

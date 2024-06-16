@@ -2,9 +2,11 @@
 
 .signUpWrapper {
   background-color: white;
+  width: 343px;
   padding: 60px 30px;
   @include min-tablet {
     padding: 80px;
+    width: 560px;
   }
 }
 

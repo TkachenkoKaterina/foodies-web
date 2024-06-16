@@ -4,14 +4,19 @@ import styles from './RecipeDetailsFavButton.module.scss';
 
 const RecipeDetailsFavButton = ({ recipeId }) => {
   const [isFavorite, setIsFavorite] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchFavoriteStatus = async () => {
+      if (!recipeId) {
+        return;
+      }
+
       try {
         const response = await recipeApi.getRecipes(recipeId);
         setIsFavorite(response.data.isFavorite);
       } catch (error) {
-        console.error('Error fetching favorite status:', error);
+        setError('Error fetching favorite status');
       }
     };
 
@@ -19,25 +24,38 @@ const RecipeDetailsFavButton = ({ recipeId }) => {
   }, [recipeId]);
 
   const handleAddToFavorites = async () => {
+    if (!recipeId) {
+      return;
+    }
+
     try {
-      await recipeApi.addToFavorites(recipeId);
+      const response = await recipeApi.addToFavorites(recipeId);
       setIsFavorite(true);
     } catch (error) {
-      console.error('Error adding to favorites:', error);
+      if (error.response && error.response.data.message === 'Recipe already in favorites') {
+        setIsFavorite(true); 
+      } else {
+        setError('Error adding from favorites');
+      }
     }
   };
 
   const handleRemoveFromFavorites = async () => {
-    try {
-      await recipeApi.removeFromFavorites(recipeId);
+    if (!recipeId) {
+      return;
+    }
+
+   try {
+      const response = await recipeApi.removeFromFavorites(recipeId);
       setIsFavorite(false);
     } catch (error) {
-      console.error('Error removing from favorites:', error);
+      setError('Error removing from favorites');
     }
   };
 
   return (
     <div>
+      {error && <p className={styles.error}>{error}</p>}
       {isFavorite ? (
         <button type="button" className={styles.favButton} onClick={handleRemoveFromFavorites}>Remove from favorites</button>
       ) : (

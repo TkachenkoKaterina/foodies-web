@@ -5,7 +5,7 @@ import styles from './Modal.module.scss';
 import { useDispatch } from 'react-redux';
 import { closeModal } from '../../redux/modal/modalSlice';
 
-const Modal = ({ isOpen, children }) => {
+const Modal = ({ isOpen, children, onRequestClose }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -25,6 +25,9 @@ const Modal = ({ isOpen, children }) => {
     dispatch(closeModal());
     document.body.classList.remove('modal-open');
     document.body.style.paddingRight = '';
+    if (onRequestClose) {
+      onRequestClose();
+    }
   };
 
   if (!isOpen) return null;
