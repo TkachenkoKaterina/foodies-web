@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { closeModal } from '../../redux/modal/modalSlice';
+import { clearError } from '../../redux/auth/authSlice';
 
 const SignInForm = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ const SignInForm = () => {
 
     if (errorMsg) {
       Notiflix.Notify.failure(errorMsg);
+      dispatch(clearError());
     }
   }, [isLoggedIn, errorMsg, dispatch]);
 

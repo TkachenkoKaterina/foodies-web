@@ -34,6 +34,9 @@ const authSlice = createSlice({
     updateAvatar: (state, action) => {
       state.user.avatar = action.payload;
     },
+    clearError: state => {
+      state.error = null;
+    },
   },
   extraReducers: builder => {
     builder
@@ -97,5 +100,5 @@ const authSlice = createSlice({
 
 export const auth = authSlice.reducer;
 
-export const { setRefreshing, updateFollowing, updateAvatar } =
+export const { setRefreshing, updateFollowing, updateAvatar, clearError } =
   authSlice.actions;

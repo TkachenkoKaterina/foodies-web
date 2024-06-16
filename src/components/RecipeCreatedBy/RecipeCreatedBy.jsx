@@ -5,25 +5,22 @@ import PropTypes from 'prop-types';
 import { getIsLoggedIn } from '../../redux/auth/authSelectors';
 import { getImagePath, TYPE_IMG } from '../../helpers/getImagePath';
 import styles from './RecipeCreatedBy.module.scss';
-import SignInModal from '../SignInModal/SignInModal';
-import FormSwitcher from '../FormSwitcher/FormSwitcher';
+import { useDispatch } from 'react-redux';
+import { openModal } from '../../redux/modal/modalSlice';
+import { MODAL_TYPES } from '../../constants/common';
 
-const RecipeCreatedBy = ({ ownerId, name, avatar}) => {
+const RecipeCreatedBy = ({ ownerId, name, avatar }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useSelector(getIsLoggedIn);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
 
   const handleBtnClick = () => {
     if (isLoggedIn) {
       navigate(`/user/${ownerId}`);
     } else {
-      setIsModalOpen(true);
+      dispatch(openModal({ modalType: MODAL_TYPES.LOGIN, modalProps: {} }));
     }
-  };
-  
-  const closeModal = () => {
-    setIsModalOpen(false);
   };
 
   return (
@@ -37,7 +34,7 @@ const RecipeCreatedBy = ({ ownerId, name, avatar}) => {
           <p className={styles.name}>{name}</p>
         </div>
       </button>
-      <SignInModal isOpen={isModalOpen} onRequestClose={closeModal} />
+      {/* <SignInModal isOpen={isModalOpen} onRequestClose={closeModal} /> */}
     </div>
   );
 };
