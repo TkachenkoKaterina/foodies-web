@@ -12,12 +12,13 @@ import { getRecipesInCategory } from '../../redux/recipes/recipesOperations';
 import {
   filterSelector,
   getRecipes,
+  totalSelector,
 } from '../../redux/recipes/recipesSelectors';
 import { filter } from '../../redux/recipes/recipesSlice';
 
 const HomePage = () => {
   const [category, setCategory] = useState('');
-  console.log('ctegory', category);
+  // console.log('ctegory', category);
   const [page, setPage] = useState(1);
   const ingredientsList = useSelector(selectIngredients);
   const limit = 12;
@@ -27,8 +28,19 @@ const HomePage = () => {
   const recipes = useSelector(getRecipes);
   const filterFromRedux = useSelector(filterSelector);
   console.log('filter from redux --->', filterFromRedux);
-  const onChangePage = page => {
+
+  const total = useSelector(totalSelector);
+
+  const onPageChange = page => {
     setPage(page);
+    dispatch(
+      filter({
+        ingredient: ingredientId,
+        area: area,
+        page: page.selected + 1,
+        limit: limit,
+      })
+    );
   };
 
   useEffect(() => {
@@ -40,9 +52,15 @@ const HomePage = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    // console.log(area);
     if (category) {
       dispatch(getRecipesInCategory(category, filterFromRedux));
+
+      // setPginationObject(useSelector);
     }
+    // if (area) {
+    //   dispatch(getRecipesInCategory(category, { area: area }));
+    // }
   }, [dispatch, category, area, ingredientId, page]);
 
   const handleChange = event => {
@@ -74,8 +92,8 @@ const HomePage = () => {
       );
     }
   };
-  console.log(area);
-  console.log(ingredientId);
+  // console.log(area);
+  // console.log(ingredientId);
 
   const handlerCategoryChoose = name => {
     setCategory(name);
@@ -91,12 +109,16 @@ const HomePage = () => {
       {!category && (
         <Categories handlerCategoryChoose={handlerCategoryChoose} />
       )}
-      {category && (
+      {category && recipes && (
         <Recipes
           category={category}
           onClick={goToCategory}
           handleChange={handleChange}
           recipes={recipes}
+          itemsPerPage={limit}
+          currentPage={page}
+          onPageChange={onPageChange}
+          total={total}
           // area={area}
           // ingredient={ingredientId}
           // areaHandler={areaHandler}
