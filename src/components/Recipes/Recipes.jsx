@@ -17,10 +17,8 @@ const Recipes = ({
   handleChange,
   itemsPerPage,
   onPageChange,
-  total
+  total,
 }) => {
-  // const total = useSelector(state => state.recipes.total);
-  console.log(itemsPerPage, currentPage, onPageChange, total);
   return (
     <>
       {category && (
@@ -28,11 +26,7 @@ const Recipes = ({
           <Back icon="icon-arrow-left" onClick={onClick} />
           <MainTitle text={category} />
           <Subtitle text="Go on a taste journey, where every sip is a sophisticated creative chord, and every dessert is an expression of the most refined gastronomic desires." />
-          <RecipeFilters
-            handleChange={handleChange}
-            // area={area}
-            // ingredientId={ingredientId}
-          />
+          <RecipeFilters handleChange={handleChange} />
           <RecipeList
             recipes={recipes}
             itemsPerPage={itemsPerPage}
@@ -40,7 +34,6 @@ const Recipes = ({
             onPageChange={onPageChange}
             total={total}
           />
-          {/* <RecipePagination onClick={onChangePage}/> */}
         </Container>
       )}
     </>

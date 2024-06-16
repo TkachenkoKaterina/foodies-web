@@ -18,7 +18,7 @@ import { filter } from '../../redux/recipes/recipesSlice';
 
 const HomePage = () => {
   const [category, setCategory] = useState('');
-  // console.log('ctegory', category);
+
   const [page, setPage] = useState(1);
   const ingredientsList = useSelector(selectIngredients);
   const limit = 12;
@@ -27,6 +27,7 @@ const HomePage = () => {
   const [area, setArea] = useState(null);
   const recipes = useSelector(getRecipes);
   const filterFromRedux = useSelector(filterSelector);
+
   const total = useSelector(totalSelector);
 
   const onPageChange = page => {
@@ -86,8 +87,6 @@ const HomePage = () => {
       );
     }
   };
-  // console.log(area);
-  // console.log(ingredientId);
 
   const handlerCategoryChoose = name => {
     setCategory(name);
@@ -113,10 +112,6 @@ const HomePage = () => {
           currentPage={page}
           onPageChange={onPageChange}
           total={total}
-          // area={area}
-          // ingredient={ingredientId}
-          // areaHandler={areaHandler}
-          // ingredientIdHendler={ingredientIdHendler}
         />
       )}
 
