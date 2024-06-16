@@ -15,15 +15,23 @@
   border-radius: 50%;
   overflow: hidden;
   border: 1px solid $--color-main-opacity15;
+  transition: border-color $--transition-primary, background-color $--transition-primary;
 
-  @include min-tablet {
+  &:hover,
+    &:focus {
+      background-color: $--color-main;
+      cursor: pointer;
+    }
+  
+     @include min-tablet {
     width: 40px;
     height: 40px;
   }
-
+  
   &:hover,
   &:focus {
     & .icon {
+      fill: $--color-white;
       transform: scale(1.2);
     }
   }
