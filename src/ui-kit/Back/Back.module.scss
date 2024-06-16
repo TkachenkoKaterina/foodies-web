@@ -10,7 +10,12 @@
   border-radius: 50%;
   border: 1px solid $--color-main-opacity10;
 
-  @include min-tablet {
+  &:hover,
+    &:focus {
+      background-color: $--color-main;
+    }
+    
+    @include min-tablet {
     padding: 12px;
   }
 
@@ -30,6 +35,8 @@
   &:hover,
   &:focus {
     & .icon {
+      fill: $--color-main;
+      stroke: $--color-white;
       transform: scale(1.2);
     }
   }
