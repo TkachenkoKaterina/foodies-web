@@ -62,6 +62,7 @@ const SignInForm = () => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+    mode: 'submit',
   });
 
   const onSubmit = async data => {
@@ -95,7 +96,10 @@ const SignInForm = () => {
             {...register('password', { required: 'Password is required' })}
           />
 
-          <button onClick={() => setpassHiddenState(!passHiddenState)}>
+          <button
+            type={'button'}
+            onClick={() => setpassHiddenState(!passHiddenState)}
+          >
             <svg className={styles.icon}>
               <use
                 href={
