@@ -1,14 +1,9 @@
 import { BASE_URL } from './BaseUrl';
 import axios from 'axios';
 
-import { getToken } from '../utils/cookies';
-
-const token = getToken();
-
 export const apiInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
-    Authorization: token ? `Bearer ${token}` : '',
     'Content-Type': 'application/json',
   },
 });
@@ -16,10 +11,20 @@ export const apiInstance = axios.create({
 export const apiInstanceImages = axios.create({
   baseURL: BASE_URL,
   headers: {
-    Authorization: token ? `Bearer ${token}` : '',
     'Content-Type': 'multipart/form-data',
   },
 });
+
+export const token = {
+  set(token) {
+    apiInstance.defaults.headers.Authorization = `Bearer ${token}`;
+    apiInstanceImages.defaults.headers.Authorization = `Bearer ${token}`;
+  },
+  unset() {
+    apiInstance.defaults.headers.Authorization = '';
+    apiInstanceImages.defaults.headers.Authorization = '';
+  },
+};
 
 export const authApi = {
   register: data => apiInstance.post('/api/users/signup', data),

@@ -7,17 +7,43 @@ import icons from '../../assets/icons/icons.svg';
 import { Button } from '../../ui-kit';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/auth/authOperations';
-import { useStore } from 'react-redux';
 import {
   getError,
   getIsLoggedIn,
   getLoading,
 } from '../../redux/auth/authSelectors';
+import Notiflix from 'notiflix';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
-const SignInForm = ({ onRequestClose }) => {
+import { closeModal } from '../../redux/modal/modalSlice';
+
+const SignInForm = () => {
   const dispatch = useDispatch();
-  const store = useStore();
   const [passHiddenState, setpassHiddenState] = useState(true);
+
+  const loading = useSelector(getLoading);
+  const isLoggedIn = useSelector(getIsLoggedIn);
+  const errorMsg = useSelector(getError);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      dispatch(closeModal());
+      Notiflix.Notify.success('You have successfully logged in!');
+    }
+
+    if (errorMsg) {
+      Notiflix.Notify.failure(errorMsg);
+    }
+  }, [isLoggedIn, errorMsg, dispatch]);
+
+  useEffect(() => {
+    if (loading) {
+      Notiflix.Loading.dots();
+    } else {
+      Notiflix.Loading.remove();
+    }
+  }, [loading]);
 
   const schema = yup.object().shape({
     email: yup
@@ -36,24 +62,11 @@ const SignInForm = ({ onRequestClose }) => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+    mode: 'submit',
   });
 
   const onSubmit = async data => {
-    dispatch(login(data)).then(() => {
-      const state = store.getState();
-      const isLoading = getLoading(state);
-      const isLoggedIn = getIsLoggedIn(state);
-      const errormMsg = getError(state);
-
-      if (isLoggedIn) {
-        onRequestClose(() => false);
-        alert('Login OK');
-      }
-
-      if (errormMsg) {
-        alert(errormMsg);
-      }
-    });
+    dispatch(login(data));
   };
 
   return (
@@ -67,6 +80,7 @@ const SignInForm = ({ onRequestClose }) => {
             name="email"
             type="text"
             placeholder="Email*"
+            autoComplete="on"
             {...register('email', { required: 'Email is required' })}
           />
           <p className={styles.error}>{errors.email?.message}</p>
@@ -78,27 +92,28 @@ const SignInForm = ({ onRequestClose }) => {
             }`}
             name="password"
             type={passHiddenState ? 'password' : 'text'}
-            autoComplete="on"
             placeholder="Password"
             {...register('password', { required: 'Password is required' })}
           />
 
-          <svg
-            className={styles.icon}
+          <button
+            type={'button'}
             onClick={() => setpassHiddenState(!passHiddenState)}
           >
-            <use
-              href={
-                `${icons}#` + `${passHiddenState ? 'icon-eye-off' : 'icon-eye'}`
-              }
-            ></use>
-            o
-          </svg>
+            <svg className={styles.icon}>
+              <use
+                href={
+                  `${icons}#` +
+                  `${passHiddenState ? 'icon-eye-off' : 'icon-eye'}`
+                }
+              ></use>
+            </svg>
+          </button>
           <p className={styles.error}>{errors.password?.message}</p>
         </div>
         <div className={styles.btnWraper}>
-          <Button type={'submit'} variant={'auth'}>
-            sign in
+          <Button type={'submit'} disabled={errors.email || errors.password}>
+            SignIn
           </Button>
         </div>
       </form>

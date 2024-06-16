@@ -8,9 +8,8 @@ const AddRecipePage = () => {
   return (
     <div className={styles['add-recipe-page']}>
       <Container>
-        <PathInfo path={routes.addRecipe} />
+        <PathInfo path={'Add recipe'} />
         <AddRecipeForm />
-        <PopularRecipes />
       </Container>
     </div>
   );

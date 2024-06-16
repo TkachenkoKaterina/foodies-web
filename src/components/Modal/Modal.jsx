@@ -1,28 +1,38 @@
-import Modal from 'react-modal';
+import RModal from 'react-modal';
 import icons from '../../assets/icons/icons.svg';
 import { useEffect } from 'react';
-import styles from './CustomModal.module.scss';
+import styles from './Modal.module.scss';
+import { useDispatch } from 'react-redux';
+import { closeModal } from '../../redux/modal/modalSlice';
 
-const CustomModal = ({ isOpen, children, onRequestClose }) => {
+const Modal = ({ isOpen, children, onRequestClose }) => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (!isOpen) return;
-
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
     document.body.classList.add('modal-open');
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
 
     return () => {
       document.body.classList.remove('modal-open');
+      document.body.style.paddingRight = '';
     };
   }, [isOpen]);
 
   const onClose = () => {
-    onRequestClose(() => false);
+    dispatch(closeModal());
     document.body.classList.remove('modal-open');
+    document.body.style.paddingRight = '';
+    if (onRequestClose) {
+      onRequestClose();
+    }
   };
 
-  Modal.setAppElement('#root');
   if (!isOpen) return null;
   return (
-    <Modal
+    <RModal
       isOpen={isOpen}
       onRequestClose={onClose}
       className={styles.content}
@@ -31,13 +41,13 @@ const CustomModal = ({ isOpen, children, onRequestClose }) => {
       contentLabel="Modal"
     >
       {children}
-      <button type="button" className={styles.close} onClick={() => onClose()}>
+      <button type="button" className={styles.close} onClick={onClose}>
         <svg className={styles.close}>
           <use href={`${icons}#icon-cross`} />
         </svg>
       </button>
-    </Modal>
+    </RModal>
   );
 };
 
-export default CustomModal;
+export default Modal;

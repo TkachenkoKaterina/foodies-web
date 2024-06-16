@@ -4,6 +4,11 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    padding-top: 12px;
+    
+    @include min-desktop {
+        padding-top: 0;
+    }
 
     .title {
         font-family: $--font-mulish;
@@ -14,6 +19,10 @@
         text-align: left;
         color: $--color-main;
         text-transform: uppercase;
+
+        @include min-tablet {
+            font-size: 20px;
+        }
     }
 
     .instruction {
@@ -24,18 +33,20 @@
         letter-spacing: -0.02em;
         text-align: left;
         color: $--color-main-opacity80;
-    }
-}
-
-@media screen and (min-width: 768px) {
-    .recipe_preparation_wrap {
-        .title {
-            font-size: 20px;
-        }
-
-        .instruction {
+        
+        @include min-tablet {
             font-size: 16px;
             line-height: 24px;
-        }
+            }
     }
+
+
+}
+.fav_button {
+    padding-top: 12px;
+
+    @include min-tablet {
+        padding-top: 20px;
+    }
+
 }

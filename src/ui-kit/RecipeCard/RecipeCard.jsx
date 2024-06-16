@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { IconButton } from '..';
+import { Back } from '..';
 import { routes } from '../../constants/routes';
 import { useNavigate } from 'react-router-dom';
 import { getIsLoggedIn } from '../../redux/auth/authSelectors';
@@ -39,7 +39,7 @@ const RecipeCard = ({
   return (
     <li key={id} className={styles.card}>
       <img src={getImagePath(img)} alt={title} className={styles.img} />
-      <h1 className={styles.title}>{title}</h1>
+      <h3 className={styles.title}>{title}</h3>
       <p className={styles.description}>{description.slice(0, 70)}...</p>
       <div className={styles.cardFooter}>
         <button
@@ -55,8 +55,8 @@ const RecipeCard = ({
           <p className={styles.name}>{owner.name}</p>
         </button>
         <div className={styles.actionsBlock}>
-          <IconButton icon="icon-heart" onClick={favoritesHendler} />
-          <IconButton
+          <Back icon="icon-heart" onClick={favoritesHendler} />
+          <Back
             className={styles.heardBtn}
             icon="icon-arrow-up-right"
             onClick={goToRecipe}
