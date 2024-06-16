@@ -12,9 +12,7 @@ export const getRecipesInCategory = createAsyncThunk(
     console.log('opers----->', { params });
 
     try {
-      const res = await recipesApi.getRecipes(category, { params });
-      console.log('Request');
-
+      const res = await recipesApi.getRecipes(category, (params = params));
       return res.data;
     } catch (error) {
       Notify.failure(error.message, {

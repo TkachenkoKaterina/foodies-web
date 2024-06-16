@@ -1,10 +1,16 @@
-import { RecipeCard } from '../../ui-kit';
+import { ListPagination, RecipeCard, RecipePagination } from '../../ui-kit';
 // import recipes from './recipes.json';
 import styles from './RecipeList.module.scss';
 
 import { useEffect, useState } from 'react';
 import { recipeApi } from '../../services/Api';
-const RecipeList = ({ recipes }) => {
+const RecipeList = ({
+  recipes,
+  itemsPerPage,
+  currentPage,
+  onPageChange,
+  total,
+}) => {
   const [recipesFavList, setRecipesFavList] = useState([]);
 
   const [loading, setIsLoading] = useState('true');
@@ -65,6 +71,14 @@ const RecipeList = ({ recipes }) => {
             );
           })}
         </ul>
+      )}
+      {total > 12 && (
+        <RecipePagination
+          itemsPerPage={itemsPerPage}
+          currentPage={currentPage}
+          onPageChange={onPageChange}
+          total={total}
+        />
       )}
     </>
   );

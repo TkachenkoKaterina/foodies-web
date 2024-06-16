@@ -9,7 +9,18 @@ import { fetchIngredients } from '../../redux/ingredients/ingredientsOperatins';
 import { fetchAreas } from '../../redux/areas/areasOperations';
 import { selectIngredients } from '../../redux/ingredients/ingredientsSelectors';
 
-const Recipes = ({ category, onClick, recipes, page, handleChange }) => {
+const Recipes = ({
+  category,
+  onClick,
+  recipes,
+  currentPage,
+  handleChange,
+  itemsPerPage,
+  onPageChange,
+  total
+}) => {
+  // const total = useSelector(state => state.recipes.total);
+  console.log(itemsPerPage, currentPage, onPageChange, total);
   return (
     <>
       {category && (
@@ -24,8 +35,10 @@ const Recipes = ({ category, onClick, recipes, page, handleChange }) => {
           />
           <RecipeList
             recipes={recipes}
-            // area={area}
-            // ingredientId={ingredientId}
+            itemsPerPage={itemsPerPage}
+            currentPage={currentPage}
+            onPageChange={onPageChange}
+            total={total}
           />
           {/* <RecipePagination onClick={onChangePage}/> */}
         </Container>
