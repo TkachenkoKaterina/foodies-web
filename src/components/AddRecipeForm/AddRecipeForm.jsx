@@ -15,6 +15,7 @@ import { selectIngredients } from '../../redux/ingredients/ingredientsSelectors'
 import { recipeApi } from '../../services/Api';
 import TextareaAutosize from 'react-textarea-autosize';
 import Notiflix from 'notiflix';
+import { getUser } from '../../redux/auth/authSelectors';
 
 const AddRecipeForm = () => {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ const AddRecipeForm = () => {
   const categories = useSelector(selectCategories);
   const areas = useSelector(selectAreas);
   const ingredientsAll = useSelector(selectIngredients);
+  const user = useSelector(getUser);
   const [ingredients, setIngredients] = useState([]);
   const [imagePreview, setImagePreview] = useState(null);
   const [descriptionLength, setDescriptionLength] = useState(0);
@@ -37,6 +39,7 @@ const AddRecipeForm = () => {
       const previewUrl = URL.createObjectURL(file);
       setImagePreview(previewUrl);
       setFile(file);
+      setValue('file', file);
     }
   };
 
@@ -63,6 +66,10 @@ const AddRecipeForm = () => {
     time: Yup.number()
       .required('Cooking time is required')
       .min(1, 'Cooking time cannot be zero'),
+    file: Yup.mixed().required('Image is required'),
+    ingredients: Yup.array()
+      .min(1, 'At least one ingredient is required')
+      .required('Ingredients are required'),
   });
 
   const {
@@ -110,6 +117,7 @@ const AddRecipeForm = () => {
     const quantity = watch('quantity');
     if (!ingredientValue || !quantity) {
       Notiflix.Notify.failure('Set ingredient and quantity');
+      return;
     }
     if (ingredientValue && quantity) {
       const selectedIngredient = JSON.parse(watch('ingredient'));
@@ -121,13 +129,18 @@ const AddRecipeForm = () => {
         },
       ];
       setIngredients(newIngredients);
+      setValue('ingredients', newIngredients); // Оновлення значення форми
       setValue('ingredient', '');
       setValue('quantity', '');
     }
   };
 
   const handleIngredientDelete = id => {
-    setIngredients(ingredients.filter(ingredient => ingredient._id !== id));
+    const updatedIngredients = ingredients.filter(
+      ingredient => ingredient._id !== id
+    );
+    setIngredients(updatedIngredients);
+    setValue('ingredients', updatedIngredients); // Оновлення значення форми
   };
 
   const handleClearForm = () => {
@@ -139,27 +152,8 @@ const AddRecipeForm = () => {
     setPreparationLength(0);
     clearErrors();
   };
-
+  console.log('ingredients', ingredients);
   const onSubmit = async data => {
-    let formIsValid = true;
-
-    if (!file) {
-      setError('file', { type: 'manual', message: 'Image is required' });
-      formIsValid = false;
-    }
-
-    if (ingredients.length === 0) {
-      setError('ingredient', {
-        type: 'manual',
-        message: 'At least one ingredient is required',
-      });
-      formIsValid = false;
-    }
-
-    if (!formIsValid) {
-      return;
-    }
-
     const formData = new FormData();
     formData.append('title', data.name);
     formData.append('category', data.category);
@@ -167,12 +161,13 @@ const AddRecipeForm = () => {
     formData.append('instructions', data.preparation);
     formData.append('description', data.description);
     formData.append('time', data.time);
-    formData.append('thumbRecipeImages', file);
+    formData.append('thumbRecipeImages', data.file);
 
-    const ingredientsArray = ingredients.map(ingredient => ({
+    const ingredientsArray = data.ingredients.map(ingredient => ({
       id: ingredient._id,
       measure: ingredient.quantity,
     }));
+    console.log('formData', formData);
 
     formData.append('ingredients', JSON.stringify(ingredientsArray));
 
@@ -180,7 +175,7 @@ const AddRecipeForm = () => {
       const response = await recipeApi.createRecipe(formData);
       Notiflix.Notify.success('Recipe created successfully', response.data);
       handleClearForm(); // Clear form after successful submission
-      navigate('/user-page'); // Redirect to UserPage after successful form submission
+      navigate(`/user/${user._id}`); // Redirect to UserPage after successful form submission
     } catch (error) {
       Notiflix.Notify.failure(
         `${error.message} ${error.response.data.message}`
@@ -218,10 +213,13 @@ const AddRecipeForm = () => {
                 onChange={handleImageChange}
                 ref={fileInputRef}
                 className={`${styles.input} ${styles['input-file']} ${
-                  errors.file ? styles.error : ''
+                  errors.file ? styles.error2 : ''
                 }`}
               />
-              <label htmlFor="file">
+              <label
+                htmlFor="file"
+                className={`${errors.file ? styles.error : ''}`}
+              >
                 <svg className={styles['icon-upload']}>
                   <use href={`${icons}#icon-upload`} />
                 </svg>
@@ -250,7 +248,7 @@ const AddRecipeForm = () => {
           </div>
           <div className={styles['other-wrapper']}>
             <div className={styles['container-form']}>
-              <label htmlFor="name" className={styles.label}></label>
+              <label htmlFor="name"></label>
               <input
                 placeholder="The name of the recipe"
                 id="name"
@@ -278,8 +276,15 @@ const AddRecipeForm = () => {
                     errors.description ? styles.error : ''
                   }`}
                 />
-                <div className={styles['character-count']}>
-                  {descriptionLength}/{maxInputLength}
+                <div className={`${styles['character-count']}`}>
+                  <span
+                    className={`${styles['character-length']} ${
+                      descriptionLength > 0 ? styles.active : ''
+                    }`}
+                  >
+                    {descriptionLength}
+                  </span>
+                  /{maxInputLength}
                 </div>
                 {errors.description &&
                   Notiflix.Notify.failure(errors.description.message)}
@@ -378,8 +383,9 @@ const AddRecipeForm = () => {
                     min="0"
                     defaultValue="0"
                     className={`${styles.input} ${styles['input-time']}`}
+                    readOnly
                   />
-                  <span className={styles['time-span-min']}>min</span>
+                  <span className={styles['time-span-min']}>min </span>
                 </div>
 
                 <button
@@ -401,7 +407,7 @@ const AddRecipeForm = () => {
             <div className={styles['ingredient-quantity-wrapper']}>
               <div
                 className={`${styles['custom-select']} ${
-                  errors.ingredient ? styles.error : ''
+                  errors.ingredients ? styles.error : ''
                 }`}
               >
                 <label htmlFor="ingredient"></label>
@@ -426,8 +432,8 @@ const AddRecipeForm = () => {
                       </option>
                     ))}
                 </select>
-                {errors.ingredient &&
-                  Notiflix.Notify.failure(errors.ingredient.message)}
+                {errors.ingredients &&
+                  Notiflix.Notify.failure(errors.ingredients.message)}
                 <svg className={styles['icon-select']}>
                   <use href={`${icons}#icon-chevron-down`} />
                 </svg>
@@ -435,13 +441,14 @@ const AddRecipeForm = () => {
               <div>
                 <div className={styles['input-quantity-ingredients']}>
                   <label htmlFor="quantity" className={styles.label}></label>
-
                   <input
                     type="text"
                     id="quantity"
                     placeholder="Enter quantity"
                     {...register('quantity')}
-                    className={`${styles.input} ${styles['input-quantity']}`}
+                    className={`${styles.input} ${styles['input-quantity']} ${
+                      errors.ingredients ? styles.error : ''
+                    }`}
                   />
                 </div>
               </div>
@@ -511,8 +518,15 @@ const AddRecipeForm = () => {
                     styles['textarea-preparation']
                   } ${errors.preparation ? styles.error : ''}`}
                 />
-                <div className={styles['character-count']}>
-                  {preparationLength}/{maxInputLength}
+                <div className={`${styles['character-count']}`}>
+                  <span
+                    className={`${styles['character-length']} ${
+                      preparationLength > 0 ? styles.active : ''
+                    }`}
+                  >
+                    {preparationLength}
+                  </span>
+                  /{maxInputLength}
                 </div>
                 {errors.preparation &&
                   Notiflix.Notify.failure(errors.preparation.message)}
