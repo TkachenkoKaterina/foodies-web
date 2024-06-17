@@ -1,2 +1,16 @@
+@import '../../styles/main.scss';
 
+.testimonials_wrap {
+    padding-top: 64px;
+    padding-bottom: 80px;
+
+    @include min-tablet {
+        padding: 100px 0;
+        
+    }
+
+    @include min-desktop {
+        padding: 120px;
+    }
+}
   

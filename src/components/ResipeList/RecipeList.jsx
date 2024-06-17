@@ -25,7 +25,6 @@ const RecipeList = ({
       const { data } = await recipeApi.getFavoriteRecipes();
       setRecipesFavList(data.result);
     } catch (error) {
-      console.log(error);
     } finally {
       setIsLoading(false);
     }
