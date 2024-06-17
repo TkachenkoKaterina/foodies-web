@@ -10,6 +10,7 @@ import areasReducer from './areas/areaSlice.js';
 import ingredientsReducer from './ingredients/ingredientsSlice.js';
 
 import modalReducer from './modal/modalSlice.js';
+import favoritesReducer from './favorites/favoritesSlice.js';
 
 const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ const store = configureStore({
     areas: areasReducer,
     ingredients: ingredientsReducer,
     modal: modalReducer,
+    favorites: favoritesReducer,
   },
 });
 
