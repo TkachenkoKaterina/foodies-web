@@ -40,7 +40,9 @@ const SignUpForm = () => {
     if (loading) {
       Notiflix.Loading.circle();
     } else {
-      Notiflix.Loading.remove();
+      setTimeout(() => {
+        Notiflix.Loading.remove();
+      }, 500);
     }
   }, [loading]);
 
