@@ -12,6 +12,7 @@ import Favorites from './pages/UserPage/Favorites';
 import Following from './pages/UserPage/Following';
 import AddRecipePage from './pages/AddRecipePage/AddRecipePage';
 import RecipePage from './pages/RecipePage';
+import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 
 
 const PublicRoutes = [
@@ -85,6 +86,7 @@ const PrivateRoutes = [
 const RoutesSwitch = () => {
   return (
     <Suspense fallback={<PageLoader />}>
+      <ScrollToTop />
       <Routes>
         {PublicRoutes}
         {PrivateRoutes}
