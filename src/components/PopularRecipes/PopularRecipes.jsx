@@ -55,7 +55,7 @@ const PopularRecipes = () => {
   };
 
   return (
-    <>
+    <div className={styles.wrap}>
       <h1 className={styles.header}>Popular Recipes</h1>
       <ul className={styles.popular}>
         {recipesPopular?.map((item, index) => {
@@ -63,6 +63,7 @@ const PopularRecipes = () => {
             favItem => favItem._id === item._id
           );
           return (
+            <div className={styles.recipe_card}>
             <RecipeCard
               key={item._id + index}
               title={item.title}
@@ -75,10 +76,11 @@ const PopularRecipes = () => {
               handleRemoveFromFavorites={handleRemoveFromFavorites}
               recipesFavList={recipesFavList}
             />
+            </div>
           );
         })}
       </ul>
-    </>
+    </div>
   );
 };
 export default PopularRecipes;
