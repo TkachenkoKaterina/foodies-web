@@ -28,12 +28,8 @@ const RecipeList = ({
     }
   };
   useEffect(() => {
-    if (isLoggedIn) {
-      getFavRecipesList();
-    } else {
-      return;
-    }
-  }, [isLoggedIn]);
+    getFavRecipesList();
+  }, []);
 
   const handleAddToFavorites = async id => {
     try {

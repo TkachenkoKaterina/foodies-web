@@ -3,8 +3,8 @@ export const recipesInitialState = {
   filter: {
     ingredient: '',
     area: '',
-    page: '',
-    limit: '',
+    page: null,
+    limit: null,
   },
   recipe: {},
   popular: [],
