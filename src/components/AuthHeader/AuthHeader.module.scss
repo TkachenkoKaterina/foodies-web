@@ -25,10 +25,10 @@
 .wrapper {
   display: flex;
   align-items: center;
-  gap: 113px;
+  gap: 193px;
 
   @include min-desktop {
-    gap: 405px;
+    gap: 469px;
   }
 }
 
