@@ -4,9 +4,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useState } from 'react';
 import icons from '../../assets/icons/icons.svg';
-import { Button } from '../../ui-kit';
+import { Button, PageLoader } from '../../ui-kit';
 import { useDispatch } from 'react-redux';
-import { useStore } from 'react-redux';
 import { register as signUP } from '../../redux/auth/authOperations';
 import {
   getError,
@@ -36,15 +35,15 @@ const SignUpForm = () => {
     }
   }, [isLoggedIn, errorMsg, dispatch]);
 
-  useEffect(() => {
-    if (loading) {
-      Notiflix.Loading.circle();
-    } else {
-      setTimeout(() => {
-        Notiflix.Loading.remove();
-      }, 500);
-    }
-  }, [loading]);
+  // useEffect(() => {
+  //   if (loading) {
+  //     Notiflix.Loading.circle();
+  //   } else {
+  //     setTimeout(() => {
+  //       Notiflix.Loading.remove();
+  //     }, 500);
+  //   }
+  // }, [loading]);
 
   const schema = yup.object().shape({
     name: yup
@@ -140,6 +139,7 @@ const SignUpForm = () => {
           </Button>
         </div>
       </form>
+      {loading && <PageLoader />}
     </div>
   );
 };
