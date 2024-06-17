@@ -94,6 +94,18 @@ const HomePage = () => {
 
   const goToCategory = () => {
     setCategory(false);
+    setPage(1);
+    setIngredientId('');
+    setArea('');
+    console.log('here');
+    dispatch(
+      filter({
+        ingredient: '',
+        area: '',
+        page: 1,
+        limit: limit,
+      })
+    );
   };
 
   return (
