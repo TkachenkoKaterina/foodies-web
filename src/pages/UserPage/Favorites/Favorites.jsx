@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import ListItems from '../../../components/ListItems';
 import { TYPE_TABS, EMPTY_TEXT } from '../../../constants/common';
 import { recipeApi } from '../../../services/Api';
+import { authReducer } from '../../../redux/auth';
 
 const Favorites = () => {
+  const dispatch = useDispatch();
   const [recipes, setRecipes] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -35,7 +38,13 @@ const Favorites = () => {
   const onDeleteRecipe = async id => {
     try {
       await recipeApi.removeFromFavorites(id);
-      setRecipes(prev => prev.filter(recipe => recipe._id !== id));
+      setRecipes(prev => ({
+        ...prev,
+        result: prev.result.filter(recipe => recipe._id !== id),
+      }));
+      await dispatch(
+        authReducer.updateUserProfile({ key: 'favorites', value: -1 })
+      );
     } catch (error) {
       console.log(error);
     }

@@ -9,6 +9,11 @@ import {
 const recipesSlice = createSlice({
   name: 'recipes',
   initialState: recipesInitialState,
+  reducers: {
+    filter: (state, action) => {
+      state.filter = action.payload;
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(getRecipesInCategory.pending, state => {
@@ -51,5 +56,5 @@ const recipesSlice = createSlice({
       });
   },
 });
-
-export const recipes = recipesSlice.reducer;
+export const { filter } = recipesSlice.actions;
+export const recipesReducer = recipesSlice.reducer;

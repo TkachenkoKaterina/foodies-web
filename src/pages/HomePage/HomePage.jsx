@@ -8,20 +8,85 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectIngredients } from '../../redux/ingredients/ingredientsSelectors';
 import { fetchIngredients } from '../../redux/ingredients/ingredientsOperatins';
 import { fetchAreas } from '../../redux/areas/areasOperations';
+import { getRecipesInCategory } from '../../redux/recipes/recipesOperations';
+import {
+  filterSelector,
+  getRecipes,
+  totalSelector,
+} from '../../redux/recipes/recipesSelectors';
+import { filter } from '../../redux/recipes/recipesSlice';
 
 const HomePage = () => {
   const [category, setCategory] = useState('');
-  // const [ingredientId, setIngredientId] = useState(null);
-  // const [area, setArea] = useState(null);
-  // const ingredientsList = useSelector(selectIngredients);
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(fetchIngredients());
-  // }, [dispatch]);
 
-  // useEffect(() => {
-  //   dispatch(fetchAreas());
-  // }, [dispatch]);
+  const [page, setPage] = useState(1);
+  const ingredientsList = useSelector(selectIngredients);
+  const limit = 12;
+  const dispatch = useDispatch();
+  const [ingredientId, setIngredientId] = useState(null);
+  const [area, setArea] = useState(null);
+  const recipes = useSelector(getRecipes);
+  const filterFromRedux = useSelector(filterSelector);
+
+  const total = useSelector(totalSelector);
+
+  const onPageChange = page => {
+    setPage(page.selected + 1);
+    dispatch(
+      filter({
+        ingredient: ingredientId,
+        area: area,
+        page: page.selected + 1,
+        limit: limit,
+      })
+    );
+  };
+
+  useEffect(() => {
+    dispatch(fetchIngredients());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchAreas());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (category) {
+      dispatch(getRecipesInCategory({ category, params: filterFromRedux }));
+    }
+  }, [dispatch, category, area, ingredientId, page]);
+
+  const handleChange = event => {
+    if (!event.nativeEvent.inputType) {
+      event.target.blur();
+    }
+    if (event.nativeEvent.target.id === 'Area') {
+      setArea(event.nativeEvent.target.value);
+      setPage(1);
+      dispatch(
+        filter({
+          ingredient: ingredientId,
+          area: event.nativeEvent.target.value,
+          page: 1,
+          limit: limit,
+        })
+      );
+    } else {
+      const ing = ingredientsList?.find(
+        item => item.name === event.currentTarget.value
+      );
+      setIngredientId(ing?._id);
+      setPage(1);
+      dispatch(
+        filter({
+          ingredient: ing?._id,
+          area: area,
+          page: 1,
+          limit: limit,
+        })
+      );
+    }
+  };
 
   const handlerCategoryChoose = name => {
     setCategory(name);
@@ -31,32 +96,22 @@ const HomePage = () => {
     setCategory(false);
   };
 
-  // const areaHandler = name => {
-  //   console.log(name);
-  //   console.log('areaHandler');
-  //   setArea(area);
-  // };
-  // const ingredientIdHendler = name => {
-  //   const ing = ingredientsList?.find(
-  //     item => item.name === event.currentTarget.value
-  //   );
-  //   setIngredientId(ing?._id);
-  // };
-
   return (
     <>
       <Hero />
       {!category && (
         <Categories handlerCategoryChoose={handlerCategoryChoose} />
       )}
-      {category && (
+      {category && recipes && (
         <Recipes
           category={category}
           onClick={goToCategory}
-          // area={area}
-          // ingredient={ingredientId}
-          // areaHandler={areaHandler}
-          // ingredientIdHendler={ingredientIdHendler}
+          handleChange={handleChange}
+          recipes={recipes}
+          itemsPerPage={limit}
+          currentPage={page}
+          onPageChange={onPageChange}
+          total={total}
         />
       )}
 

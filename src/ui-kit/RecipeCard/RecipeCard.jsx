@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Back } from '..';
 import { routes } from '../../constants/routes';
 import { useNavigate } from 'react-router-dom';
@@ -6,6 +6,8 @@ import { getIsLoggedIn } from '../../redux/auth/authSelectors';
 import { getImagePath } from '../../helpers/getImagePath';
 import { getPathWithId } from '../../helpers/getPathWithId';
 import styles from './RecipeCard.module.scss';
+import { MODAL_TYPES } from '../../constants/common';
+import { openModal } from '../../redux/modal/modalSlice';
 
 const RecipeCard = ({
   title,
@@ -13,27 +15,23 @@ const RecipeCard = ({
   owner,
   img,
   id,
-  navigatetoUserPage,
-  navigateToSignIN,
-  favoritesHendler,
+  status,
+  handleAddToFavorites,
+  handleRemoveFromFavorites,
 }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useSelector(getIsLoggedIn);
+
   const goToRecipe = () => {
-    // console.log(id);
     navigate(getPathWithId(routes.recipe, id));
   };
-
-  const goUserProfile = () => {
+  const userOpenHendler = () => {
     if (isLoggedIn) {
-      navigate(getPathWithId(routes.user, owner._id));
+      navigate(`/user/${owner._id}`);
     } else {
-      console.log('sorry go to modal');
+      dispatch(openModal({ modalType: MODAL_TYPES.LOGIN, modalProps: {} }));
     }
-
-    // if (!isLoggedIn) {
-    //   navigate(getPathWithId(routes.user, owner));
-    // }
   };
 
   return (
@@ -45,17 +43,27 @@ const RecipeCard = ({
         <button
           className={styles.ownerInfo}
           type="button"
-          onClick={goUserProfile}
+          onClick={userOpenHendler}
         >
           <img
             className={styles.avatar}
-            src={getImagePath(owner.avatar)}
+            src={getImagePath(owner?.avatar)}
             alt="Avatar"
           />
-          <p className={styles.name}>{owner.name}</p>
+          <p className={styles.name}>{owner?.name}</p>
         </button>
         <div className={styles.actionsBlock}>
-          <Back icon="icon-heart" onClick={favoritesHendler} />
+          {isLoggedIn && status && (
+            <Back
+              icon="icon-heart"
+              fill="red"
+              onClick={() => handleRemoveFromFavorites(id)}
+            />
+          )}
+          {isLoggedIn && !status && (
+            <Back icon="icon-heart" onClick={() => handleAddToFavorites(id)} />
+          )}
+
           <Back
             className={styles.heardBtn}
             icon="icon-arrow-up-right"
@@ -67,47 +75,3 @@ const RecipeCard = ({
   );
 };
 export default RecipeCard;
-
-////  const [isFavorite, setIsFavorite] = useState(false);
-
-//   useEffect(() => {
-//     const fetchFavoriteStatus = async () => {
-//       try {
-//         const response = await recipeApi.getRecipes(recipeId);
-//         setIsFavorite(response.data.isFavorite);
-//       } catch (error) {
-//         console.error('Error fetching favorite status:', error);
-//       }
-//     };
-
-//     fetchFavoriteStatus();
-//   }, [recipeId]);
-
-//   const handleAddToFavorites = async () => {
-//     try {
-//       await recipeApi.addToFavorites(recipeId);
-//       setIsFavorite(true);
-//     } catch (error) {
-//       console.error('Error adding to favorites:', error);
-//     }
-//   };
-
-//   const handleRemoveFromFavorites = async () => {
-//     try {
-//       await recipeApi.removeFromFavorites(recipeId);
-//       setIsFavorite(false);
-//     } catch (error) {
-//       console.error('Error removing from favorites:', error);
-//     }
-//   };
-
-//   return (
-//     <div>
-//       {isFavorite ? (
-//         <button type="button" className={styles.favButton} onClick={handleRemoveFromFavorites}>Remove from favorites</button>
-//       ) : (
-//         <button className={styles.favButton} type="button" onClick={handleAddToFavorites}>Add to favorites</button>
-//       )}
-//     </div>
-//   );
-// };

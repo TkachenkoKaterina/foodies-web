@@ -24,17 +24,24 @@
   
 .menu {
     position: absolute;
-    right: 14px;
-    top: 48px;
+    right: 33px;
+    top: -7px;
     background-color: transparent;
     border-radius: 4px;
     z-index: 1000;
     border-radius: 15px;
     border: 1px solid $--color-main-opacity20;
-    width: 148px;
-    height: 74px;
+    width: 122px;
+    height: 72px;
     flex-shrink: 0;
     padding: 16px;
+
+    @include min-tablet {
+      top: 42px;
+      right: -14px;
+      width: 148px;
+      height: 74px;
+    }
   }
   
 .menuItem {
