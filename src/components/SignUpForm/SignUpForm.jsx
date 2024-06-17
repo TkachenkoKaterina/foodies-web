@@ -38,7 +38,7 @@ const SignUpForm = () => {
 
   useEffect(() => {
     if (loading) {
-      Notiflix.Loading.dots();
+      Notiflix.Loading.circle();
     } else {
       Notiflix.Loading.remove();
     }
