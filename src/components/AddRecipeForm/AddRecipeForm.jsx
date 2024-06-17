@@ -1,6 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import styles from './AddRecipeForm.module.scss';
 import icons from '../../assets/icons/icons.svg';
 import { selectCategories } from '../../redux/categories/categoriesSelectors';
@@ -11,13 +14,14 @@ import { fetchIngredients } from '../../redux/ingredients/ingredientsOperatins';
 import { selectIngredients } from '../../redux/ingredients/ingredientsSelectors';
 import { recipeApi } from '../../services/Api';
 import TextareaAutosize from 'react-textarea-autosize';
+import Notiflix from 'notiflix';
 
 const AddRecipeForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const categories = useSelector(selectCategories);
   const areas = useSelector(selectAreas);
   const ingredientsAll = useSelector(selectIngredients);
-  const { register, handleSubmit, reset, watch, setValue } = useForm();
   const [ingredients, setIngredients] = useState([]);
   const [imagePreview, setImagePreview] = useState(null);
   const [descriptionLength, setDescriptionLength] = useState(0);
@@ -26,6 +30,53 @@ const AddRecipeForm = () => {
   const [file, setFile] = useState(null);
 
   const maxInputLength = 2000;
+
+  const handleImageChange = event => {
+    const file = event.target.files[0];
+    if (file) {
+      const previewUrl = URL.createObjectURL(file);
+      setImagePreview(previewUrl);
+      setFile(file);
+    }
+  };
+
+  const handleUploadNewImage = () => {
+    fileInputRef.current.click();
+  };
+
+  const schema = Yup.object().shape({
+    name: Yup.string().required('Recipe name is required'),
+    description: Yup.string()
+      .required('Description is required')
+      .max(
+        maxInputLength,
+        `Description can't be more than ${maxInputLength} characters`
+      ),
+    preparation: Yup.string()
+      .required('Preparation instructions are required')
+      .max(
+        maxInputLength,
+        `Preparation instructions can't be more than ${maxInputLength} characters`
+      ),
+    category: Yup.string().required('Category is required'),
+    area: Yup.string().required('Area is required'),
+    time: Yup.number()
+      .required('Cooking time is required')
+      .min(1, 'Cooking time cannot be zero'),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    setValue,
+    setError,
+    clearErrors,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   useEffect(() => {
     if (categories.result.length === 0) {
@@ -47,7 +98,6 @@ const AddRecipeForm = () => {
 
   const handleInputChange = event => {
     const { name, value } = event.target;
-
     if (name === 'description') {
       setDescriptionLength(value.length);
     } else if (name === 'preparation') {
@@ -55,31 +105,12 @@ const AddRecipeForm = () => {
     }
   };
 
-  const handleImageChange = event => {
-    const file = event.target.files[0];
-    if (file) {
-      const previewUrl = URL.createObjectURL(file);
-      setImagePreview(previewUrl);
-      setFile(file);
-    }
-  };
-
-  const handleRemoveImage = () => {
-    setImagePreview(null);
-    setFile(null);
-    setValue('file', null);
-    fileInputRef.current.value = null;
-    openFileDialog();
-  };
-
-  const openFileDialog = () => {
-    fileInputRef.current.click();
-  };
-
   const handleBtnIngredientClick = () => {
     const ingredientValue = watch('ingredient');
     const quantity = watch('quantity');
-
+    if (!ingredientValue || !quantity) {
+      Notiflix.Notify.failure('Set ingredient and quantity');
+    }
     if (ingredientValue && quantity) {
       const selectedIngredient = JSON.parse(watch('ingredient'));
       const newIngredients = [
@@ -99,9 +130,36 @@ const AddRecipeForm = () => {
     setIngredients(ingredients.filter(ingredient => ingredient._id !== id));
   };
 
-  console.log('ingredients', ingredients);
+  const handleClearForm = () => {
+    reset();
+    setImagePreview(null);
+    setFile(null);
+    setIngredients([]);
+    setDescriptionLength(0);
+    setPreparationLength(0);
+    clearErrors();
+  };
 
   const onSubmit = async data => {
+    let formIsValid = true;
+
+    if (!file) {
+      setError('file', { type: 'manual', message: 'Image is required' });
+      formIsValid = false;
+    }
+
+    if (ingredients.length === 0) {
+      setError('ingredient', {
+        type: 'manual',
+        message: 'At least one ingredient is required',
+      });
+      formIsValid = false;
+    }
+
+    if (!formIsValid) {
+      return;
+    }
+
     const formData = new FormData();
     formData.append('title', data.name);
     formData.append('category', data.category);
@@ -120,10 +178,21 @@ const AddRecipeForm = () => {
 
     try {
       const response = await recipeApi.createRecipe(formData);
-      console.log('Recipe created successfully', response.data);
+      Notiflix.Notify.success('Recipe created successfully', response.data);
+      handleClearForm(); // Clear form after successful submission
+      navigate('/user-page'); // Redirect to UserPage after successful form submission
     } catch (error) {
-      console.error('Error creating recipe', error.response || error.message);
+      Notiflix.Notify.failure(
+        `${error.message} ${error.response.data.message}`
+      );
     }
+  };
+
+  const onError = errors => {
+    console.log('Validation Errors:', errors);
+    setTimeout(() => {
+      clearErrors();
+    }, 3000);
   };
 
   return (
@@ -134,23 +203,32 @@ const AddRecipeForm = () => {
         gastronomic masterpieces with us.
       </p>
 
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+      <form onSubmit={handleSubmit(onSubmit, onError)} className={styles.form}>
         <div className={styles['img-other-wrapper']}>
-          <div>
-            {!imagePreview && (
-              <div className={styles['container-form']}>
-                <label htmlFor="file" className={styles.label}></label>
-                <input
-                  type="file"
-                  id="file"
-                  accept="image/*"
-                  {...register('file')}
-                  onChange={handleImageChange}
-                  ref={fileInputRef}
-                  className={`${styles.input} ${styles['input-file']}`}
-                />
-              </div>
-            )}
+          <div className={styles['image-preview-container']}>
+            <div
+              className={styles['custom-input-container']}
+              style={{ display: imagePreview ? 'none' : 'block' }}
+            >
+              <input
+                type="file"
+                id="file"
+                accept="image/*"
+                {...register('file')}
+                onChange={handleImageChange}
+                ref={fileInputRef}
+                className={`${styles.input} ${styles['input-file']} ${
+                  errors.file ? styles.error : ''
+                }`}
+              />
+              <label htmlFor="file">
+                <svg className={styles['icon-upload']}>
+                  <use href={`${icons}#icon-upload`} />
+                </svg>
+                Upload a photo
+              </label>
+              {errors.file && Notiflix.Notify.failure(errors.file.message)}
+            </div>
             {imagePreview && (
               <div className={styles['image-preview-container']}>
                 <img
@@ -161,7 +239,7 @@ const AddRecipeForm = () => {
                 <div className={styles['remove-image-container']}>
                   <button
                     type="button"
-                    onClick={handleRemoveImage}
+                    onClick={handleUploadNewImage}
                     className={styles['remove-image-button']}
                   >
                     Upload another photo
@@ -170,7 +248,7 @@ const AddRecipeForm = () => {
               </div>
             )}
           </div>
-          <div>
+          <div className={styles['other-wrapper']}>
             <div className={styles['container-form']}>
               <label htmlFor="name" className={styles.label}></label>
               <input
@@ -178,8 +256,11 @@ const AddRecipeForm = () => {
                 id="name"
                 {...register('name')}
                 onChange={handleInputChange}
-                className={`${styles.input} ${styles['input-name']}`}
+                className={`${styles.input} ${styles['input-name']} ${
+                  errors.name ? styles.error : ''
+                }`}
               />
+              {errors.name && Notiflix.Notify.failure(errors.name.message)}
             </div>
 
             <div className={styles['container-form']}>
@@ -193,11 +274,15 @@ const AddRecipeForm = () => {
                   })}
                   onChange={handleInputChange}
                   maxLength={maxInputLength}
-                  className={`${styles.input} ${styles['input-description']}`}
+                  className={`${styles.input} ${styles['input-description']} ${
+                    errors.description ? styles.error : ''
+                  }`}
                 />
                 <div className={styles['character-count']}>
                   {descriptionLength}/{maxInputLength}
                 </div>
+                {errors.description &&
+                  Notiflix.Notify.failure(errors.description.message)}
               </div>
             </div>
             <div className={styles['category-area-wrapper']}>
@@ -205,13 +290,19 @@ const AddRecipeForm = () => {
                 <label htmlFor="category" className={styles.label}>
                   Category
                 </label>
-                <div className={`${styles['custom-select']}`}>
+                <div
+                  className={`${styles['custom-select']} ${
+                    errors.category ? styles.error : ''
+                  }`}
+                >
                   <select
                     id="category"
                     {...register('category')}
                     defaultValue=""
                     className={`${styles.select} ${styles['select-category']}`}
                   >
+                    {errors.category &&
+                      Notiflix.Notify.failure(errors.category.message)}
                     <option value="">Select a category</option>
                     {categories.result
                       .slice()
@@ -222,7 +313,8 @@ const AddRecipeForm = () => {
                         </option>
                       ))}
                   </select>
-                  <svg className={`${styles['icon-select']}`}>
+
+                  <svg className={styles['icon-select']}>
                     <use href={`${icons}#icon-chevron-down`} />
                   </svg>
                 </div>
@@ -231,8 +323,17 @@ const AddRecipeForm = () => {
                 <label htmlFor="area" className={styles.label}>
                   Area
                 </label>
-                <div className={`${styles['custom-select']}`}>
-                  <select id="area" {...register('area')} defaultValue="">
+                <div
+                  className={`${styles['custom-select']} ${
+                    errors.area ? styles.error : ''
+                  }`}
+                >
+                  <select
+                    id="area"
+                    {...register('area')}
+                    defaultValue=""
+                    className={styles.select}
+                  >
                     <option value="">Select an area</option>
                     {areas
                       .slice()
@@ -243,10 +344,11 @@ const AddRecipeForm = () => {
                         </option>
                       ))}
                   </select>
-                  <svg className={`${styles['icon-select']}`}>
+                  <svg className={styles['icon-select']}>
                     <use href={`${icons}#icon-chevron-down`} />
                   </svg>
                 </div>
+                {errors.area && Notiflix.Notify.failure(errors.area.message)}
               </div>
             </div>
 
@@ -261,17 +363,25 @@ const AddRecipeForm = () => {
                   }}
                   className={styles['time-button']}
                 >
-                  <svg className={`${styles['icons-time']}`}>
+                  <svg className={styles['icons-time']}>
                     <use href={`${icons}#icon-minus`} />
                   </svg>
                 </button>
-                <input
-                  type="number"
-                  {...register('time', { valueAsNumber: true })}
-                  min="0"
-                  defaultValue="0"
-                  className={`${styles.input} ${styles['input-time']}`}
-                />
+                <div
+                  className={`${styles['time-input-span-wrapper']} ${
+                    errors.time ? styles.error : ''
+                  }`}
+                >
+                  <input
+                    type="text"
+                    {...register('time', { valueAsNumber: true })}
+                    min="0"
+                    defaultValue="0"
+                    className={`${styles.input} ${styles['input-time']}`}
+                  />
+                  <span className={styles['time-span-min']}>min</span>
+                </div>
+
                 <button
                   type="button"
                   onClick={() => {
@@ -280,16 +390,21 @@ const AddRecipeForm = () => {
                   }}
                   className={styles['time-button']}
                 >
-                  <svg className={`${styles['icons-time']}`}>
+                  <svg className={styles['icons-time']}>
                     <use href={`${icons}#icon-plus`} />
                   </svg>
                 </button>
+                {errors.time && Notiflix.Notify.failure(errors.time.message)}
               </div>
             </div>
             <h3 className={styles['ingredient-title']}>Ingredients</h3>
             <div className={styles['ingredient-quantity-wrapper']}>
-              <div className={`${styles['custom-select']}`}>
-                <label htmlFor="ingredient" className={styles.label}></label>
+              <div
+                className={`${styles['custom-select']} ${
+                  errors.ingredient ? styles.error : ''
+                }`}
+              >
+                <label htmlFor="ingredient"></label>
                 <select
                   id="ingredient"
                   {...register('ingredient')}
@@ -311,13 +426,16 @@ const AddRecipeForm = () => {
                       </option>
                     ))}
                 </select>
-                <svg className={`${styles['icon-select']}`}>
+                {errors.ingredient &&
+                  Notiflix.Notify.failure(errors.ingredient.message)}
+                <svg className={styles['icon-select']}>
                   <use href={`${icons}#icon-chevron-down`} />
                 </svg>
               </div>
               <div>
-                <label htmlFor="quantity" className={styles.label}></label>
-                <div className={styles['input-quantity-wrapper']}>
+                <div className={styles['input-quantity-ingredients']}>
+                  <label htmlFor="quantity" className={styles.label}></label>
+
                   <input
                     type="text"
                     id="quantity"
@@ -334,15 +452,15 @@ const AddRecipeForm = () => {
               className={styles['add-button']}
             >
               Add ingredient
-              <svg className={`${styles['icon-ingredient-plus']}`}>
+              <svg className={styles['icon-ingredient-plus']}>
                 <use href={`${icons}#icon-plus`} />
               </svg>
             </button>
 
-            <div className={styles.ingredients_list_wrap}>
-              <ul className={styles.ingredients_list}>
-                {ingredients.length > 0 &&
-                  ingredients.map((ingredient, index) => (
+            {ingredients.length > 0 && (
+              <div className={styles.ingredients_list_wrap}>
+                <ul className={styles.ingredients_list}>
+                  {ingredients.map((ingredient, index) => (
                     <li key={index} className={styles.ingredient_item}>
                       <div className={styles.ingredient_image}>
                         <img src={ingredient.img} alt={ingredient.name} />
@@ -368,8 +486,9 @@ const AddRecipeForm = () => {
                       </button>
                     </li>
                   ))}
-              </ul>
-            </div>
+                </ul>
+              </div>
+            )}
 
             <div className={styles['container-form']}>
               <label
@@ -388,21 +507,22 @@ const AddRecipeForm = () => {
                   })}
                   onChange={handleInputChange}
                   maxLength={maxInputLength}
-                  className={`${styles.textarea} ${styles['textarea-preparation']}`}
+                  className={`${styles.textarea} ${
+                    styles['textarea-preparation']
+                  } ${errors.preparation ? styles.error : ''}`}
                 />
                 <div className={styles['character-count']}>
                   {preparationLength}/{maxInputLength}
                 </div>
+                {errors.preparation &&
+                  Notiflix.Notify.failure(errors.preparation.message)}
               </div>
             </div>
             <div className={`${styles['clear-submit-wrapper']}`}>
               <button
                 type="button"
                 onClick={() => {
-                  reset();
-                  setIngredients([]);
-                  setDescriptionLength(0);
-                  setPreparationLength(0);
+                  handleClearForm();
                 }}
                 className={styles['clear-button']}
               >
