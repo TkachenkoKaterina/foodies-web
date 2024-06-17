@@ -8,7 +8,8 @@ import { getPathWithId } from '../../helpers/getPathWithId';
 import styles from './RecipeCard.module.scss';
 import { MODAL_TYPES } from '../../constants/common';
 import { openModal } from '../../redux/modal/modalSlice';
-import ScrollToTop from '../../components/ScrollToTop/ScrollToTop';
+import { addToFavorites, removeFromFavorites } from '../../redux/favorites/favoritesOperations.js';
+import { getFavorites } from '../../redux/favorites/favoritesSelector.js';
 
 const RecipeCard = ({
   title,
@@ -17,21 +18,39 @@ const RecipeCard = ({
   img,
   id,
   status,
-  handleAddToFavorites,
-  handleRemoveFromFavorites,
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useSelector(getIsLoggedIn);
 
+  const favorites = useSelector(getFavorites); 
+  const isFavorite = favorites.includes(id);
+
   const goToRecipe = () => {
     navigate(getPathWithId(routes.recipe, id));
   };
+  
   const userOpenHendler = () => {
     if (isLoggedIn) {
       navigate(`/user/${owner._id}`);
     } else {
       dispatch(openModal({ modalType: MODAL_TYPES.LOGIN, modalProps: {} }));
+    }
+  };
+
+  const handleAddToFavorites = async () => {
+    try {
+      await dispatch(addToFavorites(id)).unwrap();
+    } catch (error) {
+      console.error('Error adding to favorites:', error);
+    }
+  };
+
+  const handleRemoveFromFavorites = async () => {
+    try {
+      await dispatch(removeFromFavorites(id)).unwrap();
+    } catch (error) {
+      console.error('Error removing from favorites:', error);
     }
   };
 

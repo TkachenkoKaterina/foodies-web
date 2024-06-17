@@ -4,14 +4,14 @@ import { lazy, Suspense } from 'react';
 import { routes } from './constants/routes';
 import PrivateRoute from './PrivateRoute';
 import { PageLoader } from './ui-kit';
-import HomePage from './pages/HomePage';
+const HomePage = lazy(() => import('./pages/HomePage'));
 const UserPage = lazy(() => import('./pages/UserPage'));
 import Recipes from './pages/UserPage/Recipes';
 import Followers from './pages/UserPage/Followers';
 import Favorites from './pages/UserPage/Favorites';
 import Following from './pages/UserPage/Following';
-import AddRecipePage from './pages/AddRecipePage/AddRecipePage';
-import RecipePage from './pages/RecipePage';
+const AddRecipePage = lazy(() => import('./pages/AddRecipePage/AddRecipePage'));
+const RecipePage = lazy(() => import('./pages/RecipePage'));
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 
 const PublicRoutes = [
