@@ -39,9 +39,10 @@ const Modal = ({ isOpen, children, onRequestClose }) => {
       overlayClassName={styles.overlay}
       ariaHideApp={false}
       contentLabel="Modal"
+      preventScroll={true}
     >
       {children}
-      <button type="button" className={styles.close} onClick={onClose}>
+      <button className={styles.close_btn} type="button" onClick={onClose}>
         <svg className={styles.close}>
           <use href={`${icons}#icon-cross`} />
         </svg>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './RecipeIngredients.module.scss';
+import defaultImage from '../../assets/images/default/default-ingredient-image.jpg';
 
 const RecipeIngredients = ({ ingredients }) => {
   const [ingredientsDetails, setIngredientsDetails] = useState([]);
@@ -43,14 +44,14 @@ const RecipeIngredients = ({ ingredients }) => {
 
   return (
   <div className={styles.ingredients_wrap}>
-    <h3 className={styles.title}>INGREDIENTS</h3>
+    <h3 className={styles.title}>Ingredients</h3>
     <div className={styles.ingredients_list_wrap}>
       <ul className={styles.ingredients_list}>
         {ingredientsDetails.map((ingredient, index) => (
           <li key={index} className={styles.ingredient_item}>
             <div className={styles.ingredient_image}>
               <img 
-                src={ingredient.img}
+                src={ingredient.img || defaultImage}
                 alt={ingredient.name}
               />
             </div>
