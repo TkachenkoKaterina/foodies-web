@@ -19,6 +19,7 @@ const RecipeDetailsFavButton = ({ recipeId }) => {
       if (!recipeId) {
         return;
       }
+
       if (isLoggedId) {
         try {
           const response = await recipeApi.getRecipes(recipeId);
@@ -39,7 +40,9 @@ const RecipeDetailsFavButton = ({ recipeId }) => {
     if (!recipeId) {
       return;
     }
-
+    if (!isLoggedId) {
+      return;
+    }
     try {
       setLoading(true);
       const response = await recipeApi.addToFavorites(recipeId);
@@ -65,7 +68,9 @@ const RecipeDetailsFavButton = ({ recipeId }) => {
     if (!recipeId) {
       return;
     }
-
+    if (!isLoggedId) {
+      return;
+    }
     try {
       setLoading(true);
       const response = await recipeApi.removeFromFavorites(recipeId);

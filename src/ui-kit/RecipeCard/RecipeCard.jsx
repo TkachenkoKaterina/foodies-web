@@ -8,6 +8,7 @@ import { getPathWithId } from '../../helpers/getPathWithId';
 import styles from './RecipeCard.module.scss';
 import { MODAL_TYPES } from '../../constants/common';
 import { openModal } from '../../redux/modal/modalSlice';
+import ScrollToTop from '../../components/ScrollToTop/ScrollToTop';
 
 const RecipeCard = ({
   title,

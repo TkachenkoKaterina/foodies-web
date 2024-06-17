@@ -81,15 +81,7 @@
     & .actionsBlock {
       display: flex;
       flex-direction: row;
-      & .heardBtn {
-        width: 36px;
-        height: 36px;
-        margin-left: 4px;
-        @include min-tablet {
-          width: 42px;
-          height: 42px;
-        }
-      }
+      gap: 4px;
     }
   }
 }
