@@ -1,14 +1,14 @@
 @import '../../styles/main.scss';
 
 .add-recipe-form-container {
-  padding-bottom: 32px;
+  padding-bottom: 64px;
 
   @include min-tablet {
-    padding-bottom: 50px;
+    padding-bottom: 100px;
   }
 
   @include min-desktop {
-    padding-bottom: 60px;
+    padding-bottom: 120px;
   }
 }
 
@@ -16,7 +16,13 @@
   @include min-desktop {
     display: flex;
     gap: 80px;
+    align-items: flex-start;
   }
+}
+
+.error {
+  border-radius: 30px;
+  border: 1px solid red;
 }
 
 .title {
@@ -75,7 +81,7 @@
   }
 }
 
-.input-quantity-wrapper {
+.input-quantity-ingredients {
   position: relative;
   width: 343px;
   margin-bottom: 48px;
@@ -208,6 +214,16 @@
   }
 }
 
+.icon-upload {
+  width: 50px;
+  height: 50px;
+  fill: rgba(5, 5, 5, 0.3);
+  @include min-tablet {
+    width: 64px;
+    height: 64px;
+  }
+}
+
 .input-file {
   margin-bottom: 32px;
   border: 1px dashed $--color-main-opacity20;
@@ -218,9 +234,53 @@
     width: 704px;
     height: 400px;
   }
-  @include min-tablet {
+  @include min-desktop {
     width: 551px;
     height: 400px;
+  }
+}
+
+.custom-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 343px;
+  height: 318px;
+  border: 1px dashed $--color-main-opacity20;
+  border-radius: 30px;
+  margin-bottom: 32px;
+  @include min-tablet {
+    width: 704px;
+    height: 400px;
+    margin-bottom: 80px;
+  }
+  @include min-desktop {
+    width: 551px;
+    height: 400px;
+  }
+}
+
+.custom-input-container input[type='file'] {
+  display: none;
+}
+
+.custom-input-container label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.43;
+  letter-spacing: -0.02em;
+  text-decoration: underline;
+
+  @include min-tablet {
+    gap: 16px;
   }
 }
 
@@ -235,7 +295,6 @@
   @include min-tablet {
     display: flex;
     gap: 19px;
-    align-items: baseline;
   }
 }
 
@@ -253,10 +312,13 @@
     line-height: 1.2;
   }
 }
-
+.time-input-span-wrapper {
+  display: flex;
+  gap: 2px;
+}
 .input-time {
   margin-bottom: 0;
-  width: 44px;
+  width: 28px;
   display: flex;
   text-align: center;
   justify-content: center;
@@ -264,20 +326,30 @@
   font-size: 14px;
   line-height: 1.43;
   letter-spacing: -0.02em;
-  -moz-appearance: textfield;
-
-  .no-spinner::-webkit-outer-spin-button,
-  .no-spinner::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
 
   @include min-tablet {
     font-size: 16px;
     line-height: 1.5;
   }
 }
+.remove-image-button {
+  margin-bottom: 32px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.43;
+  letter-spacing: -0.02em;
+  text-decoration: underline;
+  @include min-tablet {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}
 
+.remove-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .character-count {
   position: absolute;
   top: 0;
@@ -291,72 +363,75 @@
 
 .image-preview-container {
   width: 343px;
-  height: 318px;
-  overflow: hidden;
+
   @include min-tablet {
     width: 704px;
-    height: 400px;
   }
   @include min-desktop {
     max-width: 551px;
-    max-height: 400px;
   }
 }
 
 .image-preview {
+  margin-bottom: 16px;
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 30px;
 }
 
-.custom-select {
-  position: relative;
-  display: block;
-  padding: 0;
-  margin: 0;
-  width: auto;
-  height: auto;
+.custom-select select {
+  height: 48px;
+  width: 343px;
+  border-radius: 30px;
+  padding: 14px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.43;
+  letter-spacing: -0.02em;
+  color: $--color-main-opacity60;
+  border: 1px solid $--color-main-opacity12;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 
-  select {
-    border: 1px solid $--color-main-opacity12;
-    border-radius: 30px;
-    padding: 14px;
-    width: 343px;
-    height: 48px;
-    margin-bottom: 20px;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 1.43;
-    letter-spacing: -0.02em;
+  &::placeholder {
     color: $--color-main-opacity60;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    @include min-tablet {
-      width: 315px;
-      height: 56px;
-      font-size: 16px;
-      line-height: 1.5;
-    }
   }
 
-  select::-ms-expand {
-    display: none;
+  @include min-tablet {
+    height: 56px;
+    width: 315px;
+    font-size: 16px;
+    line-height: 1.5;
   }
 
-  select option {
+  option {
     font-weight: 500;
     font-size: 14px;
     line-height: 1.43;
     letter-spacing: -0.02em;
     color: $--color-main;
-    padding: 10px;
 
     @include min-tablet {
       font-size: 16px;
       line-height: 1.5;
+      padding-bottom: 6px;
     }
+  }
+}
+
+.custom-select {
+  position: relative;
+  width: 343px;
+  height: 48px;
+  margin: 0;
+  margin-bottom: 20px;
+
+  @include min-tablet {
+    margin-bottom: 40px;
+    width: 315px;
+    height: 56px;
   }
 
   .icon-select {
@@ -364,7 +439,7 @@
     width: 18px;
     height: 18px;
     right: 15px;
-    top: 40%;
+    top: 50%;
     transform: translateY(-50%);
     fill: $--color-white;
     stroke: $--color-main;
