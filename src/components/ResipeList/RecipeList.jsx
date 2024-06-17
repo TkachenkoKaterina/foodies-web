@@ -18,6 +18,9 @@ const RecipeList = ({
   const [loading, setIsLoading] = useState('true');
 
   const getFavRecipesList = async () => {
+    if (!isLoggedIn) {
+      return;
+    }
     try {
       const { data } = await recipeApi.getFavoriteRecipes();
       setRecipesFavList(data.result);

@@ -1,16 +1,25 @@
 @import '../../styles/main.scss';
 
 .card {
-  display: block;
+  display: flex;
+  flex-direction: column;
   width: 342px;
-
+  height: 366px;
+  justify-content: space-between;
+  @include min-tablet {
+    height: 427px;
+  }
   & .img {
+    width: auto;
+    height: 230px;
     border-radius: 20px;
     @include min-tablet {
       border-radius: 30px;
+      height: 275px;
     }
   }
   & .title {
+    font-family: var($--font-mulish);
     font-weight: 800;
     font-size: 18px;
     line-height: 24px;
@@ -24,6 +33,7 @@
   }
 
   & .description {
+    font-family: var($--font-mulish);
     margin-top: 8px;
     font-size: 14px;
     font-weight: 500;
@@ -71,7 +81,15 @@
     & .actionsBlock {
       display: flex;
       flex-direction: row;
-      gap: 4px;
+      & .heardBtn {
+        width: 36px;
+        height: 36px;
+        margin-left: 4px;
+        @include min-tablet {
+          width: 42px;
+          height: 42px;
+        }
+      }
     }
   }
 }

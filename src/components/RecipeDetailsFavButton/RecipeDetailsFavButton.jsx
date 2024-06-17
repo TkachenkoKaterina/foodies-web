@@ -6,6 +6,7 @@ import { getFavorites } from '../../redux/favorites/favoritesSelector.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '../../redux/modal/modalSlice.js';
 import { MODAL_TYPES } from '../../constants/common.js';
+import { getIsLoggedIn } from '../../redux/auth/authSelectors.js';
 
 const RecipeDetailsFavButton = ({ recipeId }) => {
   const dispatch = useDispatch();
@@ -34,8 +35,8 @@ const RecipeDetailsFavButton = ({ recipeId }) => {
       await dispatch(removeFromFavorites(recipeId)).unwrap();
       Notiflix.Notify.success('Recipe removed from favorites successfully!');
     } catch (error) {
-      if (error.status === 401) {
-        Notiflix.Notify.failure('Please sign in or create an account.');
+      if (error.response && error.response.status === 401) {
+        dispatch(openModal({ modalType: MODAL_TYPES.LOGIN, modalProps: {} }));
       } else {
         Notiflix.Notify.failure('Error removing from favorites.');
       }

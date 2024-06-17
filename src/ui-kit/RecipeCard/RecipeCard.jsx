@@ -57,8 +57,11 @@ const RecipeCard = ({
   return (
     <li key={id} className={styles.card}>
       <img src={getImagePath(img)} alt={title} className={styles.img} />
-      <h3 className={styles.title}>{title}</h3>
-      <p className={styles.description}>{description.slice(0, 70)}...</p>
+      <h3 className={styles.title}>
+        {title.slice(0, 25)}
+        {title.length > 25 && <span>...</span>}
+      </h3>
+      <p className={styles.description}>{description.slice(0, 75)}...</p>
       <div className={styles.cardFooter}>
         <button
           className={styles.ownerInfo}
