@@ -1,54 +1,34 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { RecipeCard, Subtitle } from '../../ui-kit';
-
+import { RecipeCard } from '../../ui-kit';
 import { getPopularRecipes } from '../../redux/recipes/recipesOperations';
 import { getPopular } from '../../redux/recipes/recipesSelectors';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import styles from './PopularRecipes.module.scss';
-import { recipeApi } from '../../services/Api';
 import { getIsLoggedIn } from '../../redux/auth/authSelectors';
+import { addToFavorites, removeFromFavorites } from '../../redux/favorites/favoritesOperations.js'; 
+import { getFavorites } from '../../redux/favorites/favoritesSelector.js'; 
+
 const PopularRecipes = () => {
   const dispatch = useDispatch();
-  const [recipesFavList, setRecipesFavList] = useState(null);
+  const favorites = useSelector(getFavorites);
+  const recipesPopular = useSelector(getPopular);
+  const isLoggedIn = useSelector(getIsLoggedIn);
+
   useEffect(() => {
     dispatch(getPopularRecipes({ limit: 4 }));
   }, [dispatch]);
 
-  const recipesPopular = useSelector(getPopular);
-
-  const [loading, setIsLoading] = useState('true');
-  const isLoggedIn = useSelector(getIsLoggedIn);
-  const getFavRecipesList = async () => {
+  const handleAddToFavorites = async (id) => {
     try {
-      const { data } = await recipeApi.getFavoriteRecipes();
-      setRecipesFavList(data.result);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-  useEffect(() => {
-    if (isLoggedIn) {
-      getFavRecipesList();
-    } else {
-      return;
-    }
-  }, [isLoggedIn]);
-
-  const handleAddToFavorites = async id => {
-    try {
-      await recipeApi.addToFavorites(id);
-      getFavRecipesList();
+      await dispatch(addToFavorites(id)).unwrap();
     } catch (error) {
       console.error('Error adding to favorites:', error);
     }
   };
 
-  const handleRemoveFromFavorites = async id => {
+  const handleRemoveFromFavorites = async (id) => {
     try {
-      await recipeApi.removeFromFavorites(id);
-      getFavRecipesList();
+      await dispatch(removeFromFavorites(id)).unwrap();
     } catch (error) {
       console.error('Error removing from favorites:', error);
     }
@@ -58,24 +38,20 @@ const PopularRecipes = () => {
     <div className={styles.wrap}>
       <h1 className={styles.header}>Popular Recipes</h1>
       <ul className={styles.popular}>
-        {recipesPopular?.map((item, index) => {
-          const status = recipesFavList?.some(
-            favItem => favItem._id === item._id
-          );
+        {recipesPopular?.map(item => {
+          const isFavorite = favorites.includes(item._id);
           return (
-            <div className={styles.recipe_card}>
-            <RecipeCard
-              key={item._id + index}
-              title={item.title}
-              description={item.description}
-              owner={item.owner}
-              img={item.thumb}
-              id={item._id}
-              status={status}
-              handleAddToFavorites={handleAddToFavorites}
-              handleRemoveFromFavorites={handleRemoveFromFavorites}
-              recipesFavList={recipesFavList}
-            />
+            <div key={item._id} className={styles.recipe_card}>
+              <RecipeCard
+                title={item.title}
+                description={item.description}
+                owner={item.owner}
+                img={item.thumb}
+                id={item._id}
+                status={isFavorite} 
+                handleAddToFavorites={handleAddToFavorites}
+                handleRemoveFromFavorites={handleRemoveFromFavorites}
+              />
             </div>
           );
         })}
@@ -83,4 +59,5 @@ const PopularRecipes = () => {
     </div>
   );
 };
+
 export default PopularRecipes;

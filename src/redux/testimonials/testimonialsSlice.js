@@ -25,9 +25,10 @@ const testimonialsSlice = createSlice({
     builder
       .addCase(fetchTestimonials.pending, handlePending)
       .addCase(fetchTestimonials.fulfilled, (state, action) => {
+        state.testimonials.total = action.payload.result.length;
         state.isLoading = false;
         state.error = null;
-        state.testimonials.result.push(...action.payload.result);
+        state.testimonials.result = action.payload.result;
       })
       .addCase(fetchTestimonials.rejected, handleRejected);
   },
