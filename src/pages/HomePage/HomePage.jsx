@@ -17,11 +17,18 @@ import {
 import { filter } from '../../redux/recipes/recipesSlice';
 
 const HomePage = () => {
+  const widthWindow = window.innerWidth;
+  console.log(widthWindow);
   const [category, setCategory] = useState('');
 
   const [page, setPage] = useState(1);
   const ingredientsList = useSelector(selectIngredients);
-  const limit = 12;
+  let limit;
+  if (widthWindow < 768) {
+    limit = 9;
+  } else {
+    limit = 12;
+  }
   const dispatch = useDispatch();
   const [ingredientId, setIngredientId] = useState(null);
   const [area, setArea] = useState(null);
@@ -50,11 +57,15 @@ const HomePage = () => {
     dispatch(fetchAreas());
   }, [dispatch]);
 
+  // const getRecipes = () => {
+  //   dispatch(getRecipesInCategory({ category, params: filterFromRedux }));
+  // }
+
   useEffect(() => {
     if (category) {
       dispatch(getRecipesInCategory({ category, params: filterFromRedux }));
     }
-  }, [dispatch, category, area, ingredientId, page]);
+  }, [dispatch, category, area, ingredientId, page, widthWindow]);
 
   const handleChange = event => {
     if (!event.nativeEvent.inputType) {
@@ -127,7 +138,9 @@ const HomePage = () => {
         />
       )}
 
-      {<Testimonials />}
+      <div className={styles.testimonials_wrap} >
+        {<Testimonials />}
+      </div>
     </>
   );
 };
