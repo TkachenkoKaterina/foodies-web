@@ -127,7 +127,9 @@ const HomePage = () => {
         />
       )}
 
-      {<Testimonials />}
+      <div className={styles.testimonials_wrap} >
+        {<Testimonials />}
+      </div>
     </>
   );
 };
