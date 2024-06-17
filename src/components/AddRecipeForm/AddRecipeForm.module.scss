@@ -22,7 +22,7 @@
 
 .error {
   border-radius: 30px;
-  border: 1px solid red;
+  border: 1px solid lightcoral;
 }
 
 .title {
@@ -143,6 +143,9 @@
       line-height: 1.5;
     }
   }
+  &:focus {
+    outline: none;
+  }
 }
 
 .input-description,
@@ -171,6 +174,9 @@
       font-size: 16px;
       line-height: 1.5;
     }
+  }
+  &:focus {
+    outline: none;
   }
 }
 
@@ -218,6 +224,8 @@
   width: 50px;
   height: 50px;
   fill: rgba(5, 5, 5, 0.3);
+  color: rgba(5, 5, 5, 0.3);
+
   @include min-tablet {
     width: 64px;
     height: 64px;
@@ -288,6 +296,7 @@
   @include min-tablet {
     display: flex;
     gap: 19px;
+    margin-bottom: 10px;
   }
 }
 
@@ -314,13 +323,16 @@
 }
 .time-input-span-wrapper {
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 2px;
 }
 .input-time {
   margin-bottom: 0;
-  width: 28px;
+  width: 30px;
   display: flex;
-  text-align: center;
+  border-radius: 30px;
+  align-items: center;
   justify-content: center;
   font-weight: 500;
   font-size: 14px;
@@ -330,6 +342,7 @@
   @include min-tablet {
     font-size: 16px;
     line-height: 1.5;
+    width: 34px;
   }
 }
 .remove-image-button {
@@ -359,6 +372,15 @@
   line-height: 1.43;
   letter-spacing: -0.02em;
   color: $--color-main-opacity60;
+  &.active {
+    color: $--color-main;
+  }
+}
+
+.character-length {
+  &.active {
+    color: $--color-main;
+  }
 }
 
 .image-preview-container {
@@ -419,19 +441,22 @@
       padding-bottom: 6px;
     }
   }
+  &:focus {
+    outline: none;
+  }
 }
 
 .custom-select {
   position: relative;
-  width: 343px;
-  height: 48px;
+  width: 344px;
+  height: 50px;
   margin: 0;
   margin-bottom: 20px;
 
   @include min-tablet {
     margin-bottom: 40px;
-    width: 315px;
-    height: 56px;
+    width: 317px;
+    height: 59px;
   }
 
   .icon-select {
@@ -444,6 +469,7 @@
     fill: $--color-white;
     stroke: $--color-main;
     transition: transform 0.1s linear;
+    pointer-events: none;
   }
 
   select:focus + .icon-select,
@@ -451,7 +477,15 @@
     transform: translateY(-50%) rotate(180deg);
   }
 }
-
+.time-span-min {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.43;
+  @include min-tablet {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}
 .time-container {
   display: flex;
   align-items: center;
@@ -460,6 +494,7 @@
   margin-bottom: 20px;
   @include min-tablet {
     gap: 16px;
+    margin-bottom: 40px;
   }
 }
 
