@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { recipeApi } from '../../services/Api.js';
+import { recipesApi, recipeApi } from '../../services/Api.js';
 import styles from './RecipeDetailsFavButton.module.scss';
 import Notiflix from 'notiflix';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '../../redux/modal/modalSlice.js';
 import { MODAL_TYPES } from '../../constants/common.js';
+import { getIsLoggedIn } from '../../redux/auth/authSelectors.js';
 
 const RecipeDetailsFavButton = ({ recipeId }) => {
+  const isLoggedId = useSelector(getIsLoggedIn);
   const [isFavorite, setIsFavorite] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -17,11 +19,17 @@ const RecipeDetailsFavButton = ({ recipeId }) => {
       if (!recipeId) {
         return;
       }
-
-      try {
-        const response = await recipeApi.getRecipes(recipeId);
-        setIsFavorite(response.data.isFavorite);
-      } catch (error) {}
+      if (isLoggedId) {
+        try {
+          const response = await recipeApi.getRecipes(recipeId);
+          setIsFavorite(response.data.isFavorite);
+        } catch (error) {}
+      } else {
+        try {
+          const response = await recipesApi.getRecipe(recipeId);
+          setIsFavorite(response.data.isFavorite);
+        } catch (error) {}
+      }
     };
 
     fetchFavoriteStatus();
@@ -65,7 +73,7 @@ const RecipeDetailsFavButton = ({ recipeId }) => {
       Notiflix.Notify.success('Recipe removed from favorites successfully!');
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        Notiflix.Notify.failure('Please sign in or create an account.');
+        dispatch(openModal({ modalType: MODAL_TYPES.LOGIN, modalProps: {} }));
       } else {
         Notiflix.Notify.failure('Error removing from favorites.');
       }
