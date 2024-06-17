@@ -5,6 +5,7 @@ import RecipeIngredients from '../RecipeIngredients/RecipeIngredients';
 import RecipePreparation from '../RecipePreparation/RecipePreparation';
 import RecipeCreatedBy from '../RecipeCreatedBy/RecipeCreatedBy';
 import styles from './RecipeMainInfo.module.scss';
+import { getImagePath, TYPE_IMG } from '../../helpers/getImagePath';
 
 const RecipeMainInfo = ({ recipe, navigateToUserPage, navigateToSignIn }) => {
   const isLoggedIn = useSelector(getIsLoggedIn);
@@ -13,7 +14,7 @@ const RecipeMainInfo = ({ recipe, navigateToUserPage, navigateToSignIn }) => {
   return (
     <div className={styles.recipe_main_info}>
       <div className={styles.thumb_wrap}>
-        <img src={recipe.thumb} alt={recipe.title} />
+        <img src={getImagePath(recipe?.thumb, TYPE_IMG.RECIPE)} alt={recipe.title} />
       </div>
       <div className={styles.recipe_details}>
         <h3 className={styles.title}>{recipe.title}</h3>
