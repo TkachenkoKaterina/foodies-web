@@ -41,6 +41,9 @@
   width: 24px;
   height: 24px;
   stroke: $--color-main;
+}
+
+.close_btn {
   position: absolute;
   right: 16px;
   top: 16px;
@@ -51,5 +54,7 @@
   }
   &:hover {
     transform: scale(1.1);
+    transform: rotate(90deg);
+    cursor: pointer;
   }
 }
