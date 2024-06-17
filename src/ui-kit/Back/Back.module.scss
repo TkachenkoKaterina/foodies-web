@@ -9,13 +9,12 @@
   padding: 10px;
   border-radius: 50%;
   border: 1px solid $--color-main-opacity10;
-
   &:hover,
-    &:focus {
-      background-color: $--color-main;
-    }
-    
-    @include min-tablet {
+  &:focus {
+    background-color: $--color-main;
+  }
+
+  @include min-tablet {
     padding: 12px;
   }
 

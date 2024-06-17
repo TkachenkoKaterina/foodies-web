@@ -5,7 +5,7 @@ import RecipeInfo from '../../components/RecipeInfo';
 import PopularRecipes from '../../components/PopularRecipes';
 import styles from './RecipePage.module.scss';
 import { Container } from '../../ui-kit';
-import { recipeApi } from '../../services/Api.js';
+import { recipesApi } from '../../services/Api.js';
 import { PageLoader } from '../../ui-kit/Loader';
 
 const RecipePage = () => {
@@ -17,7 +17,7 @@ const RecipePage = () => {
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const response = await recipeApi.getRecipes(`public/${id}`);
+        const response = await recipesApi.getRecipe(id);
         setRecipe(response.data);
         setLoading(false);
       } catch (err) {
@@ -43,10 +43,10 @@ const RecipePage = () => {
 
   return (
     <Container>
-      <div className={styles.cont} >
-      <PathInfo path={recipe.title} />
-      <RecipeInfo recipe={recipe} />
-      <PopularRecipes />
+      <div className={styles.cont}>
+        <PathInfo path={recipe.title} />
+        <RecipeInfo recipe={recipe} />
+        <PopularRecipes />
       </div>
     </Container>
   );
