@@ -39,16 +39,6 @@ const SignInForm = () => {
     }
   }, [isLoggedIn, errorMsg, dispatch]);
 
-  // useEffect(() => {
-  //   if (loading) {
-  //     Notiflix.Loading.circle();
-  //   } else {
-  //     setTimeout(() => {
-  //       Notiflix.Loading.remove();
-  //     }, 500);
-  //   }
-  // }, [loading]);
-
   const schema = yup.object().shape({
     email: yup
       .string()
