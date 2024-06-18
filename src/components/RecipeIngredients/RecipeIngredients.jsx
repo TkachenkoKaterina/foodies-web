@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './RecipeIngredients.module.scss';
 import defaultImage from '../../assets/images/default/default-ingredient-image.jpg';
+import { getImagePath, TYPE_IMG } from '../../helpers/getImagePath';
 
 const RecipeIngredients = ({ ingredients }) => {
   const [ingredientsDetails, setIngredientsDetails] = useState([]);
@@ -51,7 +52,7 @@ const RecipeIngredients = ({ ingredients }) => {
           <li key={index} className={styles.ingredient_item}>
             <div className={styles.ingredient_image}>
               <img 
-                src={ingredient.img || defaultImage}
+                src={getImagePath(ingredient?.img, TYPE_IMG.RECIPE) || defaultImage}
                 alt={ingredient.name}
               />
             </div>
