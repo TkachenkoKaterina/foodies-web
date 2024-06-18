@@ -14,7 +14,7 @@
 .filterBox {
   display: flex;
   flex-direction: column;
-  margin-bottom: 32px;
+  margin-bottom: 18px;
   @include min-tablet {
     flex-direction: row;
     justify-content: space-between;
@@ -22,6 +22,7 @@
   }
 
   @include min-desktop {
+    max-width: 320px;
     margin-right: 40px;
     flex-direction: column;
     justify-content: start;
@@ -29,26 +30,74 @@
 
   & .selectBox {
     display: flex;
+
     flex-direction: column;
     position: relative;
     margin-right: 20p;
+    margin-bottom: 14px;
+    @include min-desktop {
+    }
     & .input {
-      // position: fixed;
-      top: 0;
-      padding: 16px 18px 16px 18px;
-      gap: 210px;
+      position: relative;
+      height: 48px;
+      width: 343px;
       border-radius: 30px;
-      margin-bottom: 14px;
-      // border: 1px solid var($--color-main-opacity12);
-      border: 1px solid rgba(5, 5, 5, 0.12);
+      padding: 14px;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 1.43;
+      letter-spacing: -0.02em;
+      color: $--color-main-opacity60;
+      border: 1px solid $--color-main-opacity12;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+
+      &::placeholder {
+        color: $--color-main-opacity60;
+      }
+      &:focus {
+        outline: none;
+      }
+      //   // position: fixed;
+      //   top: 0;
+      //   padding: 16px 18px 16px 18px;
+      //   gap: 210px;
+      //   border-radius: 30px;
+      //   margin-bottom: 14px;
+      //   // border: 1px solid var($--color-main-opacity12);
+      //   border: 1px solid rgba(5, 5, 5, 0.12);
+      //   @include min-tablet {
+      //     width: 342px;
+      //   }
+
       @include min-tablet {
-        width: 342px;
+        font-size: 16px;
+        height: 56px;
+        font-size: 16px;
+        line-height: 1.5;
       }
     }
     & .datalist {
-      // position: fixed;
-      right: 0;
+      position: fixed;
       top: 0;
+      left: 0;
+      & option {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 1.43;
+        letter-spacing: -0.02em;
+        color: $--color-main;
+
+        @include min-tablet {
+          font-size: 16px;
+          line-height: 1.5;
+          padding-bottom: 6px;
+        }
+      }
+    }
+    &:focus {
+      outline: none;
     }
   }
 }

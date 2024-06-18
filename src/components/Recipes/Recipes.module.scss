@@ -39,6 +39,10 @@
       line-height: 16px;
       letter-spacing: -0.02em;
       text-align: left;
+      @include min-tablet {
+        font-size: 14px;
+        line-height: 18px;
+      }
     }
   }
   & .description {

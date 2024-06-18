@@ -51,15 +51,13 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(fetchIngredients());
+    setArea('');
   }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchAreas());
+    setIngredientId('');
   }, [dispatch]);
-
-  // const getRecipes = () => {
-  //   dispatch(getRecipesInCategory({ category, params: filterFromRedux }));
-  // }
 
   useEffect(() => {
     if (category) {
@@ -96,6 +94,7 @@ const HomePage = () => {
           limit: limit,
         })
       );
+      // setIngredientId('');
     }
   };
 
