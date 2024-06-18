@@ -24,6 +24,8 @@ const Recipes = () => {
 
   const getRecipes = async () => {
     try {
+      setIsLoading(true);
+
       const { data } = await recipeApi.getRecipes(id, {
         page,
         limit: itemsPerPage,
@@ -41,6 +43,12 @@ const Recipes = () => {
 
     getRecipes();
   }, [id, page]);
+
+  useEffect(() => {
+    if (recipes?.result?.length === 0 && page > 1) {
+      setPage(prev => prev - 1);
+    }
+  }, [recipes?.result?.length]);
 
   const onDeleteRecipe = async id => {
     try {
