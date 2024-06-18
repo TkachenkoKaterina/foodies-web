@@ -201,7 +201,11 @@ const AddRecipeForm = () => {
     }
   };
 
-  const onError = () => {
+  const onError = errors => {
+    console.log('error', errors);
+    for (const error of Object.values(errors)) {
+      Notiflix.Notify.failure(error.message);
+    }
     setTimeout(() => {
       clearErrors();
     }, 3000);
@@ -242,7 +246,6 @@ const AddRecipeForm = () => {
                 </svg>
                 Upload a photo
               </label>
-              {errors.file && Notiflix.Notify.failure(errors.file.message)}
             </div>
             {imagePreview && (
               <div className={styles['image-preview-container']}>
@@ -278,7 +281,6 @@ const AddRecipeForm = () => {
                   errors.name ? styles.error : ''
                 }`}
               />
-              {errors.name && Notiflix.Notify.failure(errors.name.message)}
             </div>
 
             <div className={styles['container-form']}>
@@ -306,8 +308,6 @@ const AddRecipeForm = () => {
                   </span>
                   /{maxInputLength}
                 </div>
-                {errors.description &&
-                  Notiflix.Notify.failure(errors.description.message)}
               </div>
             </div>
             <div className={styles['category-area-wrapper']}>
@@ -327,8 +327,6 @@ const AddRecipeForm = () => {
                     className={`${styles.select} ${styles['select-category']}`}
                     onMouseDown={handleSelectMouseDown}
                   >
-                    {errors.category &&
-                      Notiflix.Notify.failure(errors.category.message)}
                     <option value="">Select a category</option>
                     {categories.result
                       .slice()
@@ -375,7 +373,6 @@ const AddRecipeForm = () => {
                     <use href={`${icons}#icon-chevron-down`} />
                   </svg>
                 </div>
-                {errors.area && Notiflix.Notify.failure(errors.area.message)}
               </div>
             </div>
 
@@ -424,7 +421,6 @@ const AddRecipeForm = () => {
                     <use href={`${icons}#icon-plus`} />
                   </svg>
                 </button>
-                {errors.time && Notiflix.Notify.failure(errors.time.message)}
               </div>
             </div>
             <h3 className={styles['ingredient-title']}>Ingredients</h3>
@@ -459,8 +455,6 @@ const AddRecipeForm = () => {
                       </option>
                     ))}
                 </select>
-                {errors.ingredients &&
-                  Notiflix.Notify.failure(errors.ingredients.message)}
                 <svg className={styles['icon-select']}>
                   <use href={`${icons}#icon-chevron-down`} />
                 </svg>
@@ -555,8 +549,6 @@ const AddRecipeForm = () => {
                   </span>
                   /{maxInputLength}
                 </div>
-                {errors.preparation &&
-                  Notiflix.Notify.failure(errors.preparation.message)}
               </div>
             </div>
             <div className={`${styles['clear-submit-wrapper']}`}>
