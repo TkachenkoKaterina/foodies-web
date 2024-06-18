@@ -1,4 +1,9 @@
-import { ListPagination, RecipeCard, RecipePagination } from '../../ui-kit';
+import {
+  ListPagination,
+  Loader,
+  RecipeCard,
+  RecipePagination,
+} from '../../ui-kit';
 // import recipes from './recipes.json';
 import styles from './RecipeList.module.scss';
 
@@ -12,6 +17,7 @@ import {
   getFavoritesList,
   removeFromFavorites,
 } from '../../redux/favorites/favoritesOperations';
+import { getLoading } from '../../redux/recipes/recipesSelectors';
 const RecipeList = ({
   recipes,
   itemsPerPage,
@@ -21,12 +27,9 @@ const RecipeList = ({
 }) => {
   const recipesFavList = useSelector(getFavorites);
   const isLoggedIn = useSelector(getIsLoggedIn);
-  const [loading, setIsLoading] = useState('true');
+  const loading = useSelector(getLoading); // <------Loader
   const userId = useSelector(getUser);
   const dispatch = useDispatch();
-  // const [status, setStatus] = useState('');
-
-  // console.log(isFavorite);
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -54,27 +57,14 @@ const RecipeList = ({
     }
   };
 
-  // const handleAddToFavorites = async id => {
-  //   try {
-  //     await recipeApi.addToFavorites(id);
-  //     getFavRecipesList();
-  //   } catch (error) {
-  //     console.error('Error adding to favorites:', error);
-  //   }
-  // };
-
-  // const handleRemoveFromFavorites = async id => {
-  //   try {
-  //     await recipeApi.removeFromFavorites(id);
-  //     getFavRecipesList();
-  //   } catch (error) {
-  //     console.error('Error removing from favorites:', error);
-  //   }
-  // };
-
   return (
     <div className={styles.recipesListContainer}>
-      {recipes && (
+      {loading && (
+        <div className={styles.empty}>
+          <Loader />
+        </div>
+      )}
+      {recipes && !loading && (
         <ul className={styles.recipesList}>
           {recipes?.map((item, index) => {
             const status = recipesFavList?.some(
