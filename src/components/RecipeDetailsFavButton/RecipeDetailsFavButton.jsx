@@ -14,44 +14,33 @@ import { getIsLoggedIn, getUser } from '../../redux/auth/authSelectors.js';
 
 const RecipeDetailsFavButton = ({
   recipeId,
-  // handleAddToFavorites,
-  // handleRemoveFromFavorites,
   favorites,
 }) => {
   const dispatch = useDispatch();
-  // const favorites = useSelector(getFavorites);
-  // const isFavorite = favorites.includes(recipeId);
   const userId = useSelector(getUser);
-  // const recipesFavList = useSelector(getFavorites);
   const isLoggedIn = useSelector(getIsLoggedIn);
-  // const dispatch = useDispatch();
-  console.log('button -> favotiteslist', favorites);
-
   let isFavorite;
 
-  const checkFavorteStatus = () => {
-    const status = favorites.some(({ _id }) => {
-      console.log('_d', _id);
-      console.log('id', recipeId);
-      _id === recipeId;
+  const checkFavorteStatus = favorites => {
+    favorites.map(({ _id }) => {
+      if (_id === recipeId) {
+        isFavorite = true;
+      } else {
+        isFavorite = false;
+      }
     });
-    isFavorite = status;
   };
 
-  // const isFavorite = recipesFavList.find(favEl => {
-  //   favEl._id === recipeId;
-  // });
+  checkFavorteStatus(favorites);
+
   useEffect(() => {
     if (!isLoggedIn) {
       return;
     } else {
       dispatch(getFavoritesList(userId._id));
-      checkFavorteStatus();
     }
   }, [dispatch]);
 
-  console.log(' кнопка шс фав ->>>>>', isFavorite);
-  // console.log('кнопка статус   ==> ', isFavorite);
 
   const handleAddToFavorites = async () => {
     if (!recipeId) return;
