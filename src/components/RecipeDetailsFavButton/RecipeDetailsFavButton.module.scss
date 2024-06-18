@@ -1,5 +1,11 @@
 @import '../../styles/main.scss';
 
+.wrapper {
+    @include min-desktop {
+        margin-left: 631px;
+    }
+}
+
 .favButton {
     padding: 14px 20px;
     border-radius: 30px;
