@@ -25,22 +25,6 @@ const PopularRecipes = ({
     dispatch(getPopularRecipes({ limit: 4 }));
   }, [dispatch, recipesFavList]);
 
-  // const handleAddToFavorites = async (id) => {
-  //   try {
-  //     await dispatch(addToFavorites(id)).unwrap();
-  //   } catch (error) {
-  //     console.error('Error adding to favorites:', error);
-  //   }
-  // };
-
-  // const handleRemoveFromFavorites = async (id) => {
-  //   try {
-  //     await dispatch(removeFromFavorites(id)).unwrap();
-  //   } catch (error) {
-  //     console.error('Error removing from favorites:', error);
-  //   }
-  // };
-  // console.log(recipesFavList);
   return (
     <div className={styles.wrap}>
       <h1 className={styles.header}>Popular Recipes</h1>
@@ -49,7 +33,6 @@ const PopularRecipes = ({
           const status = recipesFavList?.some(
             favItem => favItem._id === item._id
           );
-          // console.log(status);
           return (
             <div key={item._id} className={styles.recipe_card}>
               <RecipeCard

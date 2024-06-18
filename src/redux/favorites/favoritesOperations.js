@@ -6,7 +6,6 @@ export const getFavoritesList = createAsyncThunk(
   async (userId, { rejectWithValue }) => {
     try {
       const res = await recipeApi.getFavoriteRecipes({ userId });
-      console.log(res);
       return res.data.result;
     } catch (error) {
       return rejectWithValue(error);

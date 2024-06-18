@@ -13,18 +13,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const Testimonials = () => {
   const dispatch = useDispatch();
-  // const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     dispatch(fetchTestimonials());
-    // .then(() => setIsLoading(false))
-    // .catch(error => console.error(error));
   }, [dispatch]);
 
   const testimonialsInfo = useSelector(selectTestimonials);
   const testimonials = testimonialsInfo.result;
-
-  // console.log(testimonials);
 
   return (
     <Container>

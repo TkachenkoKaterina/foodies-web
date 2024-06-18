@@ -29,9 +29,6 @@ const RecipeCard = ({
   const navigate = useNavigate();
   const isLoggedIn = useSelector(getIsLoggedIn);
   const favorites = useSelector(getFavorites);
-  // const [isFavorite, setStatus] = useState(status);
-  // const isFavoritejjj = favorites.includes(id);
-  // console.log(isFavorite);
 
   const goToRecipe = () => {
     navigate(getPathWithId(routes.recipe, id));
@@ -45,26 +42,6 @@ const RecipeCard = ({
     }
   };
 
-  // useEffect(() => {
-
-  // }, [isFavorite]);
-  // const handleAddToFavorites = async () => {
-  //   try {
-  //     await dispatch(addToFavorites(id)).unwrap();
-  //   } catch (error) {
-  //     console.error('Error adding to favorites:', error);
-  //   }
-  // };
-
-  // const handleRemoveFromFavorites = async () => {
-  //   try {
-  //     await dispatch(removeFromFavorites(id)).unwrap();
-  //   } catch (error) {
-  //     console.error('Error removing from favorites:', error);
-  //   }
-  // // };
-  // console.log(isLoggedIn);
-  // console.log(status);
   return (
     <li key={id} className={styles.card}>
       <img src={getImagePath(img)} alt={title} className={styles.img} />
