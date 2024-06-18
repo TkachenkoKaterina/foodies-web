@@ -69,10 +69,10 @@ const RecipeCard = ({
     <li key={id} className={styles.card}>
       <img src={getImagePath(img)} alt={title} className={styles.img} />
       <h3 className={styles.title}>
-        {title.slice(0, 25)}
-        {title.length > 25 && <span>...</span>}
+        {title.slice(0, 22)}
+        {title.length > 22 && <span>...</span>}
       </h3>
-      <p className={styles.description}>{description.slice(0, 75)}...</p>
+      <p className={styles.description}>{description.slice(0, 70)}...</p>
       <div className={styles.cardFooter}>
         <button
           className={styles.ownerInfo}
@@ -91,6 +91,7 @@ const RecipeCard = ({
             <Back
               icon="icon-heart"
               fill="red"
+              stroke="red"
               onClick={() => handleRemoveFromFavorites(id)}
             />
           )}
