@@ -6,7 +6,6 @@ import {
   getFavoritesList,
   removeFromFavorites,
 } from '../../redux/favorites/favoritesOperations.js';
-import { getFavorites } from '../../redux/favorites/favoritesSelector.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '../../redux/modal/modalSlice.js';
 import { MODAL_TYPES } from '../../constants/common.js';
@@ -50,7 +49,7 @@ const RecipeDetailsFavButton = ({
     } catch (error) {
       if (error.message === 'Recipe already in favorites') {
         Notiflix.Notify.failure('Recipe already in favorites.');
-      } else if (error.status === 401) {
+      } else if (error.message === "Not authorized") {
         dispatch(openModal({ modalType: MODAL_TYPES.LOGIN, modalProps: {} }));
       } else {
         Notiflix.Notify.failure('Error adding to favorites.');
@@ -64,7 +63,7 @@ const RecipeDetailsFavButton = ({
       await dispatch(removeFromFavorites(recipeId)).unwrap();
       Notiflix.Notify.success('Recipe removed from favorites successfully!');
     } catch (error) {
-      if (error.response && error.response.status === 401) {
+      if (error.message === "Not authorized") {
         dispatch(openModal({ modalType: MODAL_TYPES.LOGIN, modalProps: {} }));
       } else {
         Notiflix.Notify.failure('Error removing from favorites.');
@@ -73,7 +72,7 @@ const RecipeDetailsFavButton = ({
   };
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       {isFavorite ? (
         <button
           type="button"
