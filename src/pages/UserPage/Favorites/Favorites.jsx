@@ -19,6 +19,8 @@ const Favorites = () => {
 
   const getRecipes = async () => {
     try {
+      setIsLoading(true);
+
       const { data } = await recipeApi.getFavoriteRecipes({
         page,
         limit: itemsPerPage,
@@ -34,6 +36,12 @@ const Favorites = () => {
   useEffect(() => {
     getRecipes();
   }, [page]);
+
+  useEffect(() => {
+    if (recipes?.result?.length === 0 && page > 1) {
+      setPage(prev => prev - 1);
+    }
+  }, [recipes?.result?.length]);
 
   const onDeleteRecipe = async id => {
     try {

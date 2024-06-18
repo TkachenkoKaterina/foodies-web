@@ -16,8 +16,8 @@ function ListPagination({ total, itemsPerPage, currentPage, onPageChange }) {
       previousLabel="  "
       renderOnZeroPageCount={null}
       containerClassName={styles.pagination}
-      pageClassName={styles.page}
-      activeClassName={styles.page_active}
+      pageLinkClassName={styles.page}
+      activeLinkClassName={styles.page_active}
     />
   );
 }
