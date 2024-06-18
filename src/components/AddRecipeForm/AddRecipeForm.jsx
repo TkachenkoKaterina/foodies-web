@@ -30,6 +30,7 @@ const AddRecipeForm = () => {
   const [preparationLength, setPreparationLength] = useState(0);
   const fileInputRef = useRef(null);
   const [file, setFile] = useState(null);
+  const [focusedButton, setFocusedButton] = useState(null);
 
   const maxInputLength = 2000;
 
@@ -103,6 +104,15 @@ const AddRecipeForm = () => {
     }
   }, [dispatch, ingredientsAll.length]);
 
+  useEffect(() => {
+    if (focusedButton) {
+      setTimeout(() => {
+        focusedButton.blur();
+        setFocusedButton(null);
+      }, 300);
+    }
+  }, [focusedButton]);
+
   const handleInputChange = event => {
     const { name, value } = event.target;
     if (name === 'description') {
@@ -112,7 +122,15 @@ const AddRecipeForm = () => {
     }
   };
 
-  const handleBtnIngredientClick = () => {
+  const handleSelectMouseDown = event => {
+    if (event.currentTarget === document.activeElement) {
+      event.preventDefault();
+      event.currentTarget.blur();
+    }
+  };
+
+  const handleBtnIngredientClick = e => {
+    setFocusedButton(e.currentTarget);
     const ingredientValue = watch('ingredient');
     const quantity = watch('quantity');
     if (!ingredientValue || !quantity) {
@@ -129,18 +147,19 @@ const AddRecipeForm = () => {
         },
       ];
       setIngredients(newIngredients);
-      setValue('ingredients', newIngredients); // Оновлення значення форми
+      setValue('ingredients', newIngredients);
       setValue('ingredient', '');
       setValue('quantity', '');
     }
   };
 
-  const handleIngredientDelete = id => {
+  const handleIngredientDelete = (id, e) => {
+    setFocusedButton(e.currentTarget);
     const updatedIngredients = ingredients.filter(
       ingredient => ingredient._id !== id
     );
     setIngredients(updatedIngredients);
-    setValue('ingredients', updatedIngredients); // Оновлення значення форми
+    setValue('ingredients', updatedIngredients);
   };
 
   const handleClearForm = () => {
@@ -152,7 +171,7 @@ const AddRecipeForm = () => {
     setPreparationLength(0);
     clearErrors();
   };
-  console.log('ingredients', ingredients);
+
   const onSubmit = async data => {
     const formData = new FormData();
     formData.append('title', data.name);
@@ -167,15 +186,14 @@ const AddRecipeForm = () => {
       id: ingredient._id,
       measure: ingredient.quantity,
     }));
-    console.log('formData', formData);
 
     formData.append('ingredients', JSON.stringify(ingredientsArray));
 
     try {
       const response = await recipeApi.createRecipe(formData);
       Notiflix.Notify.success('Recipe created successfully', response.data);
-      handleClearForm(); // Clear form after successful submission
-      navigate(`/user/${user._id}`); // Redirect to UserPage after successful form submission
+      handleClearForm();
+      navigate(`/user/${user._id}`);
     } catch (error) {
       Notiflix.Notify.failure(
         `${error.message} ${error.response.data.message}`
@@ -183,8 +201,7 @@ const AddRecipeForm = () => {
     }
   };
 
-  const onError = errors => {
-    console.log('Validation Errors:', errors);
+  const onError = () => {
     setTimeout(() => {
       clearErrors();
     }, 3000);
@@ -237,7 +254,10 @@ const AddRecipeForm = () => {
                 <div className={styles['remove-image-container']}>
                   <button
                     type="button"
-                    onClick={handleUploadNewImage}
+                    onClick={e => {
+                      setFocusedButton(e.currentTarget);
+                      handleUploadNewImage();
+                    }}
                     className={styles['remove-image-button']}
                   >
                     Upload another photo
@@ -305,6 +325,7 @@ const AddRecipeForm = () => {
                     {...register('category')}
                     defaultValue=""
                     className={`${styles.select} ${styles['select-category']}`}
+                    onMouseDown={handleSelectMouseDown}
                   >
                     {errors.category &&
                       Notiflix.Notify.failure(errors.category.message)}
@@ -338,6 +359,7 @@ const AddRecipeForm = () => {
                     {...register('area')}
                     defaultValue=""
                     className={styles.select}
+                    onMouseDown={handleSelectMouseDown}
                   >
                     <option value="">Select an area</option>
                     {areas
@@ -359,12 +381,17 @@ const AddRecipeForm = () => {
 
             <div className={styles['container-form']}>
               <label className={styles.label}>Cooking Time</label>
-              <div className={styles['time-container']}>
+              <div
+                className={`${styles['time-container']} ${
+                  errors.time ? styles.error : ''
+                }`}
+              >
                 <button
                   type="button"
-                  onClick={() => {
+                  onClick={e => {
                     const newValue = Math.max(0, watch('time') - 10);
                     setValue('time', newValue);
+                    setFocusedButton(e.currentTarget);
                   }}
                   className={styles['time-button']}
                 >
@@ -372,11 +399,7 @@ const AddRecipeForm = () => {
                     <use href={`${icons}#icon-minus`} />
                   </svg>
                 </button>
-                <div
-                  className={`${styles['time-input-span-wrapper']} ${
-                    errors.time ? styles.error : ''
-                  }`}
-                >
+                <div className={`${styles['time-input-span-wrapper']} `}>
                   <input
                     type="text"
                     {...register('time', { valueAsNumber: true })}
@@ -390,9 +413,10 @@ const AddRecipeForm = () => {
 
                 <button
                   type="button"
-                  onClick={() => {
+                  onClick={e => {
                     const newValue = (watch('time') || 0) + 10;
                     setValue('time', newValue);
+                    setFocusedButton(e.currentTarget);
                   }}
                   className={styles['time-button']}
                 >
@@ -415,7 +439,10 @@ const AddRecipeForm = () => {
                   id="ingredient"
                   {...register('ingredient')}
                   defaultValue=""
-                  className={`${styles.select} ${styles['select-ingredient']}`}
+                  className={`${styles.select} ${styles['select-ingredient']} ${
+                    errors.ingredients ? styles.error : ''
+                  }`}
+                  onMouseDown={handleSelectMouseDown}
                 >
                   <option value="" disabled>
                     Add the ingredient
@@ -483,7 +510,7 @@ const AddRecipeForm = () => {
                       <button
                         type="button"
                         className={`${styles['ingredient-delete-btn']}`}
-                        onClick={() => handleIngredientDelete(ingredient._id)}
+                        onClick={e => handleIngredientDelete(ingredient._id, e)}
                       >
                         <svg
                           className={`${styles['ingredient-delete-btn-icon']}`}
@@ -535,7 +562,8 @@ const AddRecipeForm = () => {
             <div className={`${styles['clear-submit-wrapper']}`}>
               <button
                 type="button"
-                onClick={() => {
+                onClick={e => {
+                  setFocusedButton(e.currentTarget);
                   handleClearForm();
                 }}
                 className={styles['clear-button']}
@@ -544,7 +572,11 @@ const AddRecipeForm = () => {
                   <use href={`${icons}#icon-trash`} />
                 </svg>
               </button>
-              <button type="submit" className={styles['submit-button']}>
+              <button
+                type="submit"
+                className={styles['submit-button']}
+                onClick={e => setFocusedButton(e.currentTarget)}
+              >
                 Publish
               </button>
             </div>
