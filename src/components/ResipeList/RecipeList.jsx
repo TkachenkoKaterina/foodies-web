@@ -42,7 +42,6 @@ const RecipeList = ({
   const handleAddToFavorites = async id => {
     try {
       await dispatch(addToFavorites(id)).unwrap();
-      // setStatus(true);
     } catch (error) {
       console.error('Error adding to favorites:', error);
     }
@@ -51,7 +50,6 @@ const RecipeList = ({
   const handleRemoveFromFavorites = async id => {
     try {
       await dispatch(removeFromFavorites(id)).unwrap();
-      // setStatus(false);
     } catch (error) {
       console.error('Error removing from favorites:', error);
     }

@@ -1,12 +1,7 @@
-import { useEffect, useState } from 'react';
-import Select from '../../ui-kit/Select';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styles from './RecipeFilters.module.scss';
-import { fetchAreas } from '../../redux/areas/areasOperations';
 import { selectAreas } from '../../redux/areas/areasSelectors';
-import { fetchIngredients } from '../../redux/ingredients/ingredientsOperatins';
 import { selectIngredients } from '../../redux/ingredients/ingredientsSelectors';
-// import { getRecipes } from '../../redux/recipes/recipesSelectors';
 
 const RecipeFilters = ({ handleChange }) => {
   const area = useSelector(selectAreas);

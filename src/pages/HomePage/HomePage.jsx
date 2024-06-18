@@ -18,7 +18,6 @@ import { filter } from '../../redux/recipes/recipesSlice';
 
 const HomePage = () => {
   const widthWindow = window.innerWidth;
-  console.log(widthWindow);
   const [category, setCategory] = useState('');
 
   const [page, setPage] = useState(1);
