@@ -6,6 +6,7 @@ import { getUser } from '../../redux/auth/authSelectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '../../redux/modal/modalSlice';
 import { MODAL_TYPES } from '../../constants/common';
+import UpButton from '../../ui-kit/UpButton/UpButton';
 
 const Layout = ({ children }) => {
   const user = useSelector(getUser);
@@ -29,6 +30,7 @@ const Layout = ({ children }) => {
         onSignUpClick={handleSignUpClick}
       />
       <main className={styles.main}>{children}</main>
+      <UpButton showAfter={700} />
       <Footer />
       {modalIsOpen && <FormSwitcher type={modalType} />}
     </div>
