@@ -11,6 +11,7 @@ import {
   getError,
   getIsLoggedIn,
   getLoading,
+  getUser,
 } from '../../redux/auth/authSelectors';
 import Notiflix from 'notiflix';
 import { useEffect } from 'react';
@@ -18,6 +19,7 @@ import { useSelector } from 'react-redux';
 
 import { closeModal } from '../../redux/modal/modalSlice';
 import { clearError } from '../../redux/auth/authSlice';
+import { getFavoritesList } from '../../redux/favorites/favoritesOperations';
 
 const SignInForm = () => {
   const dispatch = useDispatch();
@@ -26,6 +28,7 @@ const SignInForm = () => {
   const loading = useSelector(getLoading);
   const isLoggedIn = useSelector(getIsLoggedIn);
   const errorMsg = useSelector(getError);
+  const userId = useSelector(getUser);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -37,7 +40,7 @@ const SignInForm = () => {
       Notiflix.Notify.failure(errorMsg);
       dispatch(clearError());
     }
-  }, [isLoggedIn, errorMsg, dispatch]);
+  }, [isLoggedIn, errorMsg]);
 
   const schema = yup.object().shape({
     email: yup
@@ -61,6 +64,7 @@ const SignInForm = () => {
 
   const onSubmit = async data => {
     dispatch(login(data));
+    // dispatch(getFavoritesList(userId._id));
   };
 
   return (

@@ -8,8 +8,12 @@ import { getPathWithId } from '../../helpers/getPathWithId';
 import styles from './RecipeCard.module.scss';
 import { MODAL_TYPES } from '../../constants/common';
 import { openModal } from '../../redux/modal/modalSlice';
-import { addToFavorites, removeFromFavorites } from '../../redux/favorites/favoritesOperations.js';
+import {
+  addToFavorites,
+  removeFromFavorites,
+} from '../../redux/favorites/favoritesOperations.js';
 import { getFavorites } from '../../redux/favorites/favoritesSelector.js';
+import { useEffect, useState } from 'react';
 
 const RecipeCard = ({
   title,
@@ -18,18 +22,21 @@ const RecipeCard = ({
   img,
   id,
   status,
+  handleRemoveFromFavorites,
+  handleAddToFavorites,
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useSelector(getIsLoggedIn);
-
-  const favorites = useSelector(getFavorites); 
-  const isFavorite = favorites.includes(id);
+  const favorites = useSelector(getFavorites);
+  // const [isFavorite, setStatus] = useState(status);
+  // const isFavoritejjj = favorites.includes(id);
+  // console.log(isFavorite);
 
   const goToRecipe = () => {
     navigate(getPathWithId(routes.recipe, id));
   };
-  
+
   const userOpenHendler = () => {
     if (isLoggedIn) {
       navigate(`/user/${owner._id}`);
@@ -38,22 +45,26 @@ const RecipeCard = ({
     }
   };
 
-  const handleAddToFavorites = async () => {
-    try {
-      await dispatch(addToFavorites(id)).unwrap();
-    } catch (error) {
-      console.error('Error adding to favorites:', error);
-    }
-  };
+  // useEffect(() => {
 
-  const handleRemoveFromFavorites = async () => {
-    try {
-      await dispatch(removeFromFavorites(id)).unwrap();
-    } catch (error) {
-      console.error('Error removing from favorites:', error);
-    }
-  };
+  // }, [isFavorite]);
+  // const handleAddToFavorites = async () => {
+  //   try {
+  //     await dispatch(addToFavorites(id)).unwrap();
+  //   } catch (error) {
+  //     console.error('Error adding to favorites:', error);
+  //   }
+  // };
 
+  // const handleRemoveFromFavorites = async () => {
+  //   try {
+  //     await dispatch(removeFromFavorites(id)).unwrap();
+  //   } catch (error) {
+  //     console.error('Error removing from favorites:', error);
+  //   }
+  // // };
+  // console.log(isLoggedIn);
+  // console.log(status);
   return (
     <li key={id} className={styles.card}>
       <img src={getImagePath(img)} alt={title} className={styles.img} />

@@ -4,6 +4,7 @@ import { unwrapResult } from '@reduxjs/toolkit';
 
 import { getToken } from '../utils/cookies';
 import { authOperations, authReducer } from '../redux/auth';
+import favoritesSlice from '../redux/favorites/favoritesSlice';
 
 export const useFetchSession = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,11 @@ export const useLogout = () => {
     try {
       const resultAction = await dispatch(authOperations.logout());
       unwrapResult(resultAction);
+      dispatch(
+        favoritesSlice({
+          favorites: [],
+        })
+      );
     } catch (error) {
       console.error('Logout failed:', error);
     }
