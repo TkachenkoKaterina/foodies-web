@@ -7,14 +7,22 @@ import RecipeCreatedBy from '../RecipeCreatedBy/RecipeCreatedBy';
 import styles from './RecipeMainInfo.module.scss';
 import { getImagePath, TYPE_IMG } from '../../helpers/getImagePath';
 
-const RecipeMainInfo = ({ recipe, navigateToUserPage, navigateToSignIn }) => {
-  const isLoggedIn = useSelector(getIsLoggedIn);
+const RecipeMainInfo = ({
+  recipe,
+  // handleAddToFavorites,
+  // handleRemoveFromFavorites,
+  // status,
+}) => {
+  // const isLoggedIn = useSelector(getIsLoggedIn);
   const owner = recipe.owner;
 
   return (
     <div className={styles.recipe_main_info}>
       <div className={styles.thumb_wrap}>
-        <img src={getImagePath(recipe?.thumb, TYPE_IMG.RECIPE)} alt={recipe.title} />
+        <img
+          src={getImagePath(recipe?.thumb, TYPE_IMG.RECIPE)}
+          alt={recipe.title}
+        />
       </div>
       <div className={styles.recipe_details}>
         <h3 className={styles.title}>{recipe.title}</h3>
@@ -29,7 +37,12 @@ const RecipeMainInfo = ({ recipe, navigateToUserPage, navigateToSignIn }) => {
           avatar={owner.avatar}
         />
         <RecipeIngredients ingredients={recipe.ingredients} />
-        <RecipePreparation recipe={recipe} />
+        <RecipePreparation
+          recipe={recipe}
+          // handleAddToFavorites={handleAddToFavorites}
+          // handleRemoveFromFavorites={handleRemoveFromFavorites}
+          // status={status}
+        />
       </div>
     </div>
   );

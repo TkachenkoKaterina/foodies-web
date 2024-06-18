@@ -5,41 +5,51 @@ import { getPopular } from '../../redux/recipes/recipesSelectors';
 import { useEffect } from 'react';
 import styles from './PopularRecipes.module.scss';
 import { getIsLoggedIn } from '../../redux/auth/authSelectors';
-import { addToFavorites, removeFromFavorites } from '../../redux/favorites/favoritesOperations.js'; 
-import { getFavorites } from '../../redux/favorites/favoritesSelector.js'; 
+import {
+  addToFavorites,
+  removeFromFavorites,
+} from '../../redux/favorites/favoritesOperations.js';
+import { getFavorites } from '../../redux/favorites/favoritesSelector.js';
 
-const PopularRecipes = () => {
+const PopularRecipes = ({
+  recipesFavList,
+  handleAddToFavorites,
+  handleRemoveFromFavorites,
+}) => {
   const dispatch = useDispatch();
-  const favorites = useSelector(getFavorites);
+  // const favorites = useSelector(getFavorites);
   const recipesPopular = useSelector(getPopular);
-  const isLoggedIn = useSelector(getIsLoggedIn);
+  // const isLoggedIn = useSelector(getIsLoggedIn);
 
   useEffect(() => {
     dispatch(getPopularRecipes({ limit: 4 }));
-  }, [dispatch]);
+  }, [dispatch, recipesFavList]);
 
-  const handleAddToFavorites = async (id) => {
-    try {
-      await dispatch(addToFavorites(id)).unwrap();
-    } catch (error) {
-      console.error('Error adding to favorites:', error);
-    }
-  };
+  // const handleAddToFavorites = async (id) => {
+  //   try {
+  //     await dispatch(addToFavorites(id)).unwrap();
+  //   } catch (error) {
+  //     console.error('Error adding to favorites:', error);
+  //   }
+  // };
 
-  const handleRemoveFromFavorites = async (id) => {
-    try {
-      await dispatch(removeFromFavorites(id)).unwrap();
-    } catch (error) {
-      console.error('Error removing from favorites:', error);
-    }
-  };
-
+  // const handleRemoveFromFavorites = async (id) => {
+  //   try {
+  //     await dispatch(removeFromFavorites(id)).unwrap();
+  //   } catch (error) {
+  //     console.error('Error removing from favorites:', error);
+  //   }
+  // };
+  // console.log(recipesFavList);
   return (
     <div className={styles.wrap}>
       <h1 className={styles.header}>Popular Recipes</h1>
       <ul className={styles.popular}>
-        {recipesPopular?.map(item => {
-          const isFavorite = favorites.includes(item._id);
+        {recipesPopular?.map((item, index) => {
+          const status = recipesFavList?.some(
+            favItem => favItem._id === item._id
+          );
+          // console.log(status);
           return (
             <div key={item._id} className={styles.recipe_card}>
               <RecipeCard
@@ -48,9 +58,9 @@ const PopularRecipes = () => {
                 owner={item.owner}
                 img={item.thumb}
                 id={item._id}
-                status={isFavorite} 
                 handleAddToFavorites={handleAddToFavorites}
                 handleRemoveFromFavorites={handleRemoveFromFavorites}
+                status={status}
               />
             </div>
           );

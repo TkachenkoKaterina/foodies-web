@@ -9,6 +9,9 @@
   @include min-tablet {
     height: 427px;
   }
+  @include min-desktop {
+    width: 290px;
+  }
   & .img {
     width: auto;
     height: 230px;

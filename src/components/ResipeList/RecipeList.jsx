@@ -4,8 +4,14 @@ import styles from './RecipeList.module.scss';
 
 import { useEffect, useState } from 'react';
 import { recipeApi } from '../../services/Api';
-import { useSelector } from 'react-redux';
-import { getIsLoggedIn } from '../../redux/auth/authSelectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { getIsLoggedIn, getUser } from '../../redux/auth/authSelectors';
+import { getFavorites } from '../../redux/favorites/favoritesSelector';
+import {
+  addToFavorites,
+  getFavoritesList,
+  removeFromFavorites,
+} from '../../redux/favorites/favoritesOperations';
 const RecipeList = ({
   recipes,
   itemsPerPage,
@@ -13,30 +19,27 @@ const RecipeList = ({
   onPageChange,
   total,
 }) => {
-  const [recipesFavList, setRecipesFavList] = useState([]);
+  const recipesFavList = useSelector(getFavorites);
   const isLoggedIn = useSelector(getIsLoggedIn);
   const [loading, setIsLoading] = useState('true');
+  const userId = useSelector(getUser);
+  const dispatch = useDispatch();
+  // const [status, setStatus] = useState('');
 
-  const getFavRecipesList = async () => {
+  // console.log(isFavorite);
+
+  useEffect(() => {
     if (!isLoggedIn) {
       return;
+    } else {
+      dispatch(getFavoritesList(userId._id));
     }
-    try {
-      const { data } = await recipeApi.getFavoriteRecipes();
-      setRecipesFavList(data.result);
-    } catch (error) {
-    } finally {
-      setIsLoading(false);
-    }
-  };
-  useEffect(() => {
-    getFavRecipesList();
-  }, []);
+  }, [dispatch]);
 
   const handleAddToFavorites = async id => {
     try {
-      await recipeApi.addToFavorites(id);
-      getFavRecipesList();
+      await dispatch(addToFavorites(id)).unwrap();
+      // setStatus(true);
     } catch (error) {
       console.error('Error adding to favorites:', error);
     }
@@ -44,15 +47,33 @@ const RecipeList = ({
 
   const handleRemoveFromFavorites = async id => {
     try {
-      await recipeApi.removeFromFavorites(id);
-      getFavRecipesList();
+      await dispatch(removeFromFavorites(id)).unwrap();
+      // setStatus(false);
     } catch (error) {
       console.error('Error removing from favorites:', error);
     }
   };
 
+  // const handleAddToFavorites = async id => {
+  //   try {
+  //     await recipeApi.addToFavorites(id);
+  //     getFavRecipesList();
+  //   } catch (error) {
+  //     console.error('Error adding to favorites:', error);
+  //   }
+  // };
+
+  // const handleRemoveFromFavorites = async id => {
+  //   try {
+  //     await recipeApi.removeFromFavorites(id);
+  //     getFavRecipesList();
+  //   } catch (error) {
+  //     console.error('Error removing from favorites:', error);
+  //   }
+  // };
+
   return (
-    <>
+    <div className={styles.recipesListContainer}>
       {recipes && (
         <ul className={styles.recipesList}>
           {recipes?.map((item, index) => {
@@ -84,7 +105,7 @@ const RecipeList = ({
           total={total}
         />
       )}
-    </>
+    </div>
   );
 };
 export default RecipeList;

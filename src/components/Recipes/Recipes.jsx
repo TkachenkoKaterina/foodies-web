@@ -22,9 +22,9 @@ const Recipes = ({
   total,
 }) => {
   return (
-    <section className={styles.pecipesSection}>
+    <Container>
       {category && (
-        <Container>
+        <section className={styles.recipesSection}>
           <button className={styles.backButton} onClick={onClick}>
             <svg className={styles.icon}>
               <use
@@ -49,9 +49,9 @@ const Recipes = ({
               total={total}
             />
           </div>
-        </Container>
+        </section>
       )}
-    </section>
+    </Container>
   );
 };
 export default Recipes;

@@ -1,5 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addToFavorites, removeFromFavorites } from './favoritesOperations.js';
+import {
+  addToFavorites,
+  getFavoritesList,
+  removeFromFavorites,
+} from './favoritesOperations.js';
 
 const favoritesSlice = createSlice({
   name: 'favorites',
@@ -7,13 +11,18 @@ const favoritesSlice = createSlice({
     favorites: [],
   },
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       .addCase(addToFavorites.fulfilled, (state, action) => {
-        state.favorites.push(action.payload);
+        state.favorites.push({ _id: action.payload });
       })
       .addCase(removeFromFavorites.fulfilled, (state, action) => {
-        state.favorites = state.favorites.filter(id => id !== action.payload);
+        state.favorites = state.favorites.filter(
+          item => item._id !== action.payload
+        );
+      })
+      .addCase(getFavoritesList.fulfilled, (state, action) => {
+        state.favorites = action.payload;
       });
   },
 });
