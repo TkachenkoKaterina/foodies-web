@@ -108,7 +108,6 @@ const HomePage = () => {
     setPage(1);
     setIngredientId('');
     setArea('');
-    console.log('here');
     dispatch(
       filter({
         ingredient: '',
@@ -138,9 +137,7 @@ const HomePage = () => {
         />
       )}
 
-      <div className={styles.testimonials_wrap} >
-        {<Testimonials />}
-      </div>
+      <div className={styles.testimonials_wrap}>{<Testimonials />}</div>
     </>
   );
 };

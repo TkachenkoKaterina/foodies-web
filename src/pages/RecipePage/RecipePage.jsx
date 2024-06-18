@@ -26,14 +26,7 @@ const RecipePage = () => {
   const recipesFavList = useSelector(getFavorites);
   const isLoggedIn = useSelector(getIsLoggedIn);
   const dispatch = useDispatch();
-  // const isFavorite = recipesFavList.some(({ _id }) => {
-  //   console.log('_d', _id);
-  //   console.log('id', id);
-  //   _id === id;
-  // });
-  // const [status, setStatus] = useState();
 
-  // const [isFavorite, setIsFaorite] = useState(recipesFavList.includes(id));
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
@@ -49,10 +42,6 @@ const RecipePage = () => {
     fetchRecipe();
   }, [id]);
 
-  // const [status, setStatus] = useState('');
-
-  // console.log(isFavorite);
-
   useEffect(() => {
     if (!isLoggedIn) {
       return;
@@ -64,7 +53,6 @@ const RecipePage = () => {
   const handleAddToFavorites = async id => {
     try {
       await dispatch(addToFavorites(id)).unwrap();
-      console.log('try toadded', id);
     } catch (error) {
       console.error('Error adding to favorites:', error);
     }
@@ -73,7 +61,6 @@ const RecipePage = () => {
   const handleRemoveFromFavorites = async id => {
     try {
       await dispatch(removeFromFavorites(id)).unwrap();
-      console.log('try delete', id);
     } catch (error) {
       console.error('Error removing from favorites:', error);
     }
@@ -91,24 +78,12 @@ const RecipePage = () => {
     return <div>Recipe not found</div>;
   }
 
-  console.log(recipesFavList, id);
   return (
     <Container>
       <div className={styles.cont}>
         <PathInfo path={recipe.title} />
-        <RecipeInfo
-          recipe={recipe}
-          // handleAddToFavorites={handleAddToFavorites}
-          // handleRemoveFromFavorites={handleRemoveFromFavorites}
-          // status={isFavorite}
-        />
-        <RecipeDetailsFavButton
-          recipeId={id}
-          // handleAddToFavorites={handleAddToFavorites}
-          // handleRemoveFromFavorites={handleRemoveFromFavorites}
-          // status={isFavorite}
-          favorites={recipesFavList}
-        />
+        <RecipeInfo recipe={recipe} />
+        <RecipeDetailsFavButton recipeId={id} favorites={recipesFavList} />
         <PopularRecipes
           handleAddToFavorites={handleAddToFavorites}
           handleRemoveFromFavorites={handleRemoveFromFavorites}
